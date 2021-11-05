@@ -1,0 +1,39 @@
+﻿<Page x:Class="Приложение_по_физре.Itogi"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Приложение_по_физре"
+      mc:Ignorable="d" 
+      
+      Title="Itogi"
+      Height="550" Width="840" MinWidth="840" MinHeight="550" d:DesignHeight="500" d:DesignWidth="840"
+      WindowHeight="550" WindowWidth="840" Loaded="Page_Loaded">
+
+    <StackPanel>
+        <Grid Height="430" Margin="0,0,0.4,0">
+            <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="330" Margin="135,60,0,0" VerticalAlignment="Top" Width="575" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Показатели физического состояния" Binding = "{Binding Name}"/>
+                    <DataGridTextColumn Header="Результат" Binding = "{Binding Group}"/>
+                    <DataGridTextColumn Header="Норма" Binding = "{Binding Age}"/>
+                    <DataGridTextColumn Header="Боллы" Binding = "{Binding Age}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Grid Height="49" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"></ColumnDefinition>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="140"></ColumnDefinition>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="nazad" Content="Начать с начала" Margin="9.6,10,0,0" Click="nazad_Click" Grid.Column="2" HorizontalAlignment="Left" Width="120" Height="30" VerticalAlignment="Top"/>
+
+        </Grid>
+
+    </StackPanel>
+</Page>
