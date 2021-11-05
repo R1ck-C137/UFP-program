@@ -16,5 +16,7 @@ namespace Приложение_по_физре
     {
         public List<string> Lichnost = new List<string>();
         public List<double> stata = new List<double>();
+        public bool Gender = true;
+        public bool Sport = true;
     }
 }

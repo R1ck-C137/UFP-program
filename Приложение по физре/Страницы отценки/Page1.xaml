@@ -17,7 +17,10 @@
                     <TextBox x:Name="tbName" HorizontalAlignment="Left" Height="23" Margin="10,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="289"/>
                     <TextBox x:Name="tbGroup" HorizontalAlignment="Left" Height="23" Margin="10,114,0,0" TextWrapping="Wrap" Text="&#xD;&#xA;" VerticalAlignment="Top" Width="289" FontSize="14"/>
                     <TextBox x:Name="tbAge" HorizontalAlignment="Left" Height="23" Margin="10,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="289" FontSize="14" PreviewTextInput="tbAge_PreviewTextInput"/>
-                    <ComboBox x:Name="cbGender" HorizontalAlignment="Left" Margin="10,249,0,0" VerticalAlignment="Top" Width="289"/>
+                    <ComboBox x:Name="cb" HorizontalAlignment="Left" Margin="10,249,0,0" VerticalAlignment="Top" Width="289">
+                        <ComboBoxItem x:Name="M"  Content="Мужской"/>
+                        <ComboBoxItem x:Name="W" Content="Женский"/>
+                    </ComboBox>
                     <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,27,0,0" TextWrapping="Wrap" Text="Ф. И. О" VerticalAlignment="Top" FontSize="14" FontFamily="Calibri"/>
                     <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="10,92,0,0" TextWrapping="Wrap" Text="Группа" VerticalAlignment="Top" FontSize="14" FontFamily="Calibri"/>
                     <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="10,157,0,0" TextWrapping="Wrap" Text="Возраст" VerticalAlignment="Top" FontSize="14" FontFamily="Calibri"/>

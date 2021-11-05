@@ -32,8 +32,7 @@ namespace Приложение_по_физре.Страницы_отценки
             NavigationService.Navigate(new Uri("/../Страницы отценки/Page3.xaml", UriKind.Relative));
             if (app.stata.Count <= 1)
             {
-                //app.stata.Add(Convert.ToDouble(tb1.Text));
-                //app.stata.Add(Convert.ToDouble(tb2.Text));
+                
                 if (tb1.Text == "")
                 {
                     tb1.Text = "-1";
@@ -51,11 +50,13 @@ namespace Приложение_по_физре.Страницы_отценки
                 {
                     tb1.Text = "-1";
                 }
+                app.stata.RemoveAt(1);
                 app.stata.Insert(1, Convert.ToDouble(tb1.Text));
                 if (tb2.Text == "")
                 {
                     tb2.Text = "-1";
                 }
+                app.stata.RemoveAt(2);
                 app.stata.Insert(2, Convert.ToDouble(tb2.Text));
             }
         }

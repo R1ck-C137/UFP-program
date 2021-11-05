@@ -49,15 +49,25 @@ namespace Приложение_по_физре.Страницы_отценки
             }
             else
             {
+                app.Lichnost.RemoveAt(0);
                 app.Lichnost.Insert(0, tbName.Text);
+                app.Lichnost.RemoveAt(1);
                 app.Lichnost.Insert(1, tbGroup.Text);
                 if (tbAge.Text == "")
                 {
                     tbAge.Text = "-1";
                 }
+                app.stata.RemoveAt(0);
                 app.stata.Insert(0, Convert.ToDouble(tbAge.Text));
             }
-
+            if (cb.Text == "Мужской")
+            {
+                app.Gender = true;
+            }
+            if (cb.Text == "Женский")
+            {
+                app.Gender = false;
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -65,9 +75,8 @@ namespace Приложение_по_физре.Страницы_отценки
             if (app.stata.Count != 0)
             {
                 tbName.Text = app.Lichnost[0];
-                //app.Lichnost.Add(tbName.Text);
                 tbGroup.Text = app.Lichnost[1];
-                //app.Lichnost.Add(tbGroup.Text);
+                
                 
                 if (app.stata[0] == -1)
                 {

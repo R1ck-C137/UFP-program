@@ -21,13 +21,11 @@
 
             <Border BorderBrush="Black" BorderThickness="1" Margin="0,45,-0.4,0"/>
             <Label x:Name="label78" Content="" Margin="340,11,349.6,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Center" Width="150"/>
-            <RadioButton x:Name="radioButton1" Content="Результат за кросс" HorizontalAlignment="Left" Margin="525,370,0,0" VerticalAlignment="Top"/>
-            <RadioButton x:Name="radioButton" Content="Кол-во тренеровок в неделю" HorizontalAlignment="Left" Margin="525,394,0,0" VerticalAlignment="Top"/>
+            <RadioButton x:Name="rb1" Content="Результат за кросс" HorizontalAlignment="Left" Margin="525,370,0,0" VerticalAlignment="Top"/>
+            <RadioButton x:Name="rb2" Content="Кол-во тренеровок в неделю" HorizontalAlignment="Left" Margin="525,394,0,0" VerticalAlignment="Top"/>
         </Grid>
         <Grid Height="49" Margin="0,0,0,10">
-            <!-- Описание блока столбцов, каждый столбец имеет свою ширину />-->
             <Grid.ColumnDefinitions>
-                <!-- Описание столбцов, для каждого столбца одно описание />-->
                 <ColumnDefinition Width="10"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="60"></ColumnDefinition>

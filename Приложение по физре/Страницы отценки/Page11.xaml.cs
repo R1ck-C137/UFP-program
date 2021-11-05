@@ -50,6 +50,7 @@ namespace Приложение_по_физре.Страницы_отценки
                 {
                     tb1.Text = "-1";
                 }
+                app.stata.RemoveAt(12);
                 app.stata.Insert(12, Convert.ToDouble(tb1.Text));
             }
         }

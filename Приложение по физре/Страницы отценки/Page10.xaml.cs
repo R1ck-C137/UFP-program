@@ -48,6 +48,7 @@ namespace Приложение_по_физре.Страницы_отценки
                 {
                     tb1.Text = "-1";
                 }
+                app.stata.RemoveAt(11);
                 app.stata.Insert(11, Convert.ToDouble(tb1.Text));
             }
         }

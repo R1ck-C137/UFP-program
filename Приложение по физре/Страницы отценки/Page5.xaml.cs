@@ -54,11 +54,13 @@ namespace Приложение_по_физре.Страницы_отценки
                 {
                     tb1.Text = "-1";
                 }
+                app.stata.RemoveAt(5);
                 app.stata.Insert(5, Convert.ToDouble(tb1.Text));
                 if (tb2.Text == "")
                 {
                     tb2.Text = "-1";
                 }
+                app.stata.RemoveAt(6);
                 app.stata.Insert(6, Convert.ToDouble(tb2.Text));
             }
         }

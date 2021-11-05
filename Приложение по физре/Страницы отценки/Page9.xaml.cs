@@ -49,7 +49,16 @@ namespace Приложение_по_физре.Страницы_отценки
                 {
                     tb1.Text = "-1";
                 }
+                app.stata.RemoveAt(10);
                 app.stata.Insert(10, Convert.ToDouble(tb1.Text));
+            }
+            if (rb1.IsChecked == true)
+            {
+                app.Sport = true;
+            }
+            if (rb2.IsChecked == true)
+            {
+                app.Sport = false;
             }
         }
 

@@ -30,6 +30,7 @@
                         </DataGrid.Columns>
 
                     </DataGrid>
+                    <TextBox x:Name="textBoxCol" HorizontalAlignment="Left" Height="23" Margin="419,279,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Background="White"/>
                 </Grid>
             </Border>
 
