@@ -11,24 +11,28 @@
       WindowHeight="550" WindowWidth="840" Loaded="Page_Loaded">
 
     <StackPanel>
-        <Grid Height="430" Margin="0,0,0.4,0">
-            <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="330" Margin="135,60,0,0" VerticalAlignment="Top" Width="575" IsReadOnly="True" AutoGenerateColumns="False">
+
+        <Grid Height="430">
+            <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="315" Margin="135,105,0,0" VerticalAlignment="Top" Width="575" IsReadOnly="True" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Показатели физического состояния" Binding = "{Binding Name}"/>
-                    <DataGridTextColumn Header="Результат" Binding = "{Binding Group}"/>
-                    <DataGridTextColumn Header="Норма" Binding = "{Binding Age}"/>
-                    <DataGridTextColumn Header="Боллы" Binding = "{Binding Age}"/>
+                    <DataGridTextColumn Header="Показатели физического состояния" Binding = "{Binding nadpisi}"/>
+                    <DataGridTextColumn Header="Результат" Binding = "{Binding rezultat}"/>
+                    <DataGridTextColumn Header="Норма" Binding = "{Binding norma}"/>
+                    <DataGridTextColumn Header="Баллы" Binding = "{Binding balli}"/>
                 </DataGrid.Columns>
+
             </DataGrid>
+            <TextBlock x:Name="tb1" HorizontalAlignment="Left" Margin="135,31,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="14"/>
+            <TextBlock x:Name="tb2" HorizontalAlignment="Left" Margin="135,65,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="14"/>
         </Grid>
 
         <Grid Height="49" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10"></ColumnDefinition>
+                <ColumnDefinition Width="10"/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="140"></ColumnDefinition>
+                <ColumnDefinition Width="140"/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="10"></ColumnDefinition>
+                <ColumnDefinition Width="10"/>
             </Grid.ColumnDefinitions>
 
             <Button x:Name="nazad" Content="Начать с начала" Margin="9.6,10,0,0" Click="nazad_Click" Grid.Column="2" HorizontalAlignment="Left" Width="120" Height="30" VerticalAlignment="Top"/>

@@ -22,15 +22,6 @@
                     <TextBox x:Name="tb2" Margin="464,350,0,0" TextWrapping="Wrap" FontSize="14" HorizontalAlignment="Left" Width="280" Height="23" VerticalAlignment="Top" PreviewTextInput="tb2_PreviewTextInput"/>
                     <Label x:Name="label1" Content="Рост" Margin="464,325,0,0" FontSize="14" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100"/>
                     <Label x:Name="label3" Content="см" Margin="749,347,0,0" FontSize="14" HorizontalAlignment="Left" Width="26" Height="29" VerticalAlignment="Top"/>
-                    <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="115" Margin="495,29,0,0" VerticalAlignment="Top" Width="280" IsReadOnly="True" AutoGenerateColumns="False">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Имя" Binding = "{Binding Name}"/>
-                            <DataGridTextColumn Header="Группа" Binding = "{Binding Group}"/>
-                            <DataGridTextColumn Header="Возраст" Binding = "{Binding Age}"/>
-                        </DataGrid.Columns>
-
-                    </DataGrid>
-                    <TextBox x:Name="textBoxCol" HorizontalAlignment="Left" Height="23" Margin="419,279,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Background="White"/>
                 </Grid>
             </Border>
 
