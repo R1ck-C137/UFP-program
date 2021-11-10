@@ -15,7 +15,7 @@
                 <Image Source="/Картинки/Скоростно-силовая выносливость.png" Margin="-1,35,0,0.4" />
             </Grid>
             <Grid Margin="340,45,0,80">
-                <Label x:Name="label" Content="Скоростно-силовая выносливость." HorizontalAlignment="Left" Margin="165,115,0,0" VerticalAlignment="Top" FontSize="14" Width="185" Height="30"/>
+                <Label x:Name="label" Content="Скоростно-силовая выносливость." HorizontalAlignment="Left" Margin="135,115,0,0" VerticalAlignment="Top" FontSize="14" Width="245" Height="30"/>
                 <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="25,150,0,0" TextWrapping="Wrap" Text="Измеряется максимальная частота сгибания рук в упоре за 30 сек. Начисляется 4 балла за выполнение нормативов и за каждое сгибание, превышающее эти величины. Женщины выполняют сгибание рук в положении упора на коленях." VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="0.5,0.5" TextAlignment="Center" Height="90" Width="450"/>
             </Grid>
             <TextBox x:Name="tb1" HorizontalAlignment="Left" Height="23" Margin="330,380,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" FontSize="14" PreviewTextInput="tb1_PreviewTextInput"/>
