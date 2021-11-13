@@ -72,6 +72,14 @@ namespace Приложение_по_физре.Страницы_отценки
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            if (app.Gender == true)             //Мужской
+            {
+                cb.SelectedIndex = 0;
+            }
+            else
+            {
+                cb.SelectedIndex = 1;
+            }
             if (app.stata.Count != 0)
             {
                 tbName.Text = app.Lichnost[0];

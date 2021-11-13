@@ -15,7 +15,7 @@
                 <Image Source="/Картинки/Динам сила.png" Margin="-1,35,0,0.4" />
             </Grid>
             <Grid Margin="340,45,0,80">
-                <Label x:Name="label" Content="Динамическая сила." HorizontalAlignment="Left" Margin="230,65,0,0" VerticalAlignment="Top" FontSize="14" Width="75" Height="30"/>
+                <Label x:Name="label" Content="Динамическая сила." HorizontalAlignment="Left" Margin="175,65,0,0" VerticalAlignment="Top" FontSize="14" Width="150" Height="30" RenderTransformOrigin="0.688,0.68"/>
                 <TextBlock x:Name="textBlock" HorizontalAlignment="Right" Margin="0,95,15,0" TextWrapping="Wrap" Text="Динамическая сила мышц ног оценивается максимальной высотой прыжка с места. За выполнение нормальной и за каждый сантиметр, преышающий эту величину, начисляется 2 балла. Выполнение теста: обследуемый становиться боком к стене рядом с вертикально закреплённой измерительной шкалой и касается шкалы, поднятой вверх более активной рукой, не отрывая пяток от пола. Затем он отходит от стены на расстояние от 15 до 30 см и прыгает вверх, отталкиваясь двумя нагами. он должен коснуться руками шкалы как можно выше. Разница межды значениями первого и второго касания характеризует высоту прыжка. Выполняются 3 попытки, засчитывается лучший результат." VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="0.5,0.5" TextAlignment="Center" Height="210" Width="465"/>
             </Grid>
             <TextBox x:Name="tb1" HorizontalAlignment="Left" Height="23" Margin="330,380,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" FontSize="14" PreviewTextInput="tb1_PreviewTextInput"/>
@@ -36,14 +36,10 @@
                 <ColumnDefinition Width="10"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-
-
             <Button x:Name="nazad" Content="Назад" Margin="0,9,9.6,0" Click="nazad_Click" Grid.Column="1" HorizontalAlignment="Right" Width="95" Height="30" VerticalAlignment="Top"/>
-
-
             <Button x:Name="dalee" Content="Далее" HorizontalAlignment="Left" Margin="10.4,9,0,0" Width="95" Click="dalee_Click" Grid.Column="3" Height="30" VerticalAlignment="Top"/>
 
-            <TextBox x:Name="textBox" Grid.Column="2" Margin="10.4,9,9.6,0" TextWrapping="Wrap" Text="8" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Height="30" VerticalAlignment="Top"/>
+            <TextBox x:Name="textBox" Grid.Column="2" Margin="10.4,9,9.6,0" TextWrapping="Wrap" Text="8" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Height="30" VerticalAlignment="Top" IsReadOnly="True"/>
         </Grid>
     </StackPanel>
 </Page>

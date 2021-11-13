@@ -69,6 +69,14 @@ namespace Приложение_по_физре.Страницы_отценки
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            if (app.Sport == true)
+            {
+                rb1.IsChecked = true;
+            }
+            if (app.Sport == false)
+            {
+                rb2.IsChecked = true;
+            }
             if (app.stata.Count >= 11)
             {
                 if (app.stata[10] == -1)

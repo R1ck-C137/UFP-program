@@ -14,21 +14,21 @@
         <Grid Height="430" Margin="0,0,0.4,0">
             <Border BorderBrush="Black" BorderThickness="1" Height="300" Margin="215,0,215,50" VerticalAlignment="Bottom">
                 <Grid Margin="0.2,0.2,0.2,-0.8">
-                    <TextBox x:Name="tbName" HorizontalAlignment="Left" Height="23" Margin="10,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="289"/>
-                    <TextBox x:Name="tbGroup" HorizontalAlignment="Left" Height="23" Margin="10,114,0,0" TextWrapping="Wrap" Text="&#xD;&#xA;" VerticalAlignment="Top" Width="289" FontSize="14"/>
-                    <TextBox x:Name="tbAge" HorizontalAlignment="Left" Height="23" Margin="10,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="289" FontSize="14" PreviewTextInput="tbAge_PreviewTextInput"/>
-                    <ComboBox x:Name="cb" HorizontalAlignment="Left" Margin="10,249,0,0" VerticalAlignment="Top" Width="289">
+                    <TextBox x:Name="tbName" HorizontalAlignment="Left" Height="23" Margin="54,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="305"/>
+                    <TextBox x:Name="tbGroup" HorizontalAlignment="Left" Height="23" Margin="54,114,0,0" TextWrapping="Wrap" Text="&#xD;&#xA;" VerticalAlignment="Top" Width="305" FontSize="14"/>
+                    <TextBox x:Name="tbAge" HorizontalAlignment="Left" Height="23" Margin="54,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="305" FontSize="14" PreviewTextInput="tbAge_PreviewTextInput"/>
+                    <ComboBox x:Name="cb" HorizontalAlignment="Left" Margin="54,244,0,0" VerticalAlignment="Top" Width="305" Height="24">
                         <ComboBoxItem x:Name="M"  Content="Мужской"/>
                         <ComboBoxItem x:Name="W" Content="Женский"/>
                     </ComboBox>
-                    <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,27,0,0" TextWrapping="Wrap" Text="Ф. И. О" VerticalAlignment="Top" FontSize="14" FontFamily="Calibri"/>
-                    <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="10,92,0,0" TextWrapping="Wrap" Text="Группа" VerticalAlignment="Top" FontSize="14" FontFamily="Calibri"/>
-                    <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="10,157,0,0" TextWrapping="Wrap" Text="Возраст" VerticalAlignment="Top" FontSize="14" FontFamily="Calibri"/>
-                    <TextBlock x:Name="textBlock_Copy2" HorizontalAlignment="Left" Margin="10,227,0,0" TextWrapping="Wrap" Text="Пол" VerticalAlignment="Top" FontSize="14" FontFamily="Calibri"/>
+                    <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="54,27,0,0" TextWrapping="Wrap" Text="Ф.И.О." VerticalAlignment="Top" FontSize="14" FontFamily="Calibri" Width="85"/>
+                    <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="54,92,0,0" TextWrapping="Wrap" Text="Группа" VerticalAlignment="Top" FontSize="14" FontFamily="Calibri" Width="85"/>
+                    <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="54,157,0,0" TextWrapping="Wrap" Text="Возраст" VerticalAlignment="Top" FontSize="14" FontFamily="Calibri" Width="85"/>
+                    <TextBlock x:Name="textBlock_Copy2" HorizontalAlignment="Left" Margin="54,223,0,0" TextWrapping="Wrap" Text="Пол" VerticalAlignment="Top" FontSize="14" FontFamily="Calibri" Width="85" Height="21"/>
                 </Grid>
             </Border>
             <Border BorderBrush="Black" BorderThickness="1" Margin="0,45,-0.4,0"/>
-            <Label x:Name="label" Content="Добро пожаловать!" Margin="350,11,310,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Center"/>
+            <Label x:Name="label" Content="Добро пожаловать!" Margin="350,11,349.6,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Center" Width="140"/>
 
         </Grid>
         <Grid Height="49" Margin="0,0,0,10">
@@ -49,7 +49,7 @@
 
             <Button x:Name="dalee" Content="Далее" HorizontalAlignment="Left" Margin="10.4,9,0,0" Width="95" Click="dalee_Click" Grid.Column="3" Height="30" VerticalAlignment="Top"/>
 
-            <TextBox x:Name="textBox" Grid.Column="2" Margin="10.4,9,9.6,0" TextWrapping="Wrap" Text="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Height="30" VerticalAlignment="Top"/>
+            <TextBox x:Name="textBox" Grid.Column="2" Margin="10.4,9,9.6,0" TextWrapping="Wrap" Text="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Height="30" VerticalAlignment="Top" IsReadOnly="True"/>
         </Grid>
     </StackPanel>
 

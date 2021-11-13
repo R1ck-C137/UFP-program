@@ -13,7 +13,7 @@
         <Grid Height="430" Margin="0,0,0.4,0">
 
             <Grid Margin="0,45,-0.4,80">
-                <Label x:Name="label" Content="Общая выносливость." HorizontalAlignment="Left" Margin="340,10,0,0" VerticalAlignment="Top" FontSize="14" Width="140" Height="35"/>
+                <Label x:Name="label" Content="Общая выносливость." HorizontalAlignment="Left" Margin="340,10,0,0" VerticalAlignment="Top" FontSize="14" Width="160" Height="35"/>
                 <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="50,50,0,0" TextWrapping="Wrap" Text="У нетренированных людей она оценивается выполнением упражнений на развитие выносливости (ходьба, бег, плавание, езда на велосипеде, гребля, бег на лыжах и др.) ежедневно в течение не менее 15 мин. на протяжении 8-10 недель при частоте пульса не ниже 170 минус возраст в годах (максимально 185 минус возраст) дает 30 баллов. Их выполнение 4 раза в неделю - 25 баллов, 3 раза - 20 баллов, 2 раза - 10 баллов, 1 раз - 5 баллов, ни одного раза и при несоблюдении описанных выше условий по пульсу и тренировочным средствам (физическим упражнениям) - баллы не начисляются. У людей, занимающихся спортом не менее 6 недель, общая выносливость оценивается по результату 10-минутного бега на возможно большее расстояние. За выполнение норматива начисляется 30 баллов и за каждые 50 метров дистанции, которые превышают эту величину начисляется 15 баллов. За каждые 50 метров дистанции меньше возрастного норматива из 30 баллов вычитается 5. Минимальное количество баллов, набранных по этому тесту, составляет 0. Тест рекомендуется для людей, самостоятельно занимающихся физическими упражнениями." VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="0.5,0.5" TextAlignment="Center" Height="230" Width="750"/>
             </Grid>
             <TextBox x:Name="tb1" HorizontalAlignment="Left" Height="25" Margin="175,381,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165" FontSize="14" PreviewTextInput="tb1_PreviewTextInput"/>
@@ -21,8 +21,8 @@
 
             <Border BorderBrush="Black" BorderThickness="1" Margin="0,45,-0.4,0"/>
             <Label x:Name="label78" Content="" Margin="340,11,349.6,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Center" Width="150"/>
-            <RadioButton x:Name="rb1" Content="Результат за кросс" HorizontalAlignment="Left" Margin="525,370,0,0" VerticalAlignment="Top"/>
-            <RadioButton x:Name="rb2" Content="Кол-во тренеровок в неделю" HorizontalAlignment="Left" Margin="525,394,0,0" VerticalAlignment="Top"/>
+            <RadioButton x:Name="rb1" Content="Результат за кросс" HorizontalAlignment="Left" Margin="525,394,0,0" VerticalAlignment="Top"/>
+            <RadioButton x:Name="rb2" Content="Кол-во тренеровок в неделю" HorizontalAlignment="Left" Margin="525,374,0,0" VerticalAlignment="Top"/>
         </Grid>
         <Grid Height="49" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
@@ -40,7 +40,7 @@
 
             <Button x:Name="dalee" Content="Далее" HorizontalAlignment="Left" Margin="10.4,9,0,0" Width="95" Click="dalee_Click" Grid.Column="3" Height="30" VerticalAlignment="Top"/>
 
-            <TextBox x:Name="textBox" Grid.Column="2" Margin="10.4,9,9.6,0" TextWrapping="Wrap" Text="9" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Height="30" VerticalAlignment="Top"/>
+            <TextBox x:Name="textBox" Grid.Column="2" Margin="10.4,9,9.6,0" TextWrapping="Wrap" Text="9" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Height="30" VerticalAlignment="Top" IsReadOnly="True"/>
         </Grid>
     </StackPanel>
 </Page>

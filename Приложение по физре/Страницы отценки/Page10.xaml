@@ -22,7 +22,7 @@
             <Label x:Name="label1" Content="Результат" HorizontalAlignment="Left" Margin="330,351,0,0" VerticalAlignment="Top" FontSize="14"/>
 
             <Border BorderBrush="Black" BorderThickness="1" Margin="0,45,-0.4,0"/>
-            <Label x:Name="label78" Content="Скоростная выносливость." Margin="340,11,349.6,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Center" Width="150"/>
+            <Label x:Name="label78" Content="Скоростная выносливость." Margin="330,10,324.6,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Center" Width="185"/>
         </Grid>
         <Grid Height="49" Margin="0,0,0,10">
             <!-- Описание блока столбцов, каждый столбец имеет свою ширину />-->
@@ -42,7 +42,7 @@
 
             <Button x:Name="dalee" Content="Далее" HorizontalAlignment="Left" Margin="10.4,9,0,0" Width="95" Click="dalee_Click" Grid.Column="3" Height="30" VerticalAlignment="Top"/>
 
-            <TextBox x:Name="textBox" Grid.Column="2" Margin="10.4,9,9.6,0" TextWrapping="Wrap" Text="10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Height="30" VerticalAlignment="Top"/>
+            <TextBox x:Name="textBox" Grid.Column="2" Margin="10.4,9,9.6,0" TextWrapping="Wrap" Text="10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Height="30" VerticalAlignment="Top" IsReadOnly="True"/>
         </Grid>
     </StackPanel>
 </Page>
