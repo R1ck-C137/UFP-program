@@ -526,11 +526,18 @@ namespace Приложение_по_физре
                     norma = Convert.ToString(TablicaNorm_W[AgeForStat, 4]),
                     balli = Convert.ToString(Baly[10])
                 });
+
+                string ItogoviyBal = "Ошибка";
+                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 50) { ItogoviyBal = "Низкий"; }
+                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 90) { ItogoviyBal = "Ниже среднего"; }
+                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 160) { ItogoviyBal = "Средний"; }
+                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 250) { ItogoviyBal = "Выше среднего"; }
+                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] > 250) { ItogoviyBal = "Высокий"; }
                 GridList.Add(new GridClass()
                 {
                     nadpisi = "Ваш уровень физического состояния ",
                     rezultat = "",
-                    //norma = ,             // сделать градацию "Высоко" "Выше среднего" "Средний" и т.д.
+                    norma = ItogoviyBal,
                     balli = Convert.ToString(Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10])
                 });
             }

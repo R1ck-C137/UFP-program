@@ -26,7 +26,6 @@ namespace Приложение_по_физре.Страницы_отценки
             InitializeComponent();
         }
         
-
         private void nazad_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/../Nachalnaya.xaml", UriKind.Relative));
@@ -101,33 +100,6 @@ namespace Приложение_по_физре.Страницы_отценки
         private void tbAge_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
-        }
-    }
-
-    public class Student_M                            // Расчёт итоговых очков у мужчин
-    {
-        public string Name { get; set; }
-        public int Price { get; set; }
-        public int Quan { get; set; }
-        public int Res { get; set; }                    // Итог по строке
-        public Student_M() { }                            // Пустой конструктор
-        public Student_M(string n, int p, int q)      // Конструктор с параметрами
-        {
-            Name = n;
-            Price = p;
-            Quan = q;
-            Res = p * q;                            // Вычисление стоимости строки
-        }
-    }
-
-    public class Student_W                            // Расчёт итоговых очков у женщин
-    {
-        public int Age { get; set; }
-        public int Res { get; set; }
-        public Student_W() { }                            // Пустой конструктор
-        public Student_W(int n, int p, int q)      // Конструктор с параметрами
-        {
-            // Вычисление стоимости строки
         }
     }
 }
