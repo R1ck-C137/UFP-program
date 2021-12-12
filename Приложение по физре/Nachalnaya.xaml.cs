@@ -29,5 +29,10 @@ namespace Приложение_по_физре
         {
             NavigationService.Navigate(new Uri("/../Страницы отценки/Page1.xaml", UriKind.Relative));
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/../Korotkaya_versiya.xaml", UriKind.Relative));
+        }
     }
 }

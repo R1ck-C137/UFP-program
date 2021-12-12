@@ -25,7 +25,7 @@ namespace Приложение_по_физре
             InitializeComponent();
         }
 
-        static public List<Stat> list = new List<Stat>();
+        //static public List<Stat> list = new List<Stat>();
         static public List<GridClass> GridList = new List<GridClass>();
         public int AgeForStat;
        
@@ -68,7 +68,7 @@ namespace Приложение_по_физре
         };
         public double[] Baly = new double [11];
 
-        public class Stat                            // Расчёт итоговых очков у мужчин
+        /*public class Stat                            // Расчёт итоговых очков у мужчин
         {
             public bool Gender { get; set; }
             public double Age { get; set; }
@@ -77,7 +77,7 @@ namespace Приложение_по_физре
             {
                 
             }
-        }
+        }*/
 
         App app = (App)Application.Current;
 

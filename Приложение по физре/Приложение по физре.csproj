@@ -37,6 +37,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -46,9 +48,11 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -57,6 +61,9 @@
     </ApplicationDefinition>
     <Compile Include="Itogi.xaml.cs">
       <DependentUpon>Itogi.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Korotkaya_versiya.xaml.cs">
+      <DependentUpon>Korotkaya_versiya.xaml</DependentUpon>
     </Compile>
     <Compile Include="Nachalnaya.xaml.cs">
       <DependentUpon>Nachalnaya.xaml</DependentUpon>
@@ -95,6 +102,10 @@
       <DependentUpon>Page9.xaml</DependentUpon>
     </Compile>
     <Page Include="Itogi.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Korotkaya_versiya.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
