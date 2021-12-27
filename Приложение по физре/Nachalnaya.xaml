@@ -5,9 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Приложение_по_физре"
       mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="830"
+      Height="550" Width="840" MinWidth="840" MinHeight="550" d:DesignHeight="500" d:DesignWidth="840"
       WindowHeight="550" WindowWidth="840"
-      Title="Nachalnaya">
+      Title="Начальная">
 
     <StackPanel>
         <Grid Height="430" Margin="0,0,0.4,0">

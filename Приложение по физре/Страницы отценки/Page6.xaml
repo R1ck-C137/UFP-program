@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       Height="550" Width="840" MinWidth="840" MinHeight="550" d:DesignHeight="500" d:DesignWidth="840"
       WindowHeight="550" WindowWidth="840"
-      Title="Page6" Loaded="Page_Loaded">
+      Title="Гибкость" Loaded="Page_Loaded">
 
     <StackPanel>
         <Grid Height="430" Margin="0,0,0.4,0">

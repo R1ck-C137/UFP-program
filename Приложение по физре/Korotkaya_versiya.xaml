@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       Height="700" Width="640" MinWidth="640" MinHeight="650" d:DesignHeight="650" d:DesignWidth="640"
       WindowHeight="700" WindowWidth="640"
-      Title="Korotkaya_versiya">
+      Title="Короткая версия">
 
     <Grid>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="245,26,0,0" TextWrapping="Wrap" Text="Короткая версия" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>

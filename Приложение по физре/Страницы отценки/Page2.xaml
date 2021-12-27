@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       Height="550" Width="840" MinWidth="840" MinHeight="550" d:DesignHeight="500" d:DesignWidth="840"
       WindowHeight="550" WindowWidth="840"
-      Title="Page2" Loaded="Page_Loaded">
+      Title="Вес и рост" Loaded="Page_Loaded">
 
     <StackPanel>
         <Grid Height="430" Margin="0,0,0.4,0">
@@ -20,7 +20,7 @@
 
                     <Image Source="/Картинки/Ростомер.png" Margin="414,2,1,76" />
                     <TextBox x:Name="tb2" Margin="464,350,0,0" TextWrapping="Wrap" FontSize="14" HorizontalAlignment="Left" Width="280" Height="23" VerticalAlignment="Top" PreviewTextInput="tb2_PreviewTextInput"/>
-                    <Label x:Name="label1" Content="Рост" Margin="464,325,0,0" FontSize="14" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100"/>
+                    <Label x:Name="label1" Content="Рост" Margin="464,321,0,0" FontSize="14" Height="29" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100"/>
                     <Label x:Name="label3" Content="см" Margin="749,347,0,0" FontSize="14" HorizontalAlignment="Left" Width="26" Height="29" VerticalAlignment="Top"/>
                 </Grid>
             </Border>

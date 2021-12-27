@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Приложение_по_физре"
       mc:Ignorable="d" 
       
-      Title="Itogi"
+      Title="Итоги"
       Height="550" Width="840" MinWidth="840" MinHeight="550" d:DesignHeight="500" d:DesignWidth="840"
       WindowHeight="550" WindowWidth="840" Loaded="Page_Loaded">
 

@@ -49,7 +49,6 @@ namespace Приложение_по_физре
             app.stata.Add(Convert.ToDouble(tb_stata11.Text));
             app.stata.Add(Convert.ToDouble(tb_stata12.Text));
 
-
             app.Lichnost.Add(Convert.ToString(tb_Lichnost0.Text));
             app.Lichnost.Add(Convert.ToString(tb_Lichnost1.Text));
 

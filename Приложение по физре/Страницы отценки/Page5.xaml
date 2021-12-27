@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Приложение_по_физре.Страницы_отценки"
       mc:Ignorable="d" 
-      Title="Page5"
+      Title="Давление"
       Height="550" Width="840" MinWidth="840" MinHeight="550" d:DesignHeight="500" d:DesignWidth="840"
       WindowHeight="550" WindowWidth="840" Loaded="Page_Loaded">
 
