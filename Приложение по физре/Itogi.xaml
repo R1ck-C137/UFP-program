@@ -32,7 +32,7 @@
             </DataGrid>
             <TextBlock x:Name="tb1" HorizontalAlignment="Left" Margin="135,31,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="14"/>
             <TextBlock x:Name="tb2" HorizontalAlignment="Left" Margin="135,65,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="14"/>
-            <Rectangle x:Name="Rost" Fill="#FFFF0909" HorizontalAlignment="Left" Height="19" Margin="135,130,0,0" Stroke="Black" VerticalAlignment="Top" Width="575" Opacity="0.2" Grid.ColumnSpan="2"/>
+            <Rectangle x:Name="Rost" Fill="#FFFF0909" HorizontalAlignment="Left" Height="19" Margin="135,130,0,0" Stroke="Black" VerticalAlignment="Top" Width="575" Opacity="0.21" Grid.ColumnSpan="2"/>
             <Rectangle x:Name="Vozrast" Fill="#FFFF0909" HorizontalAlignment="Left" Height="19" Margin="135,149,0,0" Stroke="Black" VerticalAlignment="Top" Width="575" Opacity="0.2" Grid.ColumnSpan="2"/>
             <Rectangle x:Name="Ves" Fill="#FFFF0909" HorizontalAlignment="Left" Height="19" Margin="135,168,0,0" Stroke="Black" VerticalAlignment="Top" Width="575" Opacity="0.2" Grid.ColumnSpan="2"/>
             <Rectangle x:Name="SAD" Fill="#FFFF0909" HorizontalAlignment="Left" Height="19" Margin="135,187,0,0" Stroke="Black" VerticalAlignment="Top" Width="575" Opacity="0.2" Grid.ColumnSpan="2"/>

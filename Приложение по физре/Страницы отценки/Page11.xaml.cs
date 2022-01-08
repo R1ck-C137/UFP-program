@@ -53,8 +53,8 @@ namespace Приложение_по_физре.Страницы_отценки
                 app.stata.RemoveAt(12);
                 app.stata.Insert(12, Convert.ToDouble(tb1.Text));
             }
-            //if (app.stata[0] == -1 || app.stata[1] == -1 || app.stata[2] == -1 || app.stata[3] == -1 || app.stata[4] == -1 || app.stata[5] == -1 || app.stata[6] == -1 || app.stata[7] == -1 || app.stata[8] == -1 || app.stata[9] == -1 || app.stata[10] == -1 || app.stata[11] == -1 || app.stata[12] == -1)
-            if(false)
+            if (app.stata[0] == -1 || app.stata[1] == -1 || app.stata[2] == -1 || app.stata[3] == -1 || app.stata[4] == -1 || app.stata[5] == -1 || app.stata[6] == -1 || app.stata[7] == -1 || app.stata[8] == -1 || app.stata[9] == -1 || app.stata[10] == -1 || app.stata[11] == -1 || app.stata[12] == -1)
+            //if(false)
             {
                 if (tb1.Text == "-1")
                 {
