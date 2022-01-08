@@ -4,16 +4,23 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Приложение_по_физре"
+      
       mc:Ignorable="d" 
       
       Title="Итоги"
       Height="550" Width="840" MinWidth="840" MinHeight="550" d:DesignHeight="500" d:DesignWidth="840"
       WindowHeight="550" WindowWidth="840" Loaded="Page_Loaded">
 
+
+
     <StackPanel>
 
         <Grid Height="430">
-            <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="315" Margin="135,105,0,0" VerticalAlignment="Top" Width="575" IsReadOnly="True" AutoGenerateColumns="False">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="703*"/>
+                <ColumnDefinition Width="137*"/>
+            </Grid.ColumnDefinitions>
+            <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="315" Margin="135,105,0,0" VerticalAlignment="Top" Width="575" IsReadOnly="True" AutoGenerateColumns="False" Grid.ColumnSpan="2">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Показатели физического состояния" Binding = "{Binding nadpisi}"/>
                     <DataGridTextColumn Header="Результат" Binding = "{Binding rezultat}"/>
@@ -21,9 +28,24 @@
                     <DataGridTextColumn Header="Баллы" Binding = "{Binding balli}"/>
                 </DataGrid.Columns>
 
+
             </DataGrid>
             <TextBlock x:Name="tb1" HorizontalAlignment="Left" Margin="135,31,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="14"/>
             <TextBlock x:Name="tb2" HorizontalAlignment="Left" Margin="135,65,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="14"/>
+            <Rectangle x:Name="Rost" Fill="#FFFF0909" HorizontalAlignment="Left" Height="19" Margin="135,130,0,0" Stroke="Black" VerticalAlignment="Top" Width="575" Opacity="0.2" Grid.ColumnSpan="2"/>
+            <Rectangle x:Name="Vozrast" Fill="#FFFF0909" HorizontalAlignment="Left" Height="19" Margin="135,149,0,0" Stroke="Black" VerticalAlignment="Top" Width="575" Opacity="0.2" Grid.ColumnSpan="2"/>
+            <Rectangle x:Name="Ves" Fill="#FFFF0909" HorizontalAlignment="Left" Height="19" Margin="135,168,0,0" Stroke="Black" VerticalAlignment="Top" Width="575" Opacity="0.2" Grid.ColumnSpan="2"/>
+            <Rectangle x:Name="SAD" Fill="#FFFF0909" HorizontalAlignment="Left" Height="19" Margin="135,187,0,0" Stroke="Black" VerticalAlignment="Top" Width="575" Opacity="0.2" Grid.ColumnSpan="2"/>
+            <Rectangle x:Name="SD" Fill="#FFFF0909" HorizontalAlignment="Left" Height="19" Margin="135,206,0,0" Stroke="Black" VerticalAlignment="Top" Width="575" Opacity="0.2" Grid.ColumnSpan="2"/>
+            <Rectangle x:Name="DD" Fill="#FFFF0909" HorizontalAlignment="Left" Height="19" Margin="135,225,0,0" Stroke="Black" VerticalAlignment="Top" Width="575" Opacity="0.2" Grid.ColumnSpan="2"/>
+            <Rectangle x:Name="PulsVPokoe" Fill="#FFFF0909" HorizontalAlignment="Left" Height="19" Margin="135,244,0,0" Stroke="Black" VerticalAlignment="Top" Width="575" Opacity="0.2" Grid.ColumnSpan="2"/>
+            <Rectangle x:Name="ObshVinos" Fill="#FFFF0909" HorizontalAlignment="Left" Height="19" Margin="135,263,0,0" Stroke="Black" VerticalAlignment="Top" Width="575" Opacity="0.2" Grid.ColumnSpan="2"/>
+            <Rectangle x:Name="VostPulsa" Fill="#FFFF0909" HorizontalAlignment="Left" Height="19" Margin="135,282,0,0" Stroke="Black" VerticalAlignment="Top" Width="575" Opacity="0.2" Grid.ColumnSpan="2"/>
+            <Rectangle x:Name="Gibcost" Fill="#FFFF0909" HorizontalAlignment="Left" Height="19" Margin="135,301,0,0" Stroke="Black" VerticalAlignment="Top" Width="575" Opacity="0.2" Grid.ColumnSpan="2"/>
+            <Rectangle x:Name="Bistrota" Fill="#FFFF0909" HorizontalAlignment="Left" Height="19" Margin="135,320,0,0" Stroke="Black" VerticalAlignment="Top" Width="575" Opacity="0.2" Grid.ColumnSpan="2"/>
+            <Rectangle x:Name="DinamSila" Fill="#FFFF0909" HorizontalAlignment="Left" Height="19" Margin="135,339,0,0" Stroke="Black" VerticalAlignment="Top" Width="575" Opacity="0.2" Grid.ColumnSpan="2"/>
+            <Rectangle x:Name="SV" Fill="#FFFF0909" HorizontalAlignment="Left" Height="19" Margin="135,358,0,0" Stroke="Black" VerticalAlignment="Top" Width="575" Opacity="0.2" Grid.ColumnSpan="2"/>
+            <Rectangle x:Name="SSV" Fill="#FFFF0909" HorizontalAlignment="Left" Height="19" Margin="135,377,0,0" Stroke="Black" VerticalAlignment="Top" Width="575" Opacity="0.2" Grid.ColumnSpan="2"/>
         </Grid>
 
         <Grid Height="49" Margin="0,0,0,10">

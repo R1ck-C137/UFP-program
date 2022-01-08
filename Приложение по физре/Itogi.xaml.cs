@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ namespace Приложение_по_физре
         //static public List<Stat> list = new List<Stat>();
         static public List<GridClass> GridList = new List<GridClass>();
         public int AgeForStat;
-       
+
 
         public class GridClass
         {
@@ -66,7 +67,7 @@ namespace Приложение_по_физре
             { 8, 18, 34, 12, 17, 1700, 10.35},  //28
             { 8, 18, 33, 12, 17, 1670, 10.47}   //29
         };
-        public double[] Baly = new double [11];
+        public double[] Baly = new double[11];
 
         /*public class Stat                            // Расчёт итоговых очков у мужчин
         {
@@ -88,6 +89,22 @@ namespace Приложение_по_физре
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            Rost.Visibility = Visibility.Hidden;
+            Vozrast.Visibility = Visibility.Hidden;
+            Ves.Visibility = Visibility.Hidden;
+            SAD.Visibility = Visibility.Hidden;
+            SD.Visibility = Visibility.Hidden;
+            DD.Visibility = Visibility.Hidden;
+            PulsVPokoe.Visibility = Visibility.Hidden;
+            ObshVinos.Visibility = Visibility.Hidden;
+            VostPulsa.Visibility = Visibility.Hidden;
+            Gibcost.Visibility = Visibility.Hidden;
+            Bistrota.Visibility = Visibility.Hidden;
+            DinamSila.Visibility = Visibility.Hidden;
+            SV.Visibility = Visibility.Hidden;
+            SSV.Visibility = Visibility.Hidden;
+
+
             AgeForStat = Convert.ToInt32(app.stata[0]);
             if (app.stata[0] < 19)
             {
@@ -141,6 +158,10 @@ namespace Приложение_по_физре
                     norma = Convert.ToString(NormaVesa_M),
                     balli = Convert.ToString(Baly[1])
                 });
+                if (app.stata[1] > NormaVesa_M)
+                {
+                    Ves.Visibility = Visibility;
+                }
 
                 double NormaSistDavleniya_M = 109 + 0.5 * app.stata[0] + 0.1 * app.stata[1];
                 double NormaDiastDavleniya_M = 74 + 0.1 * app.stata[0] + 0.15 * app.stata[1];
@@ -168,14 +189,22 @@ namespace Приложение_по_физре
                     rezultat = Convert.ToString(app.stata[5]),
                     norma = Convert.ToString(NormaSistDavleniya_M),
                 });
+                if (app.stata[5] > NormaSistDavleniya_M)
+                {
+                    SD.Visibility = Visibility;
+                }
                 GridList.Add(new GridClass()
                 {
                     nadpisi = "     Диастолическое давление",
                     rezultat = Convert.ToString(app.stata[6]),
                     norma = Convert.ToString(NormaDiastDavleniya_M),
                 });
+                if (app.stata[6] > NormaDiastDavleniya_M)
+                {
+                    DD.Visibility = Visibility;
+                }
 
-                //double BalyZaPuls;
+                
                 Baly[3] = 90 - app.stata[3];
                 if (Baly[3] < 1) { Baly[3] = 0; }
 
@@ -185,8 +214,11 @@ namespace Приложение_по_физре
                     rezultat = Convert.ToString(app.stata[3]),
                     norma = "60",
                     balli = Convert.ToString(Baly[3])
-                }); ;
-
+                });
+                if (app.stata[3] > 60)
+                {
+                    PulsVPokoe.Visibility = Visibility;
+                }
 
                 if (app.Sport == true)          //  кросс
                 {
@@ -201,6 +233,10 @@ namespace Приложение_по_физре
                         norma = Convert.ToString(TablicaNorm_M[AgeForStat, 5]),
                         balli = Convert.ToString(Baly[4])
                     });
+                    if (app.stata[10] < TablicaNorm_M[AgeForStat, 5])
+                    {
+                        ObshVinos.Visibility = Visibility;
+                    }
                 }
                 else                            //  кол-во тренеровок в неделю
                 {
@@ -218,6 +254,10 @@ namespace Приложение_по_физре
                         norma = "3",
                         balli = Convert.ToString(Baly[4])
                     });
+                    if (app.stata[10] < 3)
+                    {
+                        ObshVinos.Visibility = Visibility;
+                    }
                 }
 
                 if (app.stata[4] <= app.stata[3])
@@ -247,6 +287,10 @@ namespace Приложение_по_физре
                     norma = Convert.ToString(app.stata[3] + 10),
                     balli = Convert.ToString(Baly[5])
                 });
+                if (app.stata[3] + 10 < app.stata[4])
+                {
+                    VostPulsa.Visibility = Visibility;
+                }
 
                 Baly[6] = app.stata[7] - TablicaNorm_M[AgeForStat, 0];
                 if (Baly[6] < 0) { Baly[6] = 0; }
@@ -257,6 +301,10 @@ namespace Приложение_по_физре
                     norma = Convert.ToString(TablicaNorm_M[AgeForStat, 0]),
                     balli = Convert.ToString(Baly[6])
                 });
+                if (app.stata[7] < TablicaNorm_M[AgeForStat, 0])
+                {
+                    Gibcost.Visibility = Visibility;
+                }
 
                 Baly[7] = (TablicaNorm_M[AgeForStat, 1] - app.stata[8]) * 2;
                 if (Baly[7] < 0) { Baly[7] = 0; }
@@ -267,6 +315,10 @@ namespace Приложение_по_физре
                     norma = Convert.ToString(TablicaNorm_M[AgeForStat, 1]),
                     balli = Convert.ToString(Baly[7])
                 });
+                if (app.stata[8] > TablicaNorm_M[AgeForStat, 1])
+                {
+                    Bistrota.Visibility = Visibility;
+                }
 
                 if ((app.stata[9] - TablicaNorm_M[AgeForStat, 2]) == 0)
                 {
@@ -284,6 +336,10 @@ namespace Приложение_по_физре
                     norma = Convert.ToString(TablicaNorm_M[AgeForStat, 2]),
                     balli = Convert.ToString(Baly[8])
                 });
+                if (app.stata[9] < TablicaNorm_M[AgeForStat, 2])
+                {
+                    DinamSila.Visibility = Visibility;
+                }
 
                 if (app.stata[11] - TablicaNorm_M[AgeForStat, 3] >= 0)
                 {
@@ -297,6 +353,10 @@ namespace Приложение_по_физре
                     norma = Convert.ToString(TablicaNorm_M[AgeForStat, 3]),
                     balli = Convert.ToString(Baly[9])
                 });
+                if (app.stata[9] < TablicaNorm_M[AgeForStat, 3])
+                {
+                    SV.Visibility = Visibility;
+                }
 
                 if (app.stata[12] - TablicaNorm_M[AgeForStat, 4] >= 0)
                 {
@@ -310,13 +370,17 @@ namespace Приложение_по_физре
                     norma = Convert.ToString(TablicaNorm_M[AgeForStat, 4]),
                     balli = Convert.ToString(Baly[10])
                 });
+                if (app.stata[12] < TablicaNorm_M[AgeForStat, 4])
+                {
+                    SSV.Visibility = Visibility;
+                }
 
                 string ItogoviyBal = "Ошибка";
-                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 50) { ItogoviyBal = "Низкий"; }
-                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 90) { ItogoviyBal = "Ниже среднего"; }
-                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 160) { ItogoviyBal = "Средний"; }
-                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 250) { ItogoviyBal = "Выше среднего"; }
                 if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] > 250) { ItogoviyBal = "Высокий"; }
+                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 250) { ItogoviyBal = "Выше среднего"; }
+                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 160) { ItogoviyBal = "Средний"; }
+                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 90) { ItogoviyBal = "Ниже среднего"; }
+                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] < 50) { ItogoviyBal = "Низкий"; }
                 GridList.Add(new GridClass()
                 {
                     nadpisi = "Ваш уровень физического состояния ",
@@ -336,7 +400,7 @@ namespace Приложение_по_физре
                 {
                     nadpisi = "Рост",
                     rezultat = Convert.ToString(app.stata[2]),
-
+                    balli = Convert.ToString(0)
                 });
                 Baly[0] = app.stata[0];
                 GridList.Add(new GridClass()
@@ -344,6 +408,7 @@ namespace Приложение_по_физре
                     nadpisi = "Возраст",
                     rezultat = Convert.ToString(app.stata[0]),
                     balli = Convert.ToString(Baly[0])
+
                 });
                 double NormaVesa_W = 50 + (app.stata[2] - 150) * 0.32 + (app.stata[0] - 21 / 5);
                 if (app.stata[1] - NormaVesa_W < 1)
@@ -386,18 +451,21 @@ namespace Приложение_по_физре
                     nadpisi = "Системное артериальное давление",
                     rezultat = "",
                     balli = Convert.ToString(Baly[2])
+
                 });
                 GridList.Add(new GridClass()
                 {
                     nadpisi = "   Систолическое давление",
                     rezultat = Convert.ToString(app.stata[5]),
                     norma = Convert.ToString(NormaSistDavleniya_W),
+                    balli = Convert.ToString(0)
                 });
                 GridList.Add(new GridClass()
                 {
                     nadpisi = "   Диастолическое давление",
                     rezultat = Convert.ToString(app.stata[6]),
                     norma = Convert.ToString(NormaDiastDavleniya_W),
+                    balli = Convert.ToString(0)
                 });
 
 
@@ -424,6 +492,10 @@ namespace Приложение_по_физре
                         norma = Convert.ToString(TablicaNorm_W[AgeForStat, 5]),
                         balli = Convert.ToString(Baly[4])
                     });
+                    if (app.stata[10] < TablicaNorm_W[AgeForStat, 5])
+                    {
+                        ObshVinos.Visibility = Visibility;
+                    }
                 }
                 else                            //  кол-во тренеровок в неделю
                 {
@@ -441,6 +513,10 @@ namespace Приложение_по_физре
                         norma = "3",
                         balli = Convert.ToString(Baly[4])
                     });
+                    if (app.stata[10] < 3)
+                    {
+                        ObshVinos.Visibility = Visibility;
+                    }
                 }
 
                 if (app.stata[4] <= app.stata[3])
@@ -533,13 +609,66 @@ namespace Приложение_по_физре
                     norma = Convert.ToString(TablicaNorm_W[AgeForStat, 4]),
                     balli = Convert.ToString(Baly[10])
                 });
+                if (app.stata[1] > NormaVesa_W)
+                {
+                    Ves.Visibility = Visibility;
+                }
+                if (app.stata[5] > NormaSistDavleniya_W)
+                {
+                    SD.Visibility = Visibility;
+                }
+                if (app.stata[6] > NormaDiastDavleniya_W)
+                {
+                    DD.Visibility = Visibility;
+                }
+                if (app.stata[3] > 60)
+                {
+                    PulsVPokoe.Visibility = Visibility;
+                }
+                if (app.stata[3] + 10 < app.stata[4])
+                {
+                    VostPulsa.Visibility = Visibility;
+                }
+                if (app.stata[7] < TablicaNorm_W[AgeForStat, 0])
+                {
+                    Gibcost.Visibility = Visibility;
+                }
+                if (app.stata[8] > TablicaNorm_W[AgeForStat, 1])
+                {
+                    Bistrota.Visibility = Visibility;
+                }
+                if (app.stata[9] < TablicaNorm_W[AgeForStat, 2])
+                {
+                    DinamSila.Visibility = Visibility;
+                }
+                if (app.stata[11] < TablicaNorm_W[AgeForStat, 3])
+                {
+                    SV.Visibility = Visibility;
+                }
+                if (app.stata[12] < TablicaNorm_W[AgeForStat, 4])
+                {
+                    SSV.Visibility = Visibility;
+                }
+
 
                 string ItogoviyBal = "Ошибка";
-                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 50) { ItogoviyBal = "Низкий"; }
+                /*if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 50) { ItogoviyBal = "Низкий"; }
                 if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 90) { ItogoviyBal = "Ниже среднего"; }
                 if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 160) { ItogoviyBal = "Средний"; }
                 if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 250) { ItogoviyBal = "Выше среднего"; }
+                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] > 250) { ItogoviyBal = "Высокий"; }*/
+
+
                 if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] > 250) { ItogoviyBal = "Высокий"; }
+                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 250) { ItogoviyBal = "Выше среднего"; }
+                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 160) { ItogoviyBal = "Средний"; }
+                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 90) { ItogoviyBal = "Ниже среднего"; }
+                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] < 50) { ItogoviyBal = "Низкий"; }
+                
+                
+                
+                
+
                 GridList.Add(new GridClass()
                 {
                     nadpisi = "Ваш уровень физического состояния ",
@@ -548,8 +677,21 @@ namespace Приложение_по_физре
                     balli = Convert.ToString(Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10])
                 });
             }
-
             dataGrid.ItemsSource = GridList;
         }
+        /*private SolidColorBrush hb = new SolidColorBrush(Colors.Orange);
+        private SolidColorBrush nb = new SolidColorBrush(Colors.White);
+
+        private void dataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            GridClass product = (GridClass)e.Row.DataContext;
+
+            if (Convert.ToDouble(product.balli) <= 0 && product.balli != null)
+                e.Row.Background = hb;
+            else
+                e.Row.Background = nb;
+        }*/
     }
+    
 }
+
