@@ -33,32 +33,39 @@ namespace Приложение_по_физре
 
         private void b_dalee_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/../Itogi.xaml", UriKind.Relative));
-
-            app.stata.Add(Convert.ToDouble(tb_stata0.Text));
-            app.stata.Add(Convert.ToDouble(tb_stata1.Text));
-            app.stata.Add(Convert.ToDouble(tb_stata2.Text));
-            app.stata.Add(Convert.ToDouble(tb_stata3.Text));
-            app.stata.Add(Convert.ToDouble(tb_stata4.Text));
-            app.stata.Add(Convert.ToDouble(tb_stata5.Text));
-            app.stata.Add(Convert.ToDouble(tb_stata6.Text));
-            app.stata.Add(Convert.ToDouble(tb_stata7.Text));
-            app.stata.Add(Convert.ToDouble(tb_stata8.Text));
-            app.stata.Add(Convert.ToDouble(tb_stata9.Text));
-            app.stata.Add(Convert.ToDouble(tb_stata10.Text));
-            app.stata.Add(Convert.ToDouble(tb_stata11.Text));
-            app.stata.Add(Convert.ToDouble(tb_stata12.Text));
-
-            app.Lichnost.Add(Convert.ToString(tb_Lichnost0.Text));
-            app.Lichnost.Add(Convert.ToString(tb_Lichnost1.Text));
-
-            if (cb_Gender.Text == "Мужской")
+            if (tb_stata0.Text == "" || tb_stata1.Text == "" || tb_stata2.Text == "" || tb_stata3.Text == "" || tb_stata4.Text == "" || tb_stata5.Text == "" || tb_stata6.Text == "" || tb_stata7.Text == "" || tb_stata8.Text == "" || tb_stata9.Text == "" || tb_stata10.Text == "" || tb_stata11.Text == "" || tb_stata12.Text == "" || tb_Lichnost0.Text == "" || tb_Lichnost1.Text == "")
             {
-                app.Gender = true;
+                MessageBox.Show("Не все поля заполненны!");
             }
-            if (cb_Gender.Text == "Женский")
+            else
             {
-                app.Gender = false;
+                NavigationService.Navigate(new Uri("/../Itogi.xaml", UriKind.Relative));
+
+                app.stata.Add(Convert.ToDouble(tb_stata0.Text));
+                app.stata.Add(Convert.ToDouble(tb_stata1.Text));
+                app.stata.Add(Convert.ToDouble(tb_stata2.Text));
+                app.stata.Add(Convert.ToDouble(tb_stata3.Text));
+                app.stata.Add(Convert.ToDouble(tb_stata4.Text));
+                app.stata.Add(Convert.ToDouble(tb_stata5.Text));
+                app.stata.Add(Convert.ToDouble(tb_stata6.Text));
+                app.stata.Add(Convert.ToDouble(tb_stata7.Text));
+                app.stata.Add(Convert.ToDouble(tb_stata8.Text));
+                app.stata.Add(Convert.ToDouble(tb_stata9.Text));
+                app.stata.Add(Convert.ToDouble(tb_stata10.Text));
+                app.stata.Add(Convert.ToDouble(tb_stata11.Text));
+                app.stata.Add(Convert.ToDouble(tb_stata12.Text));
+
+                app.Lichnost.Add(Convert.ToString(tb_Lichnost0.Text));
+                app.Lichnost.Add(Convert.ToString(tb_Lichnost1.Text));
+
+                if (cb_Gender.Text == "Мужской")
+                {
+                    app.Gender = true;
+                }
+                if (cb_Gender.Text == "Женский")
+                {
+                    app.Gender = false;
+                }
             }
         }
 

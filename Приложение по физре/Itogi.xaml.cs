@@ -14,12 +14,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
+using Excel = Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Interop.Excel;
+
 namespace Приложение_по_физре
 {
     /// <summary>
     /// Логика взаимодействия для Itogi.xaml
     /// </summary>
-    public partial class Itogi : Page
+    
+    public partial class Itogi : Excel.Page
     {
         public Itogi()
         {
@@ -80,7 +85,7 @@ namespace Приложение_по_физре
             }
         }*/
 
-        App app = (App)Application.Current;
+        App app = (App)System.Windows.Application.Current;
 
         private void nazad_Click(object sender, RoutedEventArgs e)
         {
@@ -455,17 +460,17 @@ namespace Приложение_по_физре
                 });
                 GridList.Add(new GridClass()
                 {
-                    nadpisi = "   Систолическое давление",
+                    nadpisi = "     Систолическое давление",
                     rezultat = Convert.ToString(app.stata[5]),
                     norma = Convert.ToString(NormaSistDavleniya_W),
-                    balli = Convert.ToString(0)
+                    //balli = Convert.ToString(0)
                 });
                 GridList.Add(new GridClass()
                 {
-                    nadpisi = "   Диастолическое давление",
+                    nadpisi = "     Диастолическое давление",
                     rezultat = Convert.ToString(app.stata[6]),
                     norma = Convert.ToString(NormaDiastDavleniya_W),
-                    balli = Convert.ToString(0)
+                    //balli = Convert.ToString(0)
                 });
 
 
@@ -478,7 +483,7 @@ namespace Приложение_по_физре
                     rezultat = Convert.ToString(app.stata[3]),
                     norma = "60",
                     balli = Convert.ToString(Baly[3])
-                }); ;
+                });
 
 
                 if (app.Sport == true)          //  кросс
@@ -652,13 +657,7 @@ namespace Приложение_по_физре
 
 
                 string ItogoviyBal = "Ошибка";
-                /*if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 50) { ItogoviyBal = "Низкий"; }
-                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 90) { ItogoviyBal = "Ниже среднего"; }
-                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 160) { ItogoviyBal = "Средний"; }
-                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 250) { ItogoviyBal = "Выше среднего"; }
-                if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] > 250) { ItogoviyBal = "Высокий"; }*/
-
-
+                
                 if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] > 250) { ItogoviyBal = "Высокий"; }
                 if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 250) { ItogoviyBal = "Выше среднего"; }
                 if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 160) { ItogoviyBal = "Средний"; }
@@ -678,20 +677,62 @@ namespace Приложение_по_физре
                 });
             }
             dataGrid.ItemsSource = GridList;
+
         }
-        /*private SolidColorBrush hb = new SolidColorBrush(Colors.Orange);
-        private SolidColorBrush nb = new SolidColorBrush(Colors.White);
 
-        private void dataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
+        HeaderFooter Excel.Page.LeftHeader => throw new NotImplementedException();
+
+        HeaderFooter Excel.Page.CenterHeader => throw new NotImplementedException();
+
+        HeaderFooter Excel.Page.RightHeader => throw new NotImplementedException();
+
+        HeaderFooter Excel.Page.LeftFooter => throw new NotImplementedException();
+
+        HeaderFooter Excel.Page.CenterFooter => throw new NotImplementedException();
+
+        HeaderFooter Excel.Page.RightFooter => throw new NotImplementedException();
+
+        private void button_Click(object sender, RoutedEventArgs e)
         {
-            GridClass product = (GridClass)e.Row.DataContext;
+            Excel.Application excel = new Excel.Application();
+            excel.Visible = true; 
+            Workbook workbook = excel.Workbooks.Add(System.Reflection.Missing.Value);
+            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
 
-            if (Convert.ToDouble(product.balli) <= 0 && product.balli != null)
-                e.Row.Background = hb;
-            else
-                e.Row.Background = nb;
-        }*/
+            for (int j = 0; j < dataGrid.Items.Count; j++) //Başlıklar için
+            {
+                Range myRange = (Range)sheet1.Cells[j + 1, 1];
+                sheet1.Cells[1, j + 1].Font.Bold = true; //Включаем жирный текст
+                sheet1.Columns[j + 1].ColumnWidth = 15; //ширина 
+
+                if (j == 1)
+                {
+                    myRange.Value2 = dataGrid.Columns[1].Header;
+                }
+                if (j == 2)
+                {
+                    myRange.Value2 = dataGrid.Columns[2].Header;
+                }
+            }
+            for (int i = 0; i < dataGrid.Columns.Count - 1; i++)
+            { 
+                for (int j = 0; j < dataGrid.Items.Count; j++)
+                {
+                    if (j < 3)
+                    {
+                        TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
+                        Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 2];
+                        myRange.Value2 = b.Text;
+                    }
+                    if (j > 3)
+                    {
+                        TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
+                        Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 1];
+                        myRange.Value2 = b.Text;
+                    }
+                }
+            }
+        }
     }
-    
 }
 
