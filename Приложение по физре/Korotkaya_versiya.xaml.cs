@@ -133,5 +133,12 @@ namespace Приложение_по_физре
         {
             if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            app.stata.Clear();
+            app.Lichnost.Clear();
+            
+        }
     }
 }

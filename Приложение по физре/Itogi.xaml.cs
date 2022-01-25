@@ -15,15 +15,18 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 
+
+
 using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Interop.Excel;
+using System.Windows.Forms;
 
 namespace Приложение_по_физре
 {
     /// <summary>
     /// Логика взаимодействия для Itogi.xaml
     /// </summary>
-    
+
     public partial class Itogi : Excel.Page
     {
         public Itogi()
@@ -74,16 +77,6 @@ namespace Приложение_по_физре
         };
         public double[] Baly = new double[11];
 
-        /*public class Stat                            // Расчёт итоговых очков у мужчин
-        {
-            public bool Gender { get; set; }
-            public double Age { get; set; }
-            public Stat() { }                            // Пустой конструктор
-            public Stat(string n, string g, double a)      // Конструктор с параметрами
-            {
-                
-            }
-        }*/
 
         App app = (App)System.Windows.Application.Current;
 
@@ -141,13 +134,17 @@ namespace Приложение_по_физре
                 });
 
                 double NormaVesa_M = 50 + (app.stata[2] - 150) * 0.75 + ((app.stata[0] - 21) / 4);
+                if (NormaVesa_M <= 0)
+                {
+                    NormaVesa_M = 0;
+                }
                 if (app.stata[1] - NormaVesa_M < 1)
                 {
                     Baly[1] = 30;
                 }
                 else
                 {
-                    if ((app.stata[1] - NormaVesa_M) > 30)
+                    if ((app.stata[1] - NormaVesa_M) > 30 || NormaVesa_M == 0)
                     {
                         Baly[1] = 0;
                     }
@@ -209,7 +206,7 @@ namespace Приложение_по_физре
                     DD.Visibility = Visibility;
                 }
 
-                
+
                 Baly[3] = 90 - app.stata[3];
                 if (Baly[3] < 1) { Baly[3] = 0; }
 
@@ -416,13 +413,17 @@ namespace Приложение_по_физре
 
                 });
                 double NormaVesa_W = 50 + (app.stata[2] - 150) * 0.32 + (app.stata[0] - 21 / 5);
+                if (NormaVesa_W <= 0)
+                {
+                    NormaVesa_W = 0;
+                }
                 if (app.stata[1] - NormaVesa_W < 1)
                 {
                     Baly[1] = 30;
                 }
                 else
                 {
-                    if ((app.stata[1] - NormaVesa_W) > 30)
+                    if ((app.stata[1] - NormaVesa_W) > 30 || NormaVesa_W == 0)
                     {
                         Baly[1] = 0;
                     }
@@ -484,7 +485,6 @@ namespace Приложение_по_физре
                     norma = "60",
                     balli = Convert.ToString(Baly[3])
                 });
-
 
                 if (app.Sport == true)          //  кросс
                 {
@@ -655,18 +655,14 @@ namespace Приложение_по_физре
                     SSV.Visibility = Visibility;
                 }
 
-
                 string ItogoviyBal = "Ошибка";
-                
+
                 if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] > 250) { ItogoviyBal = "Высокий"; }
                 if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 250) { ItogoviyBal = "Выше среднего"; }
                 if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 160) { ItogoviyBal = "Средний"; }
                 if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 90) { ItogoviyBal = "Ниже среднего"; }
                 if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] < 50) { ItogoviyBal = "Низкий"; }
-                
-                
-                
-                
+
 
                 GridList.Add(new GridClass()
                 {
@@ -695,13 +691,19 @@ namespace Приложение_по_физре
         private void button_Click(object sender, RoutedEventArgs e)
         {
             Excel.Application excel = new Excel.Application();
-            excel.Visible = true; 
+            excel.Visible = true;
             Workbook workbook = excel.Workbooks.Add(System.Reflection.Missing.Value);
             Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
 
             for (int j = 0; j < dataGrid.Items.Count; j++) //Başlıklar için
             {
                 Range myRange = (Range)sheet1.Cells[j + 1, 1];
+                myRange = (Range)sheet1.Cells[2, 1];
+                myRange.Value2 = app.Lichnost[0];
+                sheet1.Columns[j + 1].ColumnWidth = 15;
+                myRange = (Range)sheet1.Cells[1, 1];
+                myRange.Value2 = "Ф.И.О.";
+                myRange = (Range)sheet1.Cells[j + 1, 2];
                 sheet1.Cells[1, j + 1].Font.Bold = true; //Включаем жирный текст
                 sheet1.Columns[j + 1].ColumnWidth = 15; //ширина 
 
@@ -714,24 +716,89 @@ namespace Приложение_по_физре
                     myRange.Value2 = dataGrid.Columns[2].Header;
                 }
             }
-            for (int i = 0; i < dataGrid.Columns.Count - 1; i++)
-            { 
-                for (int j = 0; j < dataGrid.Items.Count; j++)
+            for (int i = 0; i < dataGrid.Columns.Count - 1; i++)    // перебор строк в exel таблице
+            {
+                for (int j = 0; j < dataGrid.Items.Count; j++)      // перебор столбцов в exel таблице
                 {
                     if (j < 3)
                     {
                         TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
-                        Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 2];
+                        Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 3];
                         myRange.Value2 = b.Text;
                     }
                     if (j > 3)
                     {
                         TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
-                        Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 1];
+                        Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 2];
                         myRange.Value2 = b.Text;
                     }
                 }
             }
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            string path = GetPath();
+            Excel.Application excel = new Excel.Application();
+            excel.Visible = true;
+            //excel.Workbooks.Open(path);
+            Workbook workbook = excel.Workbooks.Open(path);
+            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
+            
+            int chek = 0;
+            Range myRange;
+            for (int i = 0; chek == 0; i++)
+            {
+                myRange = (Range)sheet1.Cells[i + 1, 1];
+                if (myRange.Value == null)
+                {
+                    myRange = (Range)sheet1.Cells[2 + i, 1];
+                    if (myRange.Value == null)
+                    {
+                        chek = i + 2;
+                    }
+                }
+            }
+            myRange = (Range)sheet1.Cells[chek, 1];
+            myRange.Value2 = app.Lichnost[0];
+            myRange = (Range)sheet1.Cells[chek, 2];
+            myRange.Value2 = dataGrid.Columns[1].Header;
+            myRange = (Range)sheet1.Cells[chek + 1, 2];
+            myRange.Value2 = dataGrid.Columns[2].Header;
+            //myRange.Cells[chek, 2].Value2 = dataGrid.Columns[1].Header;
+            //myRange.Cells[chek + 1, 2].Value2 = dataGrid.Columns[2].Header;
+
+            for (int i = 0; i < dataGrid.Columns.Count - 2; i++)    // перебор строк в exel таблице
+            {
+                for (int j = 0; j < dataGrid.Items.Count; j++)      // перебор столбцов в exel таблице
+                {
+                    if (j < 3)
+                    {
+                        TextBlock b = dataGrid.Columns[i + 1].GetCellContent(dataGrid.Items[j]) as TextBlock;
+                        myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 3];
+                        myRange.Value2 = b.Text;
+                    }
+                    if (j > 3)
+                    {
+                        TextBlock b = dataGrid.Columns[i + 1].GetCellContent(dataGrid.Items[j]) as TextBlock;
+                        myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 2];
+                        myRange.Value2 = b.Text;
+                    }
+                }
+            }
+            workbook.Save();
+            excel.Quit();
+
+        }
+        public string GetPath()
+        {
+            var dialog = new OpenFileDialog();
+            dialog.ShowDialog();
+            if (/*dialog.ShowDialog() == DialogResult.OK*/true)
+            {
+                return dialog.FileName;
+            }
+            //return null;
         }
     }
 }

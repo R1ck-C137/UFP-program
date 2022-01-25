@@ -23,13 +23,19 @@
             <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="315" Margin="135,105,0,0" VerticalAlignment="Top" Width="575" IsReadOnly="True" AutoGenerateColumns="False" Grid.ColumnSpan="2">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Показатели физического состояния" Binding = "{Binding nadpisi}"/>
-                    <DataGridTextColumn Header="Результат" Binding = "{Binding rezultat}"/>
                     <DataGridTextColumn Header="Норма" Binding = "{Binding norma}"/>
+                    <DataGridTextColumn Header="Результат" Binding = "{Binding rezultat}"/>
                     <DataGridTextColumn Header="Баллы" Binding = "{Binding balli}"/>
                 </DataGrid.Columns>
 
 
             </DataGrid>
+            <Menu Height="21" VerticalAlignment="Top" Grid.ColumnSpan="2">
+                <MenuItem Header="Экспорт" Height="21" Width="72" HorizontalAlignment="Center">
+                    <MenuItem Header="Создать таблицу" Click="button_Click" ></MenuItem>
+                    <MenuItem Header="Добавить в таблицу" Click="button1_Click" ></MenuItem>
+                </MenuItem>
+            </Menu>
             <TextBlock x:Name="tb1" HorizontalAlignment="Left" Margin="135,31,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="14"/>
             <TextBlock x:Name="tb2" HorizontalAlignment="Left" Margin="135,65,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="14"/>
             <Rectangle x:Name="Rost" Fill="#FFFF0909" HorizontalAlignment="Left" Height="19" Margin="135,130,0,0" Stroke="Black" VerticalAlignment="Top" Width="575" Opacity="0.21" Grid.ColumnSpan="2"/>
@@ -52,13 +58,13 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10"/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="140"/>
+                <ColumnDefinition Width="55"/>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="10"/>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="nazad" Content="Начать с начала" Margin="9.6,10,0,0" Click="nazad_Click" Grid.Column="2" HorizontalAlignment="Left" Width="120" Height="30" VerticalAlignment="Top"/>
-            <Button x:Name="button" Content="Экспорт" Grid.Column="3" HorizontalAlignment="Left" Height="29" Margin="43.6,10,0,0" VerticalAlignment="Top" Width="128" Click="button_Click"/>
+            <Button x:Name="nazad" Content="Начать с начала" Margin="349.6,9,0,0" Click="nazad_Click" Grid.Column="1" HorizontalAlignment="Left" Width="120" Height="30" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
+
 
         </Grid>
 
