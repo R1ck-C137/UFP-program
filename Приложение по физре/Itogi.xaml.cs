@@ -793,12 +793,14 @@ namespace Приложение_по_физре
         public string GetPath()
         {
             var dialog = new OpenFileDialog();
-            dialog.ShowDialog();
-            if (/*dialog.ShowDialog() == DialogResult.OK*/true)
+            dialog.DefaultExt = ".xlsx";
+            dialog.Filter = "Excel documents (.xlsx)|*.xlsx";
+            Nullable<bool> result = Convert.ToBoolean(dialog.ShowDialog());
+            if (result == true)
             {
                 return dialog.FileName;
             }
-            //return null;
+            return null;
         }
     }
 }
