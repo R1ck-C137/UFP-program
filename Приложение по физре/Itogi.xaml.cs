@@ -15,11 +15,10 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 
-
-
 using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Interop.Excel;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Приложение_по_физре
 {
@@ -674,6 +673,21 @@ namespace Приложение_по_физре
             }
             dataGrid.ItemsSource = GridList;
 
+            if(app.Gruppa == true)
+            {
+                menu.Visibility = Visibility.Hidden;
+                nazad.Visibility = Visibility.Hidden;
+                Sled.Visibility = Visibility.Visible;
+                Zakonch.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                menu.Visibility = Visibility.Visible;
+                nazad.Visibility = Visibility.Visible;
+                Sled.Visibility = Visibility.Hidden;
+                Zakonch.Visibility = Visibility.Hidden;
+            }
+
         }
 
         HeaderFooter Excel.Page.LeftHeader => throw new NotImplementedException();
@@ -688,107 +702,15 @@ namespace Приложение_по_физре
 
         HeaderFooter Excel.Page.RightFooter => throw new NotImplementedException();
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        public void button_Click(object sender, RoutedEventArgs e)
         {
-            Excel.Application excel = new Excel.Application();
-            excel.Visible = true;
-            Workbook workbook = excel.Workbooks.Add(System.Reflection.Missing.Value);
-            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
-
-            for (int j = 0; j < dataGrid.Items.Count; j++) //Başlıklar için
-            {
-                Range myRange = (Range)sheet1.Cells[j + 1, 1];
-                myRange = (Range)sheet1.Cells[2, 1];
-                myRange.Value2 = app.Lichnost[0];
-                sheet1.Columns[j + 1].ColumnWidth = 15;
-                myRange = (Range)sheet1.Cells[1, 1];
-                myRange.Value2 = "Ф.И.О.";
-                myRange = (Range)sheet1.Cells[j + 1, 2];
-                sheet1.Cells[1, j + 1].Font.Bold = true; //Включаем жирный текст
-                sheet1.Columns[j + 1].ColumnWidth = 15; //ширина 
-
-                if (j == 1)
-                {
-                    myRange.Value2 = dataGrid.Columns[1].Header;
-                }
-                if (j == 2)
-                {
-                    myRange.Value2 = dataGrid.Columns[2].Header;
-                }
-            }
-            for (int i = 0; i < dataGrid.Columns.Count - 1; i++)    // перебор строк в exel таблице
-            {
-                for (int j = 0; j < dataGrid.Items.Count; j++)      // перебор столбцов в exel таблице
-                {
-                    if (j < 3)
-                    {
-                        TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
-                        Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 3];
-                        myRange.Value2 = b.Text;
-                    }
-                    if (j > 3)
-                    {
-                        TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
-                        Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 2];
-                        myRange.Value2 = b.Text;
-                    }
-                }
-            }
+            Save();
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            string path = GetPath();
-            Excel.Application excel = new Excel.Application();
-            excel.Visible = true;
-            //excel.Workbooks.Open(path);
-            Workbook workbook = excel.Workbooks.Open(path);
-            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
-            
-            int chek = 0;
-            Range myRange;
-            for (int i = 0; chek == 0; i++)
-            {
-                myRange = (Range)sheet1.Cells[i + 1, 1];
-                if (myRange.Value == null)
-                {
-                    myRange = (Range)sheet1.Cells[2 + i, 1];
-                    if (myRange.Value == null)
-                    {
-                        chek = i + 2;
-                    }
-                }
-            }
-            myRange = (Range)sheet1.Cells[chek, 1];
-            myRange.Value2 = app.Lichnost[0];
-            myRange = (Range)sheet1.Cells[chek, 2];
-            myRange.Value2 = dataGrid.Columns[1].Header;
-            myRange = (Range)sheet1.Cells[chek + 1, 2];
-            myRange.Value2 = dataGrid.Columns[2].Header;
-            //myRange.Cells[chek, 2].Value2 = dataGrid.Columns[1].Header;
-            //myRange.Cells[chek + 1, 2].Value2 = dataGrid.Columns[2].Header;
-
-            for (int i = 0; i < dataGrid.Columns.Count - 2; i++)    // перебор строк в exel таблице
-            {
-                for (int j = 0; j < dataGrid.Items.Count; j++)      // перебор столбцов в exel таблице
-                {
-                    if (j < 3)
-                    {
-                        TextBlock b = dataGrid.Columns[i + 1].GetCellContent(dataGrid.Items[j]) as TextBlock;
-                        myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 3];
-                        myRange.Value2 = b.Text;
-                    }
-                    if (j > 3)
-                    {
-                        TextBlock b = dataGrid.Columns[i + 1].GetCellContent(dataGrid.Items[j]) as TextBlock;
-                        myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 2];
-                        myRange.Value2 = b.Text;
-                    }
-                }
-            }
-            workbook.Save();
-            excel.Quit();
-
+            SaveIn();
+            app.path = null;
         }
         public string GetPath()
         {
@@ -801,6 +723,180 @@ namespace Приложение_по_физре
                 return dialog.FileName;
             }
             return null;
+        }
+
+
+        public void Save()
+        {
+            Excel.Application excel = new Excel.Application();
+
+            Workbook workbook = excel.Workbooks.Add(System.Reflection.Missing.Value);
+            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
+            Range myRange;
+            
+            myRange = (Range)sheet1.Cells[2, 1];
+            myRange.Value2 = app.Lichnost[0];
+            myRange = (Range)sheet1.Cells[1, 1];
+            myRange.Value2 = "Ф.И.О.";
+
+            myRange = (Range)sheet1.Cells[2, 2];
+            myRange.Value2 = dataGrid.Columns[1].Header;
+            myRange = (Range)sheet1.Cells[3, 2];
+            myRange.Value2 = dataGrid.Columns[2].Header;
+
+            excel.Visible = true;
+            for (int j = 0; j < dataGrid.Items.Count; j++)
+            {
+                sheet1.Cells[1, j + 1].Font.Bold = true; //Включаем жирный текст
+                sheet1.Columns[j + 1].ColumnWidth = 15; //ширина 
+
+            }
+            for (int i = 0; i < dataGrid.Columns.Count - 1; i++)    // перебор строк в exel таблице
+            {
+                for (int j = 0; j < dataGrid.Items.Count; j++)      // перебор столбцов в exel таблице
+                {
+                    if (j < 3)
+                    {
+                        TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
+                        myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 3];
+                        myRange.Value2 = b.Text;
+                    }
+                    if (j > 3)
+                    {
+                        TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
+                        myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 2];
+                        myRange.Value2 = b.Text;
+                    }
+                }
+            }
+        }
+
+
+        public void SaveIn()
+        {
+            
+            if (app.path == null)
+            {
+                app.path = GetPath();
+            }
+            
+            Excel.Application excel = new Excel.Application();
+
+            Workbook workbook;
+            if (!File.Exists(app.path))
+            {
+                workbook = excel.Workbooks.Add(System.Reflection.Missing.Value);
+                workbook.SaveAs(app.path);
+            }
+
+            workbook = excel.Workbooks.Open(app.path);
+            
+            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
+
+
+            int chek = 0;
+            Range myRange;
+            myRange = (Range)sheet1.Cells[1, 1];
+            if (myRange.Value2 == null)
+            {
+                myRange = (Range)sheet1.Cells[2, 1];
+                myRange.Value2 = app.Lichnost[0];
+                myRange = (Range)sheet1.Cells[1, 1];
+                myRange.Value2 = "Ф.И.О.";
+
+                myRange = (Range)sheet1.Cells[2, 2];
+                myRange.Value2 = dataGrid.Columns[1].Header;
+                myRange = (Range)sheet1.Cells[3, 2];
+                myRange.Value2 = dataGrid.Columns[2].Header;
+
+
+                for (int j = 0; j < dataGrid.Items.Count; j++) //Başlıklar için
+                {
+                    sheet1.Cells[1, j + 1].Font.Bold = true; //Включаем жирный текст
+                    sheet1.Columns[j + 1].ColumnWidth = 15; //ширина 
+
+                }
+                for (int i = 0; i < dataGrid.Columns.Count - 1; i++)    // перебор строк в exel таблице
+                {
+                    for (int j = 0; j < dataGrid.Items.Count; j++)      // перебор столбцов в exel таблице
+                    {
+                        if (j < 3)
+                        {
+                            TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
+                            myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 3];
+                            myRange.Value2 = b.Text;
+                        }
+                        if (j > 3)
+                        {
+                            TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
+                            myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 2];
+                            myRange.Value2 = b.Text;
+                        }
+                    }
+                }
+                
+                workbook.Save();
+                workbook.Close();
+                excel.Quit();
+            }
+            else
+            {
+                for (int i = 0; chek == 0; i++)
+                {
+                    myRange = (Range)sheet1.Cells[i + 1, 3];
+                    if (myRange.Value == null)
+                    {
+                        myRange = (Range)sheet1.Cells[2 + i, 3];
+                        if (myRange.Value == null)
+                        {
+                            chek = i + 1;
+                        }
+                    }
+                }
+                myRange = (Range)sheet1.Cells[chek, 1];
+                myRange.Value2 = app.Lichnost[0];
+                myRange = (Range)sheet1.Cells[chek, 2];
+                myRange.Value2 = dataGrid.Columns[1].Header;
+                myRange = (Range)sheet1.Cells[chek + 1, 2];
+                myRange.Value2 = dataGrid.Columns[2].Header;
+
+                for (int i = 0; i < dataGrid.Columns.Count - 2; i++)    // перебор строк в exel таблице
+                {
+                    for (int j = 0; j < dataGrid.Items.Count; j++)      // перебор столбцов в exel таблице
+                    {
+                        if (j < 3)
+                        {
+                            TextBlock b = dataGrid.Columns[i + 1].GetCellContent(dataGrid.Items[j]) as TextBlock;
+                            myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 3];
+                            myRange.Value2 = b.Text;
+                        }
+                        if (j > 3)
+                        {
+                            TextBlock b = dataGrid.Columns[i + 1].GetCellContent(dataGrid.Items[j]) as TextBlock;
+                            myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 2];
+                            myRange.Value2 = b.Text;
+                        }
+                    }
+                }
+                workbook.Save();
+                workbook.Close();
+                excel.Quit();
+            }
+        }
+
+        private void Sled_Click(object sender, RoutedEventArgs e)
+        {
+            SaveIn();
+            NavigationService.Navigate(new Uri("/../Korotkaya_versiya.xaml", UriKind.Relative));
+        }
+
+        private void Zakonch_Click(object sender, RoutedEventArgs e)
+        {
+            SaveIn();
+            app.Gruppa = false;
+            app.path = null;
+            NavigationService.Navigate(new Uri("/../Nachalnaya.xaml", UriKind.Relative));
+
         }
     }
 }

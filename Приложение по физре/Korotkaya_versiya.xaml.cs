@@ -28,6 +28,11 @@ namespace Приложение_по_физре
 
         private void b_nazad_Click(object sender, RoutedEventArgs e)
         {
+            if(app.Gruppa == true)
+            {
+                app.Gruppa = false;
+                app.path = null;
+            }
             NavigationService.Navigate(new Uri("/../Nachalnaya.xaml", UriKind.Relative));
         }
 
