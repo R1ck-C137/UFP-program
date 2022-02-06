@@ -143,7 +143,9 @@ namespace Приложение_по_физре
         {
             app.stata.Clear();
             app.Lichnost.Clear();
-            
+            cb_Gender.SelectedIndex = 0;
         }
+
+
     }
 }

@@ -75,7 +75,7 @@ namespace Приложение_по_физре
             { 8, 18, 33, 12, 17, 1670, 10.47}   //29
         };
         public double[] Baly = new double[11];
-
+        public bool[] red_label = new bool[10];
 
         App app = (App)System.Windows.Application.Current;
 
@@ -86,7 +86,7 @@ namespace Приложение_по_физре
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            Rost.Visibility = Visibility.Hidden;
+            /*Rost.Visibility = Visibility.Hidden;
             Vozrast.Visibility = Visibility.Hidden;
             Ves.Visibility = Visibility.Hidden;
             SAD.Visibility = Visibility.Hidden;
@@ -99,7 +99,7 @@ namespace Приложение_по_физре
             Bistrota.Visibility = Visibility.Hidden;
             DinamSila.Visibility = Visibility.Hidden;
             SV.Visibility = Visibility.Hidden;
-            SSV.Visibility = Visibility.Hidden;
+            SSV.Visibility = Visibility.Hidden;*/
 
 
             AgeForStat = Convert.ToInt32(app.stata[0]);
@@ -116,8 +116,10 @@ namespace Приложение_по_физре
             tb1.Text = "Испытуемый: " + app.Lichnost[0];
             tb2.Text = "Группа: " + app.Lichnost[1];
             GridList.Clear();
+
             if (app.Gender == true) //мужской пол
             {
+
                 GridList.Add(new GridClass()// добавляем строки в таблицу
                 {
                     nadpisi = "Рост",
@@ -162,6 +164,7 @@ namespace Приложение_по_физре
                 if (app.stata[1] > NormaVesa_M)
                 {
                     Ves.Visibility = Visibility;
+                    red_label[0] = true;
                 }
 
                 double NormaSistDavleniya_M = 109 + 0.5 * app.stata[0] + 0.1 * app.stata[1];
@@ -193,6 +196,7 @@ namespace Приложение_по_физре
                 if (app.stata[5] > NormaSistDavleniya_M)
                 {
                     SD.Visibility = Visibility;
+                    red_label[1] = true;
                 }
                 GridList.Add(new GridClass()
                 {
@@ -203,6 +207,7 @@ namespace Приложение_по_физре
                 if (app.stata[6] > NormaDiastDavleniya_M)
                 {
                     DD.Visibility = Visibility;
+                    red_label[2] = true;
                 }
 
 
@@ -219,6 +224,7 @@ namespace Приложение_по_физре
                 if (app.stata[3] > 60)
                 {
                     PulsVPokoe.Visibility = Visibility;
+                    red_label[3] = true;
                 }
 
                 if (app.Sport == true)          //  кросс
@@ -237,6 +243,7 @@ namespace Приложение_по_физре
                     if (app.stata[10] < TablicaNorm_M[AgeForStat, 5])
                     {
                         ObshVinos.Visibility = Visibility;
+                        red_label[4] = true;
                     }
                 }
                 else                            //  кол-во тренеровок в неделю
@@ -258,6 +265,7 @@ namespace Приложение_по_физре
                     if (app.stata[10] < 3)
                     {
                         ObshVinos.Visibility = Visibility;
+                        red_label[4] = true;
                     }
                 }
 
@@ -265,7 +273,7 @@ namespace Приложение_по_физре
                 {
                     Baly[5] = 30;
                 }
-                if (app.stata[4] < app.stata[3] + 10 /*&& app.stata[4] > app.stata[3]*/)      //пульс после == пульс до + 10
+                if (app.stata[4] < app.stata[3] + 10)      //пульс после == пульс до + 10
                 {
                     Baly[5] = 30;
                 }
@@ -291,6 +299,7 @@ namespace Приложение_по_физре
                 if (app.stata[3] + 10 < app.stata[4])
                 {
                     VostPulsa.Visibility = Visibility;
+                    red_label[5] = true;
                 }
 
                 Baly[6] = app.stata[7] - TablicaNorm_M[AgeForStat, 0];
@@ -305,6 +314,7 @@ namespace Приложение_по_физре
                 if (app.stata[7] < TablicaNorm_M[AgeForStat, 0])
                 {
                     Gibcost.Visibility = Visibility;
+                    red_label[6] = true;
                 }
 
                 Baly[7] = (TablicaNorm_M[AgeForStat, 1] - app.stata[8]) * 2;
@@ -319,6 +329,7 @@ namespace Приложение_по_физре
                 if (app.stata[8] > TablicaNorm_M[AgeForStat, 1])
                 {
                     Bistrota.Visibility = Visibility;
+                    red_label[7] = true;
                 }
 
                 if ((app.stata[9] - TablicaNorm_M[AgeForStat, 2]) == 0)
@@ -340,6 +351,7 @@ namespace Приложение_по_физре
                 if (app.stata[9] < TablicaNorm_M[AgeForStat, 2])
                 {
                     DinamSila.Visibility = Visibility;
+                    red_label[8] = true;
                 }
 
                 if (app.stata[11] - TablicaNorm_M[AgeForStat, 3] >= 0)
@@ -357,6 +369,7 @@ namespace Приложение_по_физре
                 if (app.stata[9] < TablicaNorm_M[AgeForStat, 3])
                 {
                     SV.Visibility = Visibility;
+                    red_label[9] = true;
                 }
 
                 if (app.stata[12] - TablicaNorm_M[AgeForStat, 4] >= 0)
@@ -374,6 +387,7 @@ namespace Приложение_по_физре
                 if (app.stata[12] < TablicaNorm_M[AgeForStat, 4])
                 {
                     SSV.Visibility = Visibility;
+                    red_label[10] = true;
                 }
 
                 string ItogoviyBal = "Ошибка";
@@ -613,45 +627,62 @@ namespace Приложение_по_физре
                     norma = Convert.ToString(TablicaNorm_W[AgeForStat, 4]),
                     balli = Convert.ToString(Baly[10])
                 });
+
                 if (app.stata[1] > NormaVesa_W)
                 {
                     Ves.Visibility = Visibility;
+                    red_label[0] = true;
                 }
                 if (app.stata[5] > NormaSistDavleniya_W)
                 {
                     SD.Visibility = Visibility;
+                    red_label[1] = true;
                 }
                 if (app.stata[6] > NormaDiastDavleniya_W)
                 {
                     DD.Visibility = Visibility;
+                    red_label[2] = true;
                 }
                 if (app.stata[3] > 60)
                 {
                     PulsVPokoe.Visibility = Visibility;
+                    red_label[3] = true;
                 }
                 if (app.stata[3] + 10 < app.stata[4])
                 {
                     VostPulsa.Visibility = Visibility;
+                    red_label[5] = true;
                 }
                 if (app.stata[7] < TablicaNorm_W[AgeForStat, 0])
                 {
                     Gibcost.Visibility = Visibility;
+                    red_label[6] = true;
                 }
                 if (app.stata[8] > TablicaNorm_W[AgeForStat, 1])
                 {
                     Bistrota.Visibility = Visibility;
+                    red_label[7] = true;
                 }
                 if (app.stata[9] < TablicaNorm_W[AgeForStat, 2])
                 {
                     DinamSila.Visibility = Visibility;
+                    red_label[8] = true;
                 }
+                if (app.stata[10] < 3)
+                {
+                    ObshVinos.Visibility = Visibility;
+                    red_label[4] = true;
+                }
+
                 if (app.stata[11] < TablicaNorm_W[AgeForStat, 3])
                 {
                     SV.Visibility = Visibility;
+                    red_label[9] = true;
                 }
                 if (app.stata[12] < TablicaNorm_W[AgeForStat, 4])
                 {
                     SSV.Visibility = Visibility;
+                    red_label[10] = true;
                 }
 
                 string ItogoviyBal = "Ошибка";
@@ -673,7 +704,7 @@ namespace Приложение_по_физре
             }
             dataGrid.ItemsSource = GridList;
 
-            if(app.Gruppa == true)
+            if (app.Gruppa == true)
             {
                 menu.Visibility = Visibility.Hidden;
                 nazad.Visibility = Visibility.Hidden;
@@ -733,7 +764,7 @@ namespace Приложение_по_физре
             Workbook workbook = excel.Workbooks.Add(System.Reflection.Missing.Value);
             Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
             Range myRange;
-            
+
             myRange = (Range)sheet1.Cells[2, 1];
             myRange.Value2 = app.Lichnost[0];
             myRange = (Range)sheet1.Cells[1, 1];
@@ -760,12 +791,24 @@ namespace Приложение_по_физре
                         TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
                         myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 3];
                         myRange.Value2 = b.Text;
+                        if (j > 9 && i > 0)
+                            if (red_label[j])
+                            {
+                                myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 5];
+                                myRange.Interior.ColorIndex = 3;
+                            }
                     }
                     if (j > 3)
                     {
                         TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
                         myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 2];
                         myRange.Value2 = b.Text;
+                        if (j <= 9 && i > 0)
+                            if (red_label[j - 1])
+                            {
+                                myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 4];
+                                myRange.Interior.ColorIndex = 3;
+                            }
                     }
                 }
             }
@@ -774,12 +817,12 @@ namespace Приложение_по_физре
 
         public void SaveIn()
         {
-            
+
             if (app.path == null)
             {
                 app.path = GetPath();
             }
-            
+
             Excel.Application excel = new Excel.Application();
 
             Workbook workbook;
@@ -790,7 +833,7 @@ namespace Приложение_по_физре
             }
 
             workbook = excel.Workbooks.Open(app.path);
-            
+
             Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
 
 
@@ -825,16 +868,28 @@ namespace Приложение_по_физре
                             TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
                             myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 3];
                             myRange.Value2 = b.Text;
+                            if (j <= 9 && i > 0)
+                                if (red_label[j])
+                                {
+                                    myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 5];
+                                    myRange.Interior.ColorIndex = 3;
+                                }
                         }
                         if (j > 3)
                         {
                             TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
                             myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 2];
                             myRange.Value2 = b.Text;
+                            if (j <= 9 && i > 0)
+                                if (red_label[j - 1])
+                                {
+                                    myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 4];
+                                    myRange.Interior.ColorIndex = 3;
+                                }
                         }
                     }
                 }
-                
+
                 workbook.Save();
                 workbook.Close();
                 excel.Quit();
@@ -869,12 +924,24 @@ namespace Приложение_по_физре
                             TextBlock b = dataGrid.Columns[i + 1].GetCellContent(dataGrid.Items[j]) as TextBlock;
                             myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 3];
                             myRange.Value2 = b.Text;
+                            if (j <= 9)
+                                if (red_label[j])
+                                {
+                                    myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 5];
+                                    myRange.Interior.ColorIndex = 3;
+                                }
                         }
                         if (j > 3)
                         {
                             TextBlock b = dataGrid.Columns[i + 1].GetCellContent(dataGrid.Items[j]) as TextBlock;
                             myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 2];
                             myRange.Value2 = b.Text;
+                            if (j <= 9)
+                                if (red_label[j - 1])
+                                {
+                                    myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 4];
+                                    myRange.Interior.ColorIndex = 3;
+                                }
                         }
                     }
                 }

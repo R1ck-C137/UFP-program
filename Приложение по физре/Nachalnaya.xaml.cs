@@ -24,9 +24,11 @@ namespace Приложение_по_физре
     /// </summary>
     public partial class Nachalnaya : Excel.Page
     {
+
         public Nachalnaya()
         {
             InitializeComponent();
+            ShowsNavigationUI = false;
         }
         App app = (App)System.Windows.Application.Current;
 
