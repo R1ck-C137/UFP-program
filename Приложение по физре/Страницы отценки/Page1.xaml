@@ -14,10 +14,10 @@
         <Grid Height="430" Margin="0,0,0.4,0">
             <Border BorderBrush="Black" BorderThickness="1" Height="300" Margin="215,0,215,50" VerticalAlignment="Bottom">
                 <Grid Margin="0.2,0.2,0.2,-0.8">
-                    <TextBox x:Name="tbName" HorizontalAlignment="Left" Height="23" Margin="54,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="305"/>
+                    <TextBox x:Name="tbName" HorizontalAlignment="Left" Height="23" Margin="54,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="305" FontSize="14"/>
                     <TextBox x:Name="tbGroup" HorizontalAlignment="Left" Height="23" Margin="54,114,0,0" TextWrapping="Wrap" Text="&#xD;&#xA;" VerticalAlignment="Top" Width="305" FontSize="14"/>
                     <TextBox x:Name="tbAge" HorizontalAlignment="Left" Height="23" Margin="54,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="305" FontSize="14" PreviewTextInput="tbAge_PreviewTextInput"/>
-                    <ComboBox x:Name="cb" HorizontalAlignment="Left" Margin="54,244,0,0" VerticalAlignment="Top" Width="305" Height="24">
+                    <ComboBox x:Name="cb" HorizontalAlignment="Left" Margin="54,244,0,0" VerticalAlignment="Top" Width="305" Height="24" FontSize="14">
                         <ComboBoxItem x:Name="M"  Content="Мужской"/>
                         <ComboBoxItem x:Name="W" Content="Женский"/>
                     </ComboBox>
@@ -28,7 +28,7 @@
                 </Grid>
             </Border>
             <Border BorderBrush="Black" BorderThickness="1" Margin="0,45,-0.4,0"/>
-            <Label x:Name="label" Content="Добро пожаловать!" Margin="350,11,349.6,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Center" Width="140"/>
+            <Label x:Name="label" Content="Добро пожаловать!" Margin="344,10,340.6,0" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Center" Width="155"/>
 
         </Grid>
         <Grid Height="49" Margin="0,0,0,10">

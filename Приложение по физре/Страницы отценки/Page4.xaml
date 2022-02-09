@@ -24,7 +24,7 @@
             <Label x:Name="label2" Content="уд./мин." HorizontalAlignment="Left" Margin="495,377,0,0" VerticalAlignment="Top"/>
 
             <Border BorderBrush="Black" BorderThickness="1" Margin="0,45,-0.4,0"/>
-            <Label x:Name="label78" Content="Востанавливаемость пульса." Margin="320,10,315,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Center" Width="195"/>
+            <Label x:Name="label78" Content="Востанавливаемость пульса." Margin="308,8,307.6,0" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Center" Width="224"/>
 
         </Grid>
         <Grid Height="49" Margin="0,0,0,10">

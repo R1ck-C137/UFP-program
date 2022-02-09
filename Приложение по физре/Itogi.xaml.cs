@@ -14,7 +14,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-
 using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Interop.Excel;
 using System.Windows.Forms;
@@ -81,6 +80,13 @@ namespace Приложение_по_физре
 
         private void nazad_Click(object sender, RoutedEventArgs e)
         {
+            for (int i = 0; i <= 12; i++)
+            {
+                app.stata.RemoveAt(0);
+            }
+            app.Lichnost.RemoveAt(0);
+            app.Lichnost.RemoveAt(0);
+
             NavigationService.Navigate(new Uri("/../Nachalnaya.xaml", UriKind.Relative));
         }
 
@@ -755,6 +761,7 @@ namespace Приложение_по_физре
             }
             return null;
         }
+
 
 
         public void Save()
