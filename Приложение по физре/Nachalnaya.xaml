@@ -19,6 +19,7 @@
                     <MenuItem Header="Быстрая форма" Click="MenuItem_Click" ></MenuItem>
                     <MenuItem Header="Сохранить группу" Click="MenuItem_Click_1" ></MenuItem>
                 </MenuItem>
+                <MenuItem Header="Тест1"/>
             </Menu>
 
         </Grid>

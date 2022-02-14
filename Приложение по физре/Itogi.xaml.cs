@@ -1,18 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Interop.Excel;
@@ -44,6 +34,7 @@ namespace Приложение_по_физре
             public string norma { get; set; }
             public string balli { get; set; }
         }
+
         public double[,] TablicaNorm_M =
         {                                    //Возраст
             { 9, 13, 57, 18, 23, 3000, 7  },    //19
@@ -80,21 +71,17 @@ namespace Приложение_по_физре
 
         private void nazad_Click(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i <= 12; i++)
-            {
-                app.stata.RemoveAt(0);
-            }
-            app.Lichnost.RemoveAt(0);
-            app.Lichnost.RemoveAt(0);
+            app.stata.Clear();
+            app.Lichnost.Clear();
 
             NavigationService.Navigate(new Uri("/../Nachalnaya.xaml", UriKind.Relative));
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            /*Rost.Visibility = Visibility.Hidden;
-            Vozrast.Visibility = Visibility.Hidden;
+            Rost.Visibility = Visibility.Hidden;
             Ves.Visibility = Visibility.Hidden;
+            Vozrast.Visibility = Visibility.Hidden;
             SAD.Visibility = Visibility.Hidden;
             SD.Visibility = Visibility.Hidden;
             DD.Visibility = Visibility.Hidden;
@@ -103,9 +90,9 @@ namespace Приложение_по_физре
             VostPulsa.Visibility = Visibility.Hidden;
             Gibcost.Visibility = Visibility.Hidden;
             Bistrota.Visibility = Visibility.Hidden;
-            DinamSila.Visibility = Visibility.Hidden;
+            Gibcost.Visibility = Visibility.Hidden;
             SV.Visibility = Visibility.Hidden;
-            SSV.Visibility = Visibility.Hidden;*/
+            SSV.Visibility = Visibility.Hidden;
 
 
             AgeForStat = Convert.ToInt32(app.stata[0]);
@@ -747,8 +734,13 @@ namespace Приложение_по_физре
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             SaveIn();
+            if (app.path == null)
+            {
+                System.Windows.MessageBox.Show("Файл не выбран!");
+            }
             app.path = null;
         }
+        
         public string GetPath()
         {
             var dialog = new OpenFileDialog();
@@ -828,6 +820,10 @@ namespace Приложение_по_физре
             if (app.path == null)
             {
                 app.path = GetPath();
+                if (app.path == "")
+                {
+                    return;
+                }
             }
 
             Excel.Application excel = new Excel.Application();

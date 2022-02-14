@@ -8,10 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Приложение_по_физре
 {
@@ -44,8 +41,6 @@ namespace Приложение_по_физре
             }
             else
             {
-                NavigationService.Navigate(new Uri("/../Itogi.xaml", UriKind.Relative));
-
                 app.stata.Add(Convert.ToDouble(tb_stata0.Text));
                 app.stata.Add(Convert.ToDouble(tb_stata1.Text));
                 app.stata.Add(Convert.ToDouble(tb_stata2.Text));
@@ -71,6 +66,8 @@ namespace Приложение_по_физре
                 {
                     app.Gender = false;
                 }
+                
+                NavigationService.Navigate(new Uri("/../Itogi.xaml", UriKind.Relative));
             }
         }
 
