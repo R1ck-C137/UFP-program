@@ -65,7 +65,7 @@ namespace Приложение_по_физре
             { 8, 18, 33, 12, 17, 1670, 10.47}   //29
         };
         public double[] Baly = new double[11];
-        public bool[] red_label = new bool[10];
+        public bool[] red_label = new bool[11];
 
         App app = (App)System.Windows.Application.Current;
 
@@ -93,6 +93,7 @@ namespace Приложение_по_физре
             Gibcost.Visibility = Visibility.Hidden;
             SV.Visibility = Visibility.Hidden;
             SSV.Visibility = Visibility.Hidden;
+            DinamSila.Visibility = Visibility.Hidden;
 
 
             AgeForStat = Convert.ToInt32(app.stata[0]);
@@ -783,14 +784,17 @@ namespace Приложение_по_физре
             }
             for (int i = 0; i < dataGrid.Columns.Count - 1; i++)    // перебор строк в exel таблице
             {
-                for (int j = 0; j < dataGrid.Items.Count; j++)      // перебор столбцов в exel таблице
+                for (int j = 0; j < dataGrid.Items.Count + 4; j++)      // перебор столбцов в exel таблице
                 {
                     if (j < 3)
                     {
-                        TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
-                        myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 3];
-                        myRange.Value2 = b.Text;
-                        if (j > 9 && i > 0)
+                        if (j < dataGrid.Items.Count)
+                        {
+                            TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
+                            myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 3];
+                            myRange.Value2 = b.Text;
+                        }
+                        if (j <= 11 && i > 0)
                             if (red_label[j])
                             {
                                 myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 5];
@@ -799,10 +803,13 @@ namespace Приложение_по_физре
                     }
                     if (j > 3)
                     {
-                        TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
-                        myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 2];
-                        myRange.Value2 = b.Text;
-                        if (j <= 9 && i > 0)
+                        if (j < dataGrid.Items.Count)
+                        {
+                            TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
+                            myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 2];
+                            myRange.Value2 = b.Text;
+                        }
+                        if (j <= 11 && i > 0)
                             if (red_label[j - 1])
                             {
                                 myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 4];
@@ -864,14 +871,17 @@ namespace Приложение_по_физре
                 }
                 for (int i = 0; i < dataGrid.Columns.Count - 1; i++)    // перебор строк в exel таблице
                 {
-                    for (int j = 0; j < dataGrid.Items.Count; j++)      // перебор столбцов в exel таблице
+                    for (int j = 0; j < dataGrid.Items.Count + 4; j++)      // перебор столбцов в exel таблице
                     {
                         if (j < 3)
                         {
-                            TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
-                            myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 3];
-                            myRange.Value2 = b.Text;
-                            if (j <= 9 && i > 0)
+                            if (j < dataGrid.Items.Count)
+                            {
+                                TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
+                                myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 3];
+                                myRange.Value2 = b.Text;
+                            }
+                            if (j <= 11 && i > 0)
                                 if (red_label[j])
                                 {
                                     myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 5];
@@ -880,10 +890,12 @@ namespace Приложение_по_физре
                         }
                         if (j > 3)
                         {
-                            TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
-                            myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 2];
-                            myRange.Value2 = b.Text;
-                            if (j <= 9 && i > 0)
+                            if (j < dataGrid.Items.Count) {
+                                TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
+                                myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 2];
+                                myRange.Value2 = b.Text;
+                            }
+                            if (j <= 11 && i > 0)
                                 if (red_label[j - 1])
                                 {
                                     myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 4];
@@ -924,10 +936,13 @@ namespace Приложение_по_физре
                     {
                         if (j < 3)
                         {
-                            TextBlock b = dataGrid.Columns[i + 1].GetCellContent(dataGrid.Items[j]) as TextBlock;
-                            myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 3];
-                            myRange.Value2 = b.Text;
-                            if (j <= 9)
+                            if (j < dataGrid.Items.Count)
+                            {
+                                TextBlock b = dataGrid.Columns[i + 1].GetCellContent(dataGrid.Items[j]) as TextBlock;
+                                myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 3];
+                                myRange.Value2 = b.Text;
+                            }
+                            if (j <= 11)
                                 if (red_label[j])
                                 {
                                     myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 5];
@@ -936,10 +951,13 @@ namespace Приложение_по_физре
                         }
                         if (j > 3)
                         {
-                            TextBlock b = dataGrid.Columns[i + 1].GetCellContent(dataGrid.Items[j]) as TextBlock;
-                            myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 2];
-                            myRange.Value2 = b.Text;
-                            if (j <= 9)
+                            if (j < dataGrid.Items.Count)
+                            {
+                                TextBlock b = dataGrid.Columns[i + 1].GetCellContent(dataGrid.Items[j]) as TextBlock;
+                                myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 2];
+                                myRange.Value2 = b.Text;
+                            }
+                            if (j <= 11)
                                 if (red_label[j - 1])
                                 {
                                     myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 4];

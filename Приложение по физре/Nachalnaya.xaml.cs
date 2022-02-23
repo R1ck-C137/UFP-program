@@ -6,6 +6,8 @@ using System.Windows.Navigation;
 
 using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Interop.Excel;
+using System.Windows.Forms;
+using System.IO;
 
 namespace Приложение_по_физре
 {
@@ -73,5 +75,74 @@ namespace Приложение_по_физре
         public HeaderFooter CenterFooter => throw new NotImplementedException();
 
         public HeaderFooter RightFooter => throw new NotImplementedException();
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            app.path = GetPath();
+            if (app.path == "")
+            {
+                return;
+            }
+            Excel.Application excel = new Excel.Application();
+
+            Workbook workbook;
+            if (!File.Exists(app.path))
+            {
+                System.Windows.MessageBox.Show("Файла не существует!");
+                return;
+            }
+
+            workbook = excel.Workbooks.Open(app.path);
+
+            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
+            Range myRange;
+            //myRange = (Range)sheet1.Cells[2, 1];
+            //myRange.Value2 = app.Lichnost[0];
+            myRange = (Range)sheet1.Cells[3, 2];
+            double Percent;
+            if (myRange.Value2 == "Результат")
+            {
+                
+                int i;
+                for (int j = 5; j <= 15; j++)
+                {
+                    double Total = 0;
+                    double Passed = 0;
+                    for (i = 3; Convert.ToString(myRange.Value2) != null; i = i + 2)
+                    {
+                        myRange = (Range)sheet1.Cells[i, j];
+                        if (myRange.Interior.ColorIndex != 3)
+                        {
+                            Passed++;
+                        }
+                        Total++;
+                    }
+                    Total--;
+                    Passed--;
+                    Percent = 100 / (Total / Passed);
+                    Percent = Math.Round(Percent, 2);
+                    myRange = (Range)sheet1.Cells[i - 2, j];
+                    myRange.Value2 = Percent + "%";
+                }
+            }
+
+            workbook.Save();
+            workbook.Close();
+            excel.Quit();
+        }
+
+
+        public string GetPath()
+        {
+            var dialog = new OpenFileDialog();
+            dialog.DefaultExt = ".xlsx";
+            dialog.Filter = "Excel documents (.xlsx)|*.xlsx";
+            Nullable<bool> result = Convert.ToBoolean(dialog.ShowDialog());
+            if (result == true)
+            {
+                return dialog.FileName;
+            }
+            return null;
+        }
     }
 }
