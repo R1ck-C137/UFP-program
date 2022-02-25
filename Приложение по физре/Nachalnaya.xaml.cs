@@ -102,7 +102,6 @@ namespace Приложение_по_физре
             double Percent;
             if (myRange.Value2 == "Результат")
             {
-                
                 int i;
                 for (int j = 5; j <= 15; j++)
                 {
@@ -129,6 +128,7 @@ namespace Приложение_по_физре
             workbook.Save();
             workbook.Close();
             excel.Quit();
+            System.Windows.MessageBox.Show("Готово!");
         }
 
 
