@@ -27,28 +27,28 @@ namespace Приложение_по_физре.Страницы_отценки
         {
             NavigationService.Navigate(new Uri("/../Страницы отценки/Page2.xaml", UriKind.Relative));
             
-            if (app.stata.Count == 0)
+            if (app.Indication.Count == 0)
             {
-                app.Lichnost.Add(tbName.Text);
-                app.Lichnost.Add(tbGroup.Text);
+                app.Person.Add(tbName.Text);
+                app.Person.Add(tbGroup.Text);
                 if (tbAge.Text == "") 
                 {
                     tbAge.Text = "-1";
                 }
-                app.stata.Add(Convert.ToDouble(tbAge.Text));
+                app.Indication.Add(Convert.ToDouble(tbAge.Text));
             }
             else
             {
-                app.Lichnost.RemoveAt(0);
-                app.Lichnost.Insert(0, tbName.Text);
-                app.Lichnost.RemoveAt(1);
-                app.Lichnost.Insert(1, tbGroup.Text);
+                app.Person.RemoveAt(0);
+                app.Person.Insert(0, tbName.Text);
+                app.Person.RemoveAt(1);
+                app.Person.Insert(1, tbGroup.Text);
                 if (tbAge.Text == "")
                 {
                     tbAge.Text = "-1";
                 }
-                app.stata.RemoveAt(0);
-                app.stata.Insert(0, Convert.ToDouble(tbAge.Text));
+                app.Indication.RemoveAt(0);
+                app.Indication.Insert(0, Convert.ToDouble(tbAge.Text));
             }
             if (cb.Text == "Мужской")
             {
@@ -70,21 +70,21 @@ namespace Приложение_по_физре.Страницы_отценки
             {
                 cb.SelectedIndex = 1;
             }
-            if (app.stata.Count != 0)
+            if (app.Indication.Count != 0)
             {
-                tbName.Text = app.Lichnost[0];
-                tbGroup.Text = app.Lichnost[1];
+                tbName.Text = app.Person[0];
+                tbGroup.Text = app.Person[1];
                 
                 
-                if (app.stata[0] == -1)
+                if (app.Indication[0] == -1)
                 {
                     tbAge.Text = "";
                 }
                 else
                 {
-                    tbAge.Text = Convert.ToString(app.stata[0]);
+                    tbAge.Text = Convert.ToString(app.Indication[0]);
                 }
-                //app.stata.Add(Convert.ToDouble(tbAge.Text));
+                //app.Indication.Add(Convert.ToDouble(tbAge.Text));
             }
         }
 

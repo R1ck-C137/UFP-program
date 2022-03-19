@@ -3,39 +3,30 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-
-using Excel = Microsoft.Office.Interop.Excel;
-using Microsoft.Office.Interop.Excel;
 using System.Windows.Forms;
 using System.IO;
 
+using Excel = Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Interop.Excel;
+
 namespace Приложение_по_физре
 {
-    /// <summary>
-    /// Логика взаимодействия для Itogi.xaml
-    /// </summary>
-
     public partial class Itogi : Excel.Page
     {
-        public Itogi()
-        {
-            InitializeComponent();
-        }
+        public Itogi() { InitializeComponent(); }
 
-        //static public List<Stat> list = new List<Stat>();
-        static public List<GridClass> GridList = new List<GridClass>();
-        public int AgeForStat;
+        App app = (App)System.Windows.Application.Current;
 
-
+        public static List<GridClass> GridList = new List<GridClass>();
         public class GridClass
         {
-            public string nadpisi { get; set; }
-            public string rezultat { get; set; }
-            public string norma { get; set; }
-            public string balli { get; set; }
+            public string lineHeader { get; set; }
+            public string result { get; set; }
+            public string norm { get; set; }
+            public string point { get; set; }
         }
 
-        public double[,] TablicaNorm_M =
+        public double[,] TableOfNorms_ForMen =
         {                                    //Возраст
             { 9, 13, 57, 18, 23, 3000, 7  },    //19
             { 9, 13, 56, 18, 22, 2900, 7.1},    //20
@@ -50,7 +41,7 @@ namespace Приложение_по_физре
             { 7, 16, 46, 15, 19, 2400, 8.37}    //29
         };
 
-        public double[,] TablicaNorm_W =
+        public double[,] TableOfNorms_ForWomen =
         {                                    //Возраст
             { 10, 15, 41, 15, 21, 2065, 8.43},  //19
             { 10, 15, 40, 15, 20, 2010, 8.55},  //20
@@ -64,177 +55,158 @@ namespace Приложение_по_физре
             { 8, 18, 34, 12, 17, 1700, 10.35},  //28
             { 8, 18, 33, 12, 17, 1670, 10.47}   //29
         };
+
         public double[] Baly = new double[11];
         public bool[] red_label = new bool[11];
 
-        App app = (App)System.Windows.Application.Current;
-
         private void nazad_Click(object sender, RoutedEventArgs e)
         {
-            app.stata.Clear();
-            app.Lichnost.Clear();
+            app.Indication.Clear();
+            app.Person.Clear();
 
             NavigationService.Navigate(new Uri("/../Nachalnaya.xaml", UriKind.Relative));
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            Rost.Visibility = Visibility.Hidden;
-            Ves.Visibility = Visibility.Hidden;
-            Vozrast.Visibility = Visibility.Hidden;
-            SAD.Visibility = Visibility.Hidden;
-            SD.Visibility = Visibility.Hidden;
-            DD.Visibility = Visibility.Hidden;
-            PulsVPokoe.Visibility = Visibility.Hidden;
-            ObshVinos.Visibility = Visibility.Hidden;
-            VostPulsa.Visibility = Visibility.Hidden;
-            Gibcost.Visibility = Visibility.Hidden;
-            Bistrota.Visibility = Visibility.Hidden;
-            Gibcost.Visibility = Visibility.Hidden;
-            SV.Visibility = Visibility.Hidden;
-            SSV.Visibility = Visibility.Hidden;
-            DinamSila.Visibility = Visibility.Hidden;
-
-
-            AgeForStat = Convert.ToInt32(app.stata[0]);
-            if (app.stata[0] < 19)
+            int AgeToCount;
+            AgeToCount = Convert.ToInt32(app.Indication[0]);
+            if (app.Indication[0] < 19)
             {
-                AgeForStat = 19;
+                AgeToCount = 19;
             }
-            if (app.stata[0] > 29)
+            if (app.Indication[0] > 29)
             {
-                AgeForStat = 29;
+                AgeToCount = 29;
             }
-            AgeForStat = AgeForStat - 19;
+            AgeToCount -= 19; 
 
-            tb1.Text = "Испытуемый: " + app.Lichnost[0];
-            tb2.Text = "Группа: " + app.Lichnost[1];
             GridList.Clear();
+
+            GridList.Add(new GridClass()
+            {
+                lineHeader = "Рост",
+                result = Convert.ToString(app.Indication[2]),
+            });
+
+            Baly[0] = app.Indication[0];
+            GridList.Add(new GridClass()
+            {
+                lineHeader = "Возраст",
+                result = Convert.ToString(app.Indication[0]),
+                point = Convert.ToString(Baly[0])
+            });
 
             if (app.Gender == true) //мужской пол
             {
 
-                GridList.Add(new GridClass()// добавляем строки в таблицу
-                {
-                    nadpisi = "Рост",
-                    rezultat = Convert.ToString(app.stata[2]),
-                });
-
-                Baly[0] = app.stata[0];
-                GridList.Add(new GridClass()
-                {
-                    nadpisi = "Возраст",
-                    rezultat = Convert.ToString(app.stata[0]),
-                    balli = Convert.ToString(Baly[0])
-                });
-
-                double NormaVesa_M = 50 + (app.stata[2] - 150) * 0.75 + ((app.stata[0] - 21) / 4);
+                double NormaVesa_M = 50 + (app.Indication[2] - 150) * 0.75 + ((app.Indication[0] - 21) / 4);
                 if (NormaVesa_M <= 0)
                 {
                     NormaVesa_M = 0;
                 }
-                if (app.stata[1] - NormaVesa_M < 1)
+                if (app.Indication[1] - NormaVesa_M < 1)
                 {
                     Baly[1] = 30;
                 }
                 else
                 {
-                    if ((app.stata[1] - NormaVesa_M) > 30 || NormaVesa_M == 0)
+                    if ((app.Indication[1] - NormaVesa_M) > 30 || NormaVesa_M == 0)
                     {
                         Baly[1] = 0;
                     }
                     else
                     {
-                        Baly[1] = 30 - (app.stata[1] - NormaVesa_M);
+                        Baly[1] = 30 - (app.Indication[1] - NormaVesa_M);
                     }
                 }
+                //--------------------------------------
                 GridList.Add(new GridClass()
                 {
-                    nadpisi = "Масса тела",
-                    rezultat = Convert.ToString(app.stata[1]),
-                    norma = Convert.ToString(NormaVesa_M),
-                    balli = Convert.ToString(Baly[1])
+                    lineHeader = "Масса тела",
+                    result = Convert.ToString(app.Indication[1]),
+                    norm = Convert.ToString(NormaVesa_M),
+                    point = Convert.ToString(Baly[1])
                 });
-                if (app.stata[1] > NormaVesa_M)
+                if (app.Indication[1] > NormaVesa_M)
                 {
                     Ves.Visibility = Visibility;
                     red_label[0] = true;
                 }
-
-                double NormaSistDavleniya_M = 109 + 0.5 * app.stata[0] + 0.1 * app.stata[1];
-                double NormaDiastDavleniya_M = 74 + 0.1 * app.stata[0] + 0.15 * app.stata[1];
+                //--------------------------------------
+                double NormaSistDavleniya_M = 109 + 0.5 * app.Indication[0] + 0.1 * app.Indication[1];
+                double NormaDiastDavleniya_M = 74 + 0.1 * app.Indication[0] + 0.15 * app.Indication[1];
 
                 Baly[2] = 30;
-                if (app.stata[5] - NormaSistDavleniya_M > 0)
+                if (app.Indication[5] - NormaSistDavleniya_M > 0)
                 {
-                    Baly[2] = Baly[2] - Math.Truncate((app.stata[5] - NormaSistDavleniya_M) / 5);
+                    Baly[2] = Baly[2] - Math.Truncate((app.Indication[5] - NormaSistDavleniya_M) / 5);
                 }
-                if (app.stata[6] - NormaDiastDavleniya_M > 0)
+                if (app.Indication[6] - NormaDiastDavleniya_M > 0)
                 {
-                    Baly[2] = Baly[2] - Math.Truncate((app.stata[6] - NormaDiastDavleniya_M) / 5);
+                    Baly[2] = Baly[2] - Math.Truncate((app.Indication[6] - NormaDiastDavleniya_M) / 5);
                 }
 
                 GridList.Add(new GridClass()
                 {
-                    nadpisi = "Системное артериальное давление",
-                    rezultat = "",
-                    balli = Convert.ToString(Baly[2])
+                    lineHeader = "Системное артериальное давление",
+                    result = "",
+                    point = Convert.ToString(Baly[2])
                 });
-
+                //--------------------------------------
                 GridList.Add(new GridClass()
                 {
-                    nadpisi = "     Систолическое давление",
-                    rezultat = Convert.ToString(app.stata[5]),
-                    norma = Convert.ToString(NormaSistDavleniya_M),
+                    lineHeader = "     Систолическое давление",
+                    result = Convert.ToString(app.Indication[5]),
+                    norm = Convert.ToString(NormaSistDavleniya_M),
                 });
-                if (app.stata[5] > NormaSistDavleniya_M)
+                if (app.Indication[5] > NormaSistDavleniya_M)
                 {
                     SD.Visibility = Visibility;
                     red_label[1] = true;
                 }
+                //--------------------------------------
                 GridList.Add(new GridClass()
                 {
-                    nadpisi = "     Диастолическое давление",
-                    rezultat = Convert.ToString(app.stata[6]),
-                    norma = Convert.ToString(NormaDiastDavleniya_M),
+                    lineHeader = "     Диастолическое давление",
+                    result = Convert.ToString(app.Indication[6]),
+                    norm = Convert.ToString(NormaDiastDavleniya_M),
                 });
-                if (app.stata[6] > NormaDiastDavleniya_M)
+                if (app.Indication[6] > NormaDiastDavleniya_M)
                 {
                     DD.Visibility = Visibility;
                     red_label[2] = true;
                 }
-
-
-                Baly[3] = 90 - app.stata[3];
+                //--------------------------------------
+                Baly[3] = 90 - app.Indication[3];
                 if (Baly[3] < 1) { Baly[3] = 0; }
-
                 GridList.Add(new GridClass()
                 {
-                    nadpisi = "Пульс в покое",
-                    rezultat = Convert.ToString(app.stata[3]),
-                    norma = "60",
-                    balli = Convert.ToString(Baly[3])
+                    lineHeader = "Пульс в покое",
+                    result = Convert.ToString(app.Indication[3]),
+                    norm = "60",
+                    point = Convert.ToString(Baly[3])
                 });
-                if (app.stata[3] > 60)
+                if (app.Indication[3] > 60)
                 {
                     PulsVPokoe.Visibility = Visibility;
                     red_label[3] = true;
                 }
-
+                //--------------------------------------
                 if (app.Sport == true)          //  кросс
                 {
 
                     Baly[4] = 30;
-                    Baly[4] = Baly[4] - Math.Truncate((TablicaNorm_M[AgeForStat, 5] - app.stata[10]) / 50) * 5;
+                    Baly[4] = Baly[4] - Math.Truncate((TableOfNorms_ForMen[AgeToCount, 5] - app.Indication[10]) / 50) * 5;
 
                     GridList.Add(new GridClass()
                     {
-                        nadpisi = "Общая выносливость",
-                        rezultat = Convert.ToString(app.stata[10]),
-                        norma = Convert.ToString(TablicaNorm_M[AgeForStat, 5]),
-                        balli = Convert.ToString(Baly[4])
+                        lineHeader = "Общая выносливость",
+                        result = Convert.ToString(app.Indication[10]),
+                        norm = Convert.ToString(TableOfNorms_ForMen[AgeToCount, 5]),
+                        point = Convert.ToString(Baly[4])
                     });
-                    if (app.stata[10] < TablicaNorm_M[AgeForStat, 5])
+                    if (app.Indication[10] < TableOfNorms_ForMen[AgeToCount, 5])
                     {
                         ObshVinos.Visibility = Visibility;
                         red_label[4] = true;
@@ -242,148 +214,144 @@ namespace Приложение_по_физре
                 }
                 else                            //  кол-во тренеровок в неделю
                 {
-                    app.stata[10] = Math.Truncate(app.stata[10]);
-                    if (app.stata[10] >= 7) { Baly[4] = 30; }
-                    if (app.stata[10] == 4) { Baly[4] = 25; }
-                    if (app.stata[10] == 3) { Baly[4] = 20; }
-                    if (app.stata[10] == 2) { Baly[4] = 10; }
-                    if (app.stata[10] == 1) { Baly[4] = 5; }
-                    if (app.stata[10] < 1) { Baly[4] = 0; }
+                    app.Indication[10] = Math.Truncate(app.Indication[10]);
+                    if (app.Indication[10] >= 7) { Baly[4] = 30; }
+                    if (app.Indication[10] == 4) { Baly[4] = 25; }
+                    if (app.Indication[10] == 3) { Baly[4] = 20; }
+                    if (app.Indication[10] == 2) { Baly[4] = 10; }
+                    if (app.Indication[10] == 1) { Baly[4] = 5; }
+                    if (app.Indication[10] < 1) { Baly[4] = 0; }
                     GridList.Add(new GridClass()
                     {
-                        nadpisi = "Общая выносливость",
-                        rezultat = Convert.ToString(app.stata[10]),
-                        norma = "3",
-                        balli = Convert.ToString(Baly[4])
+                        lineHeader = "Общая выносливость",
+                        result = Convert.ToString(app.Indication[10]),
+                        norm = "3",
+                        point = Convert.ToString(Baly[4])
                     });
-                    if (app.stata[10] < 3)
+                    if (app.Indication[10] < 3)
                     {
                         ObshVinos.Visibility = Visibility;
                         red_label[4] = true;
                     }
                 }
-
-                if (app.stata[4] <= app.stata[3])
-                {
-                    Baly[5] = 30;
-                }
-                if (app.stata[4] < app.stata[3] + 10)      //пульс после == пульс до + 10
-                {
-                    Baly[5] = 30;
-                }
-                if (app.stata[4] < app.stata[3] + 15 && app.stata[4] > app.stata[3] + 10)
-                {
-                    Baly[5] = 20;
-                }
-                if (app.stata[4] < app.stata[3] + 20 && app.stata[4] > app.stata[3] + 15)
-                {
-                    Baly[5] = 10;
-                }
-                if (app.stata[4] >= app.stata[3] + 20)
+                //--------------------------------------
+                if (app.Indication[4] >= app.Indication[3] + 20)
                 {
                     Baly[5] = -10;
                 }
+                if (app.Indication[4] < app.Indication[3] + 20)
+                {
+                    Baly[5] = 10;
+                }
+                if (app.Indication[4] < app.Indication[3] + 15)
+                {
+                    Baly[5] = 20;
+                }
+                if (app.Indication[4] <= app.Indication[3] + 10)      //пульс после == пульс до + 10
+                {
+                    Baly[5] = 30;
+                }
                 GridList.Add(new GridClass()
                 {
-                    nadpisi = "Востанавливваемость пульса",
-                    rezultat = Convert.ToString(app.stata[4]),
-                    norma = Convert.ToString(app.stata[3] + 10),
-                    balli = Convert.ToString(Baly[5])
+                    lineHeader = "Востанавливваемость пульса",
+                    result = Convert.ToString(app.Indication[4]),
+                    norm = Convert.ToString(app.Indication[3] + 10),
+                    point = Convert.ToString(Baly[5])
                 });
-                if (app.stata[3] + 10 < app.stata[4])
+                if (app.Indication[3] + 10 < app.Indication[4])
                 {
                     VostPulsa.Visibility = Visibility;
                     red_label[5] = true;
                 }
-
-                Baly[6] = app.stata[7] - TablicaNorm_M[AgeForStat, 0];
+                //--------------------------------------
+                Baly[6] = app.Indication[7] - TableOfNorms_ForMen[AgeToCount, 0];
                 if (Baly[6] < 0) { Baly[6] = 0; }
                 GridList.Add(new GridClass()
                 {
-                    nadpisi = "Гибкость",
-                    rezultat = Convert.ToString(app.stata[7]),
-                    norma = Convert.ToString(TablicaNorm_M[AgeForStat, 0]),
-                    balli = Convert.ToString(Baly[6])
+                    lineHeader = "Гибкость",
+                    result = Convert.ToString(app.Indication[7]),
+                    norm = Convert.ToString(TableOfNorms_ForMen[AgeToCount, 0]),
+                    point = Convert.ToString(Baly[6])
                 });
-                if (app.stata[7] < TablicaNorm_M[AgeForStat, 0])
+                if (app.Indication[7] < TableOfNorms_ForMen[AgeToCount, 0])
                 {
                     Gibcost.Visibility = Visibility;
                     red_label[6] = true;
                 }
-
-                Baly[7] = (TablicaNorm_M[AgeForStat, 1] - app.stata[8]) * 2;
+                //--------------------------------------
+                Baly[7] = (TableOfNorms_ForMen[AgeToCount, 1] - app.Indication[8]) * 2;
                 if (Baly[7] < 0) { Baly[7] = 0; }
                 GridList.Add(new GridClass()
                 {
-                    nadpisi = "Быстрота",
-                    rezultat = Convert.ToString(app.stata[8]),
-                    norma = Convert.ToString(TablicaNorm_M[AgeForStat, 1]),
-                    balli = Convert.ToString(Baly[7])
+                    lineHeader = "Быстрота",
+                    result = Convert.ToString(app.Indication[8]),
+                    norm = Convert.ToString(TableOfNorms_ForMen[AgeToCount, 1]),
+                    point = Convert.ToString(Baly[7])
                 });
-                if (app.stata[8] > TablicaNorm_M[AgeForStat, 1])
+                if (app.Indication[8] > TableOfNorms_ForMen[AgeToCount, 1])
                 {
                     Bistrota.Visibility = Visibility;
                     red_label[7] = true;
                 }
-
-                if ((app.stata[9] - TablicaNorm_M[AgeForStat, 2]) == 0)
+                //--------------------------------------
+                if ((app.Indication[9] - TableOfNorms_ForMen[AgeToCount, 2]) == 0)
                 {
                     Baly[8] = 2;
                 }
-                if ((app.stata[9] - TablicaNorm_M[AgeForStat, 2]) > 0)
+                if ((app.Indication[9] - TableOfNorms_ForMen[AgeToCount, 2]) > 0)
                 {
-                    Baly[8] = 2 + (app.stata[9] - TablicaNorm_M[AgeForStat, 2]) * 2;
+                    Baly[8] = 2 + (app.Indication[9] - TableOfNorms_ForMen[AgeToCount, 2]) * 2;
                 }
-                if (app.stata[9] - TablicaNorm_M[AgeForStat, 2] < 0) { Baly[8] = 0; }
+                if (app.Indication[9] - TableOfNorms_ForMen[AgeToCount, 2] < 0) { Baly[8] = 0; }
                 GridList.Add(new GridClass()
                 {
-                    nadpisi = "Динамическая сила",
-                    rezultat = Convert.ToString(app.stata[9]),
-                    norma = Convert.ToString(TablicaNorm_M[AgeForStat, 2]),
-                    balli = Convert.ToString(Baly[8])
+                    lineHeader = "Динамическая сила",
+                    result = Convert.ToString(app.Indication[9]),
+                    norm = Convert.ToString(TableOfNorms_ForMen[AgeToCount, 2]),
+                    point = Convert.ToString(Baly[8])
                 });
-                if (app.stata[9] < TablicaNorm_M[AgeForStat, 2])
+                if (app.Indication[9] < TableOfNorms_ForMen[AgeToCount, 2])
                 {
                     DinamSila.Visibility = Visibility;
                     red_label[8] = true;
                 }
-
-                if (app.stata[11] - TablicaNorm_M[AgeForStat, 3] >= 0)
+                //--------------------------------------
+                if (app.Indication[11] - TableOfNorms_ForMen[AgeToCount, 3] >= 0)
                 {
-                    Baly[9] = (app.stata[11] - (TablicaNorm_M[AgeForStat, 3] - 1)) * 3;
+                    Baly[9] = (app.Indication[11] - (TableOfNorms_ForMen[AgeToCount, 3] - 1)) * 3;
                 }
-                if (app.stata[11] - TablicaNorm_M[AgeForStat, 3] < 0) { Baly[9] = 0; }
+                if (app.Indication[11] - TableOfNorms_ForMen[AgeToCount, 3] < 0) { Baly[9] = 0; }
                 GridList.Add(new GridClass()
                 {
-                    nadpisi = "Скоростная выносливость",
-                    rezultat = Convert.ToString(app.stata[11]),
-                    norma = Convert.ToString(TablicaNorm_M[AgeForStat, 3]),
-                    balli = Convert.ToString(Baly[9])
+                    lineHeader = "Скоростная выносливость",
+                    result = Convert.ToString(app.Indication[11]),
+                    norm = Convert.ToString(TableOfNorms_ForMen[AgeToCount, 3]),
+                    point = Convert.ToString(Baly[9])
                 });
-                if (app.stata[9] < TablicaNorm_M[AgeForStat, 3])
+                if (app.Indication[9] < TableOfNorms_ForMen[AgeToCount, 3])
                 {
                     SV.Visibility = Visibility;
                     red_label[9] = true;
                 }
-
-                if (app.stata[12] - TablicaNorm_M[AgeForStat, 4] >= 0)
+                //--------------------------------------
+                if (app.Indication[12] - TableOfNorms_ForMen[AgeToCount, 4] >= 0)
                 {
-                    Baly[10] = (app.stata[12] - (TablicaNorm_M[AgeForStat, 4] - 1)) * 4;
+                    Baly[10] = (app.Indication[12] - (TableOfNorms_ForMen[AgeToCount, 4] - 1)) * 4;
                 }
-                if (app.stata[12] - TablicaNorm_M[AgeForStat, 4] < 0) { Baly[10] = 0; }
+                if (app.Indication[12] - TableOfNorms_ForMen[AgeToCount, 4] < 0) { Baly[10] = 0; }
                 GridList.Add(new GridClass()
                 {
-                    nadpisi = "Скоростно-силовая выностивость",
-                    rezultat = Convert.ToString(app.stata[12]),
-                    norma = Convert.ToString(TablicaNorm_M[AgeForStat, 4]),
-                    balli = Convert.ToString(Baly[10])
+                    lineHeader = "Скоростно-силовая выностивость",
+                    result = Convert.ToString(app.Indication[12]),
+                    norm = Convert.ToString(TableOfNorms_ForMen[AgeToCount, 4]),
+                    point = Convert.ToString(Baly[10])
                 });
-                if (app.stata[12] < TablicaNorm_M[AgeForStat, 4])
+                if (app.Indication[12] < TableOfNorms_ForMen[AgeToCount, 4])
                 {
                     SSV.Visibility = Visibility;
                     red_label[10] = true;
                 }
-
+                //--------------------------------------
                 string ItogoviyBal = "Ошибка";
                 if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] > 250) { ItogoviyBal = "Высокий"; }
                 if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 250) { ItogoviyBal = "Выше среднего"; }
@@ -392,10 +360,10 @@ namespace Приложение_по_физре
                 if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] < 50) { ItogoviyBal = "Низкий"; }
                 GridList.Add(new GridClass()
                 {
-                    nadpisi = "Ваш уровень физического состояния ",
-                    rezultat = "",
-                    norma = ItogoviyBal,
-                    balli = Convert.ToString(Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10])
+                    lineHeader = "Ваш уровень физического состояния ",
+                    result = "",
+                    norm = ItogoviyBal,
+                    point = Convert.ToString(Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10])
                 });
             }
 
@@ -405,280 +373,256 @@ namespace Приложение_по_физре
 
             else
             {
-                GridList.Add(new GridClass()// добавляем строки в таблицу
-                {
-                    nadpisi = "Рост",
-                    rezultat = Convert.ToString(app.stata[2]),
-                    balli = Convert.ToString(0)
-                });
-                Baly[0] = app.stata[0];
-                GridList.Add(new GridClass()
-                {
-                    nadpisi = "Возраст",
-                    rezultat = Convert.ToString(app.stata[0]),
-                    balli = Convert.ToString(Baly[0])
 
-                });
-                double NormaVesa_W = 50 + (app.stata[2] - 150) * 0.32 + (app.stata[0] - 21 / 5);
+                double NormaVesa_W = 50 + (app.Indication[2] - 150) * 0.32 + (app.Indication[0] - 21 / 5);
                 if (NormaVesa_W <= 0)
                 {
                     NormaVesa_W = 0;
                 }
-                if (app.stata[1] - NormaVesa_W < 1)
+                if (app.Indication[1] - NormaVesa_W < 1)
                 {
                     Baly[1] = 30;
                 }
                 else
                 {
-                    if ((app.stata[1] - NormaVesa_W) > 30 || NormaVesa_W == 0)
+                    if ((app.Indication[1] - NormaVesa_W) > 30 || NormaVesa_W == 0)
                     {
                         Baly[1] = 0;
                     }
                     else
                     {
-                        Baly[1] = 30 - (app.stata[1] - NormaVesa_W);
+                        Baly[1] = 30 - (app.Indication[1] - NormaVesa_W);
                     }
                 }
                 GridList.Add(new GridClass()
                 {
-                    nadpisi = "Масса тела",
-                    rezultat = Convert.ToString(app.stata[1]),
-                    norma = Convert.ToString(NormaVesa_W),
-                    balli = Convert.ToString(Baly[1])
+                    lineHeader = "Масса тела",
+                    result = Convert.ToString(app.Indication[1]),
+                    norm = Convert.ToString(NormaVesa_W),
+                    point = Convert.ToString(Baly[1])
                 });
-
-                double NormaSistDavleniya_W = 102 + 0.7 * app.stata[0] + 0.15 * app.stata[1];
-                double NormaDiastDavleniya_W = 78 + 0.17 * app.stata[0] + 0.1 * app.stata[1];
-
-                Baly[2] = 30;
-                if (app.stata[5] - NormaSistDavleniya_W > 0)
-                {
-                    Baly[2] = Baly[2] - Math.Truncate((app.stata[5] - NormaSistDavleniya_W) / 5);
-                }
-                if (app.stata[6] - NormaDiastDavleniya_W > 0)
-                {
-                    Baly[2] = Baly[2] - Math.Truncate((app.stata[6] - NormaDiastDavleniya_W) / 5);
-                }
-                GridList.Add(new GridClass()
-                {
-                    nadpisi = "Системное артериальное давление",
-                    rezultat = "",
-                    balli = Convert.ToString(Baly[2])
-
-                });
-                GridList.Add(new GridClass()
-                {
-                    nadpisi = "     Систолическое давление",
-                    rezultat = Convert.ToString(app.stata[5]),
-                    norma = Convert.ToString(NormaSistDavleniya_W),
-                    //balli = Convert.ToString(0)
-                });
-                GridList.Add(new GridClass()
-                {
-                    nadpisi = "     Диастолическое давление",
-                    rezultat = Convert.ToString(app.stata[6]),
-                    norma = Convert.ToString(NormaDiastDavleniya_W),
-                    //balli = Convert.ToString(0)
-                });
-
-
-                Baly[3] = 90 - app.stata[3];
-                if (Baly[3] < 1) { Baly[3] = 0; }
-
-                GridList.Add(new GridClass()
-                {
-                    nadpisi = "Пульс в покое",
-                    rezultat = Convert.ToString(app.stata[3]),
-                    norma = "60",
-                    balli = Convert.ToString(Baly[3])
-                });
-
-                if (app.Sport == true)          //  кросс
-                {
-                    Baly[4] = 30;
-                    Baly[4] = Baly[4] - Math.Truncate((TablicaNorm_W[AgeForStat, 5] - app.stata[10]) / 50) * 5;
-                    GridList.Add(new GridClass()
-                    {
-                        nadpisi = "Общая выносливость",
-                        rezultat = Convert.ToString(app.stata[10]),
-                        norma = Convert.ToString(TablicaNorm_W[AgeForStat, 5]),
-                        balli = Convert.ToString(Baly[4])
-                    });
-                    if (app.stata[10] < TablicaNorm_W[AgeForStat, 5])
-                    {
-                        ObshVinos.Visibility = Visibility;
-                    }
-                }
-                else                            //  кол-во тренеровок в неделю
-                {
-                    app.stata[10] = Math.Truncate(app.stata[10]);
-                    if (app.stata[10] >= 7) { Baly[4] = 30; }
-                    if (app.stata[10] == 4) { Baly[4] = 25; }
-                    if (app.stata[10] == 3) { Baly[4] = 20; }
-                    if (app.stata[10] == 2) { Baly[4] = 10; }
-                    if (app.stata[10] == 1) { Baly[4] = 5; }
-                    if (app.stata[10] < 1) { Baly[4] = 0; }
-                    GridList.Add(new GridClass()
-                    {
-                        nadpisi = "Общая выносливость",
-                        rezultat = Convert.ToString(app.stata[10]),
-                        norma = "3",
-                        balli = Convert.ToString(Baly[4])
-                    });
-                    if (app.stata[10] < 3)
-                    {
-                        ObshVinos.Visibility = Visibility;
-                    }
-                }
-
-                if (app.stata[4] <= app.stata[3])
-                {
-                    Baly[5] = 30;
-                }
-                if (app.stata[4] < app.stata[3] + 10)      //пульс после == пульс до + 10
-                {
-                    Baly[5] = 30;
-                }
-                if (app.stata[4] < app.stata[3] + 15 && app.stata[4] > app.stata[3] + 10)
-                {
-                    Baly[5] = 20;
-                }
-                if (app.stata[4] < app.stata[3] + 20 && app.stata[4] > app.stata[3] + 15)
-                {
-                    Baly[5] = 10;
-                }
-                if (app.stata[4] >= app.stata[3] + 20)
-                {
-                    Baly[5] = -10;
-                }
-                GridList.Add(new GridClass()
-                {
-                    nadpisi = "Востанавливваемость пульса",
-                    rezultat = Convert.ToString(app.stata[4]),
-                    norma = Convert.ToString(app.stata[3] + 10),
-                    balli = Convert.ToString(Baly[5])
-                });
-
-                Baly[6] = app.stata[7] - TablicaNorm_W[AgeForStat, 0];
-                if (Baly[6] < 0) { Baly[6] = 0; }
-                GridList.Add(new GridClass()
-                {
-                    nadpisi = "Гибкость",
-                    rezultat = Convert.ToString(app.stata[7]),
-                    norma = Convert.ToString(TablicaNorm_W[AgeForStat, 0]),
-                    balli = Convert.ToString(Baly[6])
-                });
-
-                Baly[7] = (TablicaNorm_W[AgeForStat, 1] - app.stata[8]) * 2;
-                if (Baly[7] < 0) { Baly[7] = 0; }
-                GridList.Add(new GridClass()
-                {
-                    nadpisi = "Быстрота",
-                    rezultat = Convert.ToString(app.stata[8]),
-                    norma = Convert.ToString(TablicaNorm_W[AgeForStat, 1]),
-                    balli = Convert.ToString(Baly[7])
-                });
-
-                if ((app.stata[9] - TablicaNorm_W[AgeForStat, 2]) == 0)
-                {
-                    Baly[8] = 2;
-                }
-                if ((app.stata[9] - TablicaNorm_W[AgeForStat, 2]) > 0)
-                {
-                    Baly[8] = 2 + (app.stata[9] - TablicaNorm_W[AgeForStat, 2]) * 2;
-                }
-                if (app.stata[9] - TablicaNorm_W[AgeForStat, 2] < 0) { Baly[8] = 0; }
-                GridList.Add(new GridClass()
-                {
-                    nadpisi = "Динамическая сила",
-                    rezultat = Convert.ToString(app.stata[9]),
-                    norma = Convert.ToString(TablicaNorm_W[AgeForStat, 2]),
-                    balli = Convert.ToString(Baly[8])
-                });
-
-                if (app.stata[11] - TablicaNorm_W[AgeForStat, 3] >= 0)
-                {
-                    Baly[9] = (app.stata[11] - (TablicaNorm_W[AgeForStat, 3] - 1)) * 3;
-                }
-                if (app.stata[11] - TablicaNorm_W[AgeForStat, 3] < 0) { Baly[9] = 0; }
-                GridList.Add(new GridClass()
-                {
-                    nadpisi = "Скоростная выносливость",
-                    rezultat = Convert.ToString(app.stata[11]),
-                    norma = Convert.ToString(TablicaNorm_W[AgeForStat, 3]),
-                    balli = Convert.ToString(Baly[9])
-                });
-
-                if (app.stata[12] - TablicaNorm_W[AgeForStat, 4] >= 0)
-                {
-                    Baly[10] = (app.stata[12] - (TablicaNorm_W[AgeForStat, 4] - 1)) * 4;
-                }
-                if (app.stata[12] - TablicaNorm_W[AgeForStat, 4] < 0) { Baly[10] = 0; }
-                GridList.Add(new GridClass()
-                {
-                    nadpisi = "Скоростно-силовая выностивость",
-                    rezultat = Convert.ToString(app.stata[12]),
-                    norma = Convert.ToString(TablicaNorm_W[AgeForStat, 4]),
-                    balli = Convert.ToString(Baly[10])
-                });
-
-                if (app.stata[1] > NormaVesa_W)
+                if (app.Indication[1] > NormaVesa_W)
                 {
                     Ves.Visibility = Visibility;
                     red_label[0] = true;
                 }
-                if (app.stata[5] > NormaSistDavleniya_W)
+                //--------------------------------------
+                double NormaSistDavleniya_W = 102 + 0.7 * app.Indication[0] + 0.15 * app.Indication[1];
+                double NormaDiastDavleniya_W = 78 + 0.17 * app.Indication[0] + 0.1 * app.Indication[1];
+
+                Baly[2] = 30;
+                if (app.Indication[5] - NormaSistDavleniya_W > 0)
+                {
+                    Baly[2] = Baly[2] - Math.Truncate((app.Indication[5] - NormaSistDavleniya_W) / 5);
+                }
+                if (app.Indication[6] - NormaDiastDavleniya_W > 0)
+                {
+                    Baly[2] = Baly[2] - Math.Truncate((app.Indication[6] - NormaDiastDavleniya_W) / 5);
+                }
+                GridList.Add(new GridClass()
+                {
+                    lineHeader = "Системное артериальное давление",
+                    result = "",
+                    point = Convert.ToString(Baly[2])
+
+                });
+                //--------------------------------------
+                GridList.Add(new GridClass()
+                {
+                    lineHeader = "     Систолическое давление",
+                    result = Convert.ToString(app.Indication[5]),
+                    norm = Convert.ToString(NormaSistDavleniya_W),
+                });
+                if (app.Indication[5] > NormaSistDavleniya_W)
                 {
                     SD.Visibility = Visibility;
                     red_label[1] = true;
                 }
-                if (app.stata[6] > NormaDiastDavleniya_W)
+                //--------------------------------------
+                GridList.Add(new GridClass()
+                {
+                    lineHeader = "     Диастолическое давление",
+                    result = Convert.ToString(app.Indication[6]),
+                    norm = Convert.ToString(NormaDiastDavleniya_W),
+                });
+                if (app.Indication[6] > NormaDiastDavleniya_W)
                 {
                     DD.Visibility = Visibility;
                     red_label[2] = true;
                 }
-                if (app.stata[3] > 60)
+                //--------------------------------------
+                Baly[3] = 90 - app.Indication[3];
+                if (Baly[3] < 1) { Baly[3] = 0; }
+                GridList.Add(new GridClass()
+                {
+                    lineHeader = "Пульс в покое",
+                    result = Convert.ToString(app.Indication[3]),
+                    norm = "60",
+                    point = Convert.ToString(Baly[3])
+                });
+                if (app.Indication[3] > 60)
                 {
                     PulsVPokoe.Visibility = Visibility;
                     red_label[3] = true;
                 }
-                if (app.stata[3] + 10 < app.stata[4])
+                //--------------------------------------
+                if (app.Sport == true)          //  кросс
+                {
+                    Baly[4] = 30;
+                    Baly[4] = Baly[4] - Math.Truncate((TableOfNorms_ForWomen[AgeToCount, 5] - app.Indication[10]) / 50) * 5;
+                    GridList.Add(new GridClass()
+                    {
+                        lineHeader = "Общая выносливость",
+                        result = Convert.ToString(app.Indication[10]),
+                        norm = Convert.ToString(TableOfNorms_ForWomen[AgeToCount, 5]),
+                        point = Convert.ToString(Baly[4])
+                    });
+                    if (app.Indication[10] < TableOfNorms_ForWomen[AgeToCount, 5])
+                    {
+                        ObshVinos.Visibility = Visibility;
+                        red_label[4] = true;
+                    }
+                }
+                else                            //  кол-во тренеровок в неделю
+                {
+                    app.Indication[10] = Math.Truncate(app.Indication[10]);
+                    if (app.Indication[10] >= 7) { Baly[4] = 30; }
+                    if (app.Indication[10] == 4) { Baly[4] = 25; }
+                    if (app.Indication[10] == 3) { Baly[4] = 20; }
+                    if (app.Indication[10] == 2) { Baly[4] = 10; }
+                    if (app.Indication[10] == 1) { Baly[4] = 5; }
+                    if (app.Indication[10] < 1) { Baly[4] = 0; }
+                    GridList.Add(new GridClass()
+                    {
+                        lineHeader = "Общая выносливость",
+                        result = Convert.ToString(app.Indication[10]),
+                        norm = "3",
+                        point = Convert.ToString(Baly[4])
+                    });
+                    if (app.Indication[10] < 3)
+                    {
+                        ObshVinos.Visibility = Visibility;
+                        red_label[4] = true;
+                    }
+                }
+                //--------------------------------------
+                if (app.Indication[4] >= app.Indication[3] + 20)
+                {
+                    Baly[5] = -10;
+                }
+                if (app.Indication[4] < app.Indication[3] + 20)
+                {
+                    Baly[5] = 10;
+                }
+                if (app.Indication[4] < app.Indication[3] + 15)
+                {
+                    Baly[5] = 20;
+                }
+                if (app.Indication[4] <= app.Indication[3] + 10)      //пульс после == пульс до + 10
+                {
+                    Baly[5] = 30;
+                }
+                GridList.Add(new GridClass()
+                {
+                    lineHeader = "Востанавливваемость пульса",
+                    result = Convert.ToString(app.Indication[4]),
+                    norm = Convert.ToString(app.Indication[3] + 10),
+                    point = Convert.ToString(Baly[5])
+                });
+                if (app.Indication[3] + 10 < app.Indication[4])
                 {
                     VostPulsa.Visibility = Visibility;
                     red_label[5] = true;
                 }
-                if (app.stata[7] < TablicaNorm_W[AgeForStat, 0])
+                //--------------------------------------
+                Baly[6] = app.Indication[7] - TableOfNorms_ForWomen[AgeToCount, 0];
+                if (Baly[6] < 0) { Baly[6] = 0; }
+                GridList.Add(new GridClass()
+                {
+                    lineHeader = "Гибкость",
+                    result = Convert.ToString(app.Indication[7]),
+                    norm = Convert.ToString(TableOfNorms_ForWomen[AgeToCount, 0]),
+                    point = Convert.ToString(Baly[6])
+                });
+                if (app.Indication[7] < TableOfNorms_ForWomen[AgeToCount, 0])
                 {
                     Gibcost.Visibility = Visibility;
                     red_label[6] = true;
                 }
-                if (app.stata[8] > TablicaNorm_W[AgeForStat, 1])
+                //--------------------------------------
+                Baly[7] = (TableOfNorms_ForWomen[AgeToCount, 1] - app.Indication[8]) * 2;
+                if (Baly[7] < 0) { Baly[7] = 0; }
+                GridList.Add(new GridClass()
+                {
+                    lineHeader = "Быстрота",
+                    result = Convert.ToString(app.Indication[8]),
+                    norm = Convert.ToString(TableOfNorms_ForWomen[AgeToCount, 1]),
+                    point = Convert.ToString(Baly[7])
+                });
+                if (app.Indication[8] > TableOfNorms_ForWomen[AgeToCount, 1])
                 {
                     Bistrota.Visibility = Visibility;
                     red_label[7] = true;
                 }
-                if (app.stata[9] < TablicaNorm_W[AgeForStat, 2])
+                //--------------------------------------
+                if ((app.Indication[9] - TableOfNorms_ForWomen[AgeToCount, 2]) == 0)
+                {
+                    Baly[8] = 2;
+                }
+                if ((app.Indication[9] - TableOfNorms_ForWomen[AgeToCount, 2]) > 0)
+                {
+                    Baly[8] = 2 + (app.Indication[9] - TableOfNorms_ForWomen[AgeToCount, 2]) * 2;
+                }
+                if (app.Indication[9] - TableOfNorms_ForWomen[AgeToCount, 2] < 0) { Baly[8] = 0; }
+                GridList.Add(new GridClass()
+                {
+                    lineHeader = "Динамическая сила",
+                    result = Convert.ToString(app.Indication[9]),
+                    norm = Convert.ToString(TableOfNorms_ForWomen[AgeToCount, 2]),
+                    point = Convert.ToString(Baly[8])
+                });
+                if (app.Indication[9] < TableOfNorms_ForWomen[AgeToCount, 2])
                 {
                     DinamSila.Visibility = Visibility;
                     red_label[8] = true;
                 }
-                if (app.stata[10] < 3)
+                //--------------------------------------
+                if (app.Indication[11] - TableOfNorms_ForWomen[AgeToCount, 3] >= 0)
                 {
-                    ObshVinos.Visibility = Visibility;
-                    red_label[4] = true;
+                    Baly[9] = (app.Indication[11] - (TableOfNorms_ForWomen[AgeToCount, 3] - 1)) * 3;
                 }
-
-                if (app.stata[11] < TablicaNorm_W[AgeForStat, 3])
+                if (app.Indication[11] - TableOfNorms_ForWomen[AgeToCount, 3] < 0) { Baly[9] = 0; }
+                GridList.Add(new GridClass()
+                {
+                    lineHeader = "Скоростная выносливость",
+                    result = Convert.ToString(app.Indication[11]),
+                    norm = Convert.ToString(TableOfNorms_ForWomen[AgeToCount, 3]),
+                    point = Convert.ToString(Baly[9])
+                });
+                if (app.Indication[11] < TableOfNorms_ForWomen[AgeToCount, 3])
                 {
                     SV.Visibility = Visibility;
                     red_label[9] = true;
                 }
-                if (app.stata[12] < TablicaNorm_W[AgeForStat, 4])
+                //--------------------------------------
+                if (app.Indication[12] - TableOfNorms_ForWomen[AgeToCount, 4] >= 0)
+                {
+                    Baly[10] = (app.Indication[12] - (TableOfNorms_ForWomen[AgeToCount, 4] - 1)) * 4;
+                }
+                if (app.Indication[12] - TableOfNorms_ForWomen[AgeToCount, 4] < 0) { Baly[10] = 0; }
+                GridList.Add(new GridClass()
+                {
+                    lineHeader = "Скоростно-силовая выностивость",
+                    result = Convert.ToString(app.Indication[12]),
+                    norm = Convert.ToString(TableOfNorms_ForWomen[AgeToCount, 4]),
+                    point = Convert.ToString(Baly[10])
+                });
+                if (app.Indication[12] < TableOfNorms_ForWomen[AgeToCount, 4])
                 {
                     SSV.Visibility = Visibility;
                     red_label[10] = true;
                 }
-
+                //--------------------------------------
                 string ItogoviyBal = "Ошибка";
 
                 if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] > 250) { ItogoviyBal = "Высокий"; }
@@ -690,10 +634,10 @@ namespace Приложение_по_физре
 
                 GridList.Add(new GridClass()
                 {
-                    nadpisi = "Ваш уровень физического состояния ",
-                    rezultat = "",
-                    norma = ItogoviyBal,
-                    balli = Convert.ToString(Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10])
+                    lineHeader = "Ваш уровень физического состояния ",
+                    result = "",
+                    norm = ItogoviyBal,
+                    point = Convert.ToString(Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10])
                 });
             }
             dataGrid.ItemsSource = GridList;
@@ -716,15 +660,10 @@ namespace Приложение_по_физре
         }
 
         HeaderFooter Excel.Page.LeftHeader => throw new NotImplementedException();
-
         HeaderFooter Excel.Page.CenterHeader => throw new NotImplementedException();
-
         HeaderFooter Excel.Page.RightHeader => throw new NotImplementedException();
-
         HeaderFooter Excel.Page.LeftFooter => throw new NotImplementedException();
-
         HeaderFooter Excel.Page.CenterFooter => throw new NotImplementedException();
-
         HeaderFooter Excel.Page.RightFooter => throw new NotImplementedException();
 
         public void button_Click(object sender, RoutedEventArgs e)
@@ -765,10 +704,11 @@ namespace Приложение_по_физре
             Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
             Range myRange;
 
-            myRange = (Range)sheet1.Cells[2, 1];
-            myRange.Value2 = app.Lichnost[0];
             myRange = (Range)sheet1.Cells[1, 1];
             myRange.Value2 = "Ф.И.О.";
+            myRange = (Range)sheet1.Cells[2, 1];
+            myRange.Value2 = app.Person[0];
+            
 
             myRange = (Range)sheet1.Cells[2, 2];
             myRange.Value2 = dataGrid.Columns[1].Header;
@@ -852,10 +792,11 @@ namespace Приложение_по_физре
             myRange = (Range)sheet1.Cells[1, 1];
             if (myRange.Value2 == null)
             {
-                myRange = (Range)sheet1.Cells[2, 1];
-                myRange.Value2 = app.Lichnost[0];
                 myRange = (Range)sheet1.Cells[1, 1];
                 myRange.Value2 = "Ф.И.О.";
+                myRange = (Range)sheet1.Cells[2, 1];
+                myRange.Value2 = app.Person[0];
+                
 
                 myRange = (Range)sheet1.Cells[2, 2];
                 myRange.Value2 = dataGrid.Columns[1].Header;
@@ -879,6 +820,7 @@ namespace Приложение_по_физре
                             {
                                 TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
                                 myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 3];
+                                myRange.NumberFormat = "General";
                                 myRange.Value2 = b.Text;
                             }
                             if (j <= 11 && i > 0)
@@ -893,6 +835,7 @@ namespace Приложение_по_физре
                             if (j < dataGrid.Items.Count) {
                                 TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
                                 myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 2];
+                                myRange.NumberFormat = "General";
                                 myRange.Value2 = b.Text;
                             }
                             if (j <= 11 && i > 0)
@@ -924,7 +867,7 @@ namespace Приложение_по_физре
                     }
                 }
                 myRange = (Range)sheet1.Cells[chek, 1];
-                myRange.Value2 = app.Lichnost[0];
+                myRange.Value2 = app.Person[0];
                 myRange = (Range)sheet1.Cells[chek, 2];
                 myRange.Value2 = dataGrid.Columns[1].Header;
                 myRange = (Range)sheet1.Cells[chek + 1, 2];
@@ -940,6 +883,7 @@ namespace Приложение_по_физре
                             {
                                 TextBlock b = dataGrid.Columns[i + 1].GetCellContent(dataGrid.Items[j]) as TextBlock;
                                 myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 3];
+                                myRange.NumberFormat = "General";
                                 myRange.Value2 = b.Text;
                             }
                             if (j <= 11)
@@ -955,6 +899,7 @@ namespace Приложение_по_физре
                             {
                                 TextBlock b = dataGrid.Columns[i + 1].GetCellContent(dataGrid.Items[j]) as TextBlock;
                                 myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 2];
+                                myRange.NumberFormat = "General";
                                 myRange.Value2 = b.Text;
                             }
                             if (j <= 11)
@@ -969,6 +914,7 @@ namespace Приложение_по_физре
                 workbook.Save();
                 workbook.Close();
                 excel.Quit();
+                System.Windows.MessageBox.Show("Готово!");
             }
         }
 

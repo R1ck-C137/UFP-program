@@ -35,28 +35,28 @@ namespace Приложение_по_физре
 
         private void b_dalee_Click(object sender, RoutedEventArgs e)
         {
-            if (tb_stata0.Text == "" || tb_stata1.Text == "" || tb_stata2.Text == "" || tb_stata3.Text == "" || tb_stata4.Text == "" || tb_stata5.Text == "" || tb_stata6.Text == "" || tb_stata7.Text == "" || tb_stata8.Text == "" || tb_stata9.Text == "" || tb_stata10.Text == "" || tb_stata11.Text == "" || tb_stata12.Text == "" || tb_Lichnost0.Text == "" || tb_Lichnost1.Text == "")
+            if (tb_Indication0.Text == "" || tb_Indication1.Text == "" || tb_Indication2.Text == "" || tb_Indication3.Text == "" || tb_Indication4.Text == "" || tb_Indication5.Text == "" || tb_Indication6.Text == "" || tb_Indication7.Text == "" || tb_Indication8.Text == "" || tb_Indication9.Text == "" || tb_Indication10.Text == "" || tb_Indication11.Text == "" || tb_Indication12.Text == "" || tb_Lichnost0.Text == "" || tb_Lichnost1.Text == "")
             {
                 MessageBox.Show("Не все поля заполненны!");
             }
             else
             {
-                app.stata.Add(Convert.ToDouble(tb_stata0.Text));
-                app.stata.Add(Convert.ToDouble(tb_stata1.Text));
-                app.stata.Add(Convert.ToDouble(tb_stata2.Text));
-                app.stata.Add(Convert.ToDouble(tb_stata3.Text));
-                app.stata.Add(Convert.ToDouble(tb_stata4.Text));
-                app.stata.Add(Convert.ToDouble(tb_stata5.Text));
-                app.stata.Add(Convert.ToDouble(tb_stata6.Text));
-                app.stata.Add(Convert.ToDouble(tb_stata7.Text));
-                app.stata.Add(Convert.ToDouble(tb_stata8.Text));
-                app.stata.Add(Convert.ToDouble(tb_stata9.Text));
-                app.stata.Add(Convert.ToDouble(tb_stata10.Text));
-                app.stata.Add(Convert.ToDouble(tb_stata11.Text));
-                app.stata.Add(Convert.ToDouble(tb_stata12.Text));
+                app.Indication.Add(Convert.ToDouble(tb_Indication0.Text));
+                app.Indication.Add(Convert.ToDouble(tb_Indication1.Text));
+                app.Indication.Add(Convert.ToDouble(tb_Indication2.Text));
+                app.Indication.Add(Convert.ToDouble(tb_Indication3.Text));
+                app.Indication.Add(Convert.ToDouble(tb_Indication4.Text));
+                app.Indication.Add(Convert.ToDouble(tb_Indication5.Text));
+                app.Indication.Add(Convert.ToDouble(tb_Indication6.Text));
+                app.Indication.Add(Convert.ToDouble(tb_Indication7.Text));
+                app.Indication.Add(Convert.ToDouble(tb_Indication8.Text));
+                app.Indication.Add(Convert.ToDouble(tb_Indication9.Text));
+                app.Indication.Add(Convert.ToDouble(tb_Indication10.Text));
+                app.Indication.Add(Convert.ToDouble(tb_Indication11.Text));
+                app.Indication.Add(Convert.ToDouble(tb_Indication12.Text));
 
-                app.Lichnost.Add(Convert.ToString(tb_Lichnost0.Text));
-                app.Lichnost.Add(Convert.ToString(tb_Lichnost1.Text));
+                app.Person.Add(Convert.ToString(tb_Lichnost0.Text));
+                app.Person.Add(Convert.ToString(tb_Lichnost1.Text));
 
                 if (cb_Gender.Text == "Мужской")
                 {
@@ -71,75 +71,75 @@ namespace Приложение_по_физре
             }
         }
 
-        private void tb_stata0_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void tb_Indication0_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
         }
 
-        private void tb_stata1_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void tb_Indication1_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
         }
 
-        private void tb_stata2_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void tb_Indication2_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
         }
 
-        private void tb_stata3_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void tb_Indication3_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
         }
 
-        private void tb_stata4_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void tb_Indication4_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
         }
 
-        private void tb_stata5_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void tb_Indication5_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
         }
 
-        private void tb_stata6_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void tb_Indication6_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
         }
 
-        private void tb_stata7_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void tb_Indication7_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
         }
 
-        private void tb_stata8_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void tb_Indication8_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
         }
 
-        private void tb_stata9_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void tb_Indication9_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
         }
 
-        private void tb_stata10_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void tb_Indication10_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
         }
 
-        private void tb_stata11_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void tb_Indication11_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
         }
 
-        private void tb_stata12_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void tb_Indication12_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            app.stata.Clear();
-            app.Lichnost.Clear();
+            app.Indication.Clear();
+            app.Person.Clear();
             cb_Gender.SelectedIndex = 0;
         }
 

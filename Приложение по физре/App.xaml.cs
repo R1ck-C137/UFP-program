@@ -8,8 +8,8 @@ namespace Приложение_по_физре
     /// </summary>
     public partial class App : Application
     {
-        public List<string> Lichnost = new List<string>();
-        public List<double> stata = new List<double>();
+        public List<string> Person = new List<string>();
+        public List<double> Indication = new List<double>();
         public bool Gender = true;
         public bool Sport = false;
         public bool Gruppa = false;

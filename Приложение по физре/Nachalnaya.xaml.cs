@@ -97,7 +97,7 @@ namespace Приложение_по_физре
             Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
             Range myRange;
             //myRange = (Range)sheet1.Cells[2, 1];
-            //myRange.Value2 = app.Lichnost[0];
+            //myRange.Value2 = app.Person[0];
             myRange = (Range)sheet1.Cells[3, 2];
             double Percent;
             if (myRange.Value2 == "Результат")
@@ -122,12 +122,14 @@ namespace Приложение_по_физре
                     Percent = Math.Round(Percent, 2);
                     myRange = (Range)sheet1.Cells[i - 2, j];
                     myRange.Value2 = Percent + "%";
+                    //myRange.NumberFormat = "Общий";
                 }
             }
 
             workbook.Save();
             workbook.Close();
             excel.Quit();
+            app.path = null;
             System.Windows.MessageBox.Show("Готово!");
         }
 

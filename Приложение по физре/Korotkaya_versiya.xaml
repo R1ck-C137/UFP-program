@@ -17,35 +17,35 @@
         <TextBox x:Name="tb_Lichnost1" HorizontalAlignment="Left" Height="26" Margin="355,89,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="235" FontSize="14"/>
         <TextBlock x:Name="textBlock1_Copy1" HorizontalAlignment="Left" Margin="60,131,0,0" TextWrapping="Wrap" Text="Возраст" VerticalAlignment="Top" FontSize="14"/>
         <TextBlock x:Name="textBlock1_Copy2" HorizontalAlignment="Left" Margin="355,131,0,0" TextWrapping="Wrap" Text="Пол" VerticalAlignment="Top" FontSize="14" Width="26"/>
-        <TextBox x:Name="tb_stata0" HorizontalAlignment="Left" Height="26" Margin="60,154,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="225" FontSize="14" PreviewTextInput="tb_stata0_PreviewTextInput"/>
+        <TextBox x:Name="tb_Indication0" HorizontalAlignment="Left" Height="26" Margin="60,154,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="225" FontSize="14" PreviewTextInput="tb_Indication0_PreviewTextInput"/>
         <ComboBox x:Name="cb_Gender" HorizontalAlignment="Left" Margin="355,154,0,0" VerticalAlignment="Top" Width="235" Height="26">
             <ComboBoxItem x:Name="M"  Content="Мужской"/>
             <ComboBoxItem x:Name="W" Content="Женский"/>
         </ComboBox>
         <TextBlock x:Name="textBlock1_Copy3" HorizontalAlignment="Left" Margin="60,197,0,0" TextWrapping="Wrap" Text="Вес" VerticalAlignment="Top" FontSize="14"/>
-        <TextBox x:Name="tb_stata1" HorizontalAlignment="Left" Height="26" Margin="60,220,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="225" FontSize="14" PreviewTextInput="tb_stata1_PreviewTextInput"/>
+        <TextBox x:Name="tb_Indication1" HorizontalAlignment="Left" Height="26" Margin="60,220,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="225" FontSize="14" PreviewTextInput="tb_Indication1_PreviewTextInput"/>
         <TextBlock x:Name="textBlock1_Copy4" HorizontalAlignment="Left" Margin="355,197,0,0" TextWrapping="Wrap" Text="Рост" VerticalAlignment="Top" FontSize="14" Width="29"/>
-        <TextBox x:Name="tb_stata2" HorizontalAlignment="Left" Height="26" Margin="355,221,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="235" FontSize="14" PreviewTextInput="tb_stata2_PreviewTextInput"/>
+        <TextBox x:Name="tb_Indication2" HorizontalAlignment="Left" Height="26" Margin="355,221,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="235" FontSize="14" PreviewTextInput="tb_Indication2_PreviewTextInput"/>
         <TextBlock x:Name="textBlock1_Copy5" HorizontalAlignment="Left" Margin="60,261,0,0" TextWrapping="Wrap" Text="Пульс в покое" VerticalAlignment="Top" FontSize="14"/>
-        <TextBox x:Name="tb_stata3" HorizontalAlignment="Left" Height="26" Margin="60,285,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="225" FontSize="14" PreviewTextInput="tb_stata3_PreviewTextInput"/>
+        <TextBox x:Name="tb_Indication3" HorizontalAlignment="Left" Height="26" Margin="60,285,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="225" FontSize="14" PreviewTextInput="tb_Indication3_PreviewTextInput"/>
         <TextBlock x:Name="textBlock1_Copy6" HorizontalAlignment="Left" Margin="355,264,0,0" TextWrapping="Wrap" Text="Пульс после" VerticalAlignment="Top" FontSize="14" Width="83"/>
-        <TextBox x:Name="tb_stata4" HorizontalAlignment="Left" Height="26" Margin="355,285,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="235" FontSize="14" PreviewTextInput="tb_stata4_PreviewTextInput"/>
+        <TextBox x:Name="tb_Indication4" HorizontalAlignment="Left" Height="26" Margin="355,285,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="235" FontSize="14" PreviewTextInput="tb_Indication4_PreviewTextInput"/>
         <TextBlock x:Name="textBlock1_Copy7" HorizontalAlignment="Left" Margin="60,325,0,0" TextWrapping="Wrap" Text="Систолическое давление" VerticalAlignment="Top" FontSize="14"/>
-        <TextBox x:Name="tb_stata5" HorizontalAlignment="Left" Height="26" Margin="60,348,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="225" FontSize="14" PreviewTextInput="tb_stata5_PreviewTextInput"/>
+        <TextBox x:Name="tb_Indication5" HorizontalAlignment="Left" Height="26" Margin="60,348,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="225" FontSize="14" PreviewTextInput="tb_Indication5_PreviewTextInput"/>
         <TextBlock x:Name="textBlock1_Copy8" HorizontalAlignment="Left" Margin="355,325,0,0" TextWrapping="Wrap" Text="Диастолическое давление" VerticalAlignment="Top" FontSize="14" Width="177"/>
-        <TextBox x:Name="tb_stata6" HorizontalAlignment="Left" Height="26" Margin="355,347,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="235" FontSize="14" PreviewTextInput="tb_stata6_PreviewTextInput"/>
+        <TextBox x:Name="tb_Indication6" HorizontalAlignment="Left" Height="26" Margin="355,347,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="235" FontSize="14" PreviewTextInput="tb_Indication6_PreviewTextInput"/>
         <TextBlock x:Name="textBlock1_Copy9" HorizontalAlignment="Left" Margin="60,390,0,0" TextWrapping="Wrap" Text="Гибкость" VerticalAlignment="Top" FontSize="14"/>
-        <TextBox x:Name="tb_stata7" HorizontalAlignment="Left" Height="26" Margin="60,414,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="225" FontSize="14" PreviewTextInput="tb_stata7_PreviewTextInput"/>
+        <TextBox x:Name="tb_Indication7" HorizontalAlignment="Left" Height="26" Margin="60,414,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="225" FontSize="14" PreviewTextInput="tb_Indication7_PreviewTextInput"/>
         <TextBlock x:Name="textBlock1_Copy10" HorizontalAlignment="Left" Margin="355,391,0,0" TextWrapping="Wrap" Text="Быстрота" VerticalAlignment="Top" FontSize="14" Width="62"/>
-        <TextBox x:Name="tb_stata8" HorizontalAlignment="Left" Height="26" Margin="355,414,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="235" FontSize="14" PreviewTextInput="tb_stata8_PreviewTextInput"/>
+        <TextBox x:Name="tb_Indication8" HorizontalAlignment="Left" Height="26" Margin="355,414,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="235" FontSize="14" PreviewTextInput="tb_Indication8_PreviewTextInput"/>
         <TextBlock x:Name="textBlock1_Copy11" HorizontalAlignment="Left" Margin="60,456,0,0" TextWrapping="Wrap" Text="Динамическая сила" VerticalAlignment="Top" FontSize="14"/>
-        <TextBox x:Name="tb_stata9" HorizontalAlignment="Left" Height="26" Margin="60,480,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="225" FontSize="14" PreviewTextInput="tb_stata9_PreviewTextInput"/>
+        <TextBox x:Name="tb_Indication9" HorizontalAlignment="Left" Height="26" Margin="60,480,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="225" FontSize="14" PreviewTextInput="tb_Indication9_PreviewTextInput"/>
         <TextBlock x:Name="textBlock1_Copy12" HorizontalAlignment="Left" Margin="355,456,0,0" TextWrapping="Wrap" Text="Общаяя выносливость" VerticalAlignment="Top" FontSize="14"/>
-        <TextBox x:Name="tb_stata10" HorizontalAlignment="Left" Height="26" Margin="355,480,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="235" FontSize="14" PreviewTextInput="tb_stata10_PreviewTextInput"/>
+        <TextBox x:Name="tb_Indication10" HorizontalAlignment="Left" Height="26" Margin="355,480,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="235" FontSize="14" PreviewTextInput="tb_Indication10_PreviewTextInput"/>
         <TextBlock x:Name="textBlock1_Copy13" HorizontalAlignment="Left" Margin="60,520,0,0" TextWrapping="Wrap" Text="Скоростная выносливость" VerticalAlignment="Top" FontSize="14"/>
-        <TextBox x:Name="tb_stata11" HorizontalAlignment="Left" Height="26" Margin="60,544,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="225" FontSize="14" PreviewTextInput="tb_stata11_PreviewTextInput"/>
+        <TextBox x:Name="tb_Indication11" HorizontalAlignment="Left" Height="26" Margin="60,544,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="225" FontSize="14" PreviewTextInput="tb_Indication11_PreviewTextInput"/>
         <TextBlock x:Name="textBlock1_Copy14" HorizontalAlignment="Left" Margin="355,520,0,0" TextWrapping="Wrap" Text="Скоростно силовая выносливость" VerticalAlignment="Top" FontSize="14"/>
-        <TextBox x:Name="tb_stata12" HorizontalAlignment="Left" Height="26" Margin="355,544,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="235" FontSize="14" PreviewTextInput="tb_stata12_PreviewTextInput"/>
+        <TextBox x:Name="tb_Indication12" HorizontalAlignment="Left" Height="26" Margin="355,544,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="235" FontSize="14" PreviewTextInput="tb_Indication12_PreviewTextInput"/>
         <Button x:Name="b_nazad" Content="Назад" HorizontalAlignment="Left" Margin="207,595,0,0" VerticalAlignment="Top" Width="93" Height="30" Click="b_nazad_Click"/>
         <Button x:Name="b_dalee" Content="Далее" HorizontalAlignment="Left" Margin="340,595,0,0" VerticalAlignment="Top" Width="93" Height="30" Click="b_dalee_Click"/>
     </Grid>

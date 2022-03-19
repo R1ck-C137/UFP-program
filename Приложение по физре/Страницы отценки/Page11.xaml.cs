@@ -27,13 +27,13 @@ namespace Приложение_по_физре.Страницы_отценки
         {
             
 
-            if (app.stata.Count <= 12)
+            if (app.Indication.Count <= 12)
             {
                 if (tb1.Text == "")
                 {
                     tb1.Text = "-1";
                 }
-                app.stata.Add(Convert.ToDouble(tb1.Text));  // stata[12]
+                app.Indication.Add(Convert.ToDouble(tb1.Text));  // Indication[12]
             }
             else
             {
@@ -41,10 +41,10 @@ namespace Приложение_по_физре.Страницы_отценки
                 {
                     tb1.Text = "-1";
                 }
-                app.stata.RemoveAt(12);
-                app.stata.Insert(12, Convert.ToDouble(tb1.Text));
+                app.Indication.RemoveAt(12);
+                app.Indication.Insert(12, Convert.ToDouble(tb1.Text));
             }
-            if (app.stata[0] == -1 || app.stata[1] == -1 || app.stata[2] == -1 || app.stata[3] == -1 || app.stata[4] == -1 || app.stata[5] == -1 || app.stata[6] == -1 || app.stata[7] == -1 || app.stata[8] == -1 || app.stata[9] == -1 || app.stata[10] == -1 || app.stata[11] == -1 || app.stata[12] == -1)
+            if (app.Indication[0] == -1 || app.Indication[1] == -1 || app.Indication[2] == -1 || app.Indication[3] == -1 || app.Indication[4] == -1 || app.Indication[5] == -1 || app.Indication[6] == -1 || app.Indication[7] == -1 || app.Indication[8] == -1 || app.Indication[9] == -1 || app.Indication[10] == -1 || app.Indication[11] == -1 || app.Indication[12] == -1)
             //if(false)
             {
                 if (tb1.Text == "-1")
@@ -66,15 +66,15 @@ namespace Приложение_по_физре.Страницы_отценки
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            if (app.stata.Count >= 13)
+            if (app.Indication.Count >= 13)
             {
-                if (app.stata[12] == -1)
+                if (app.Indication[12] == -1)
                 {
                     tb1.Text = "";
                 }
                 else
                 {
-                    tb1.Text = Convert.ToString(app.stata[12]);
+                    tb1.Text = Convert.ToString(app.Indication[12]);
                 }
             }
         }
