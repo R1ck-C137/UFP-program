@@ -105,8 +105,8 @@ namespace Приложение_по_физре
                 int i;
                 for (int j = 5; j <= 15; j++)
                 {
-                    double Total = 0;
-                    double Passed = 0;
+                    double Total = 0;//всего
+                    double Passed = 0;//выполненный норматив
                     for (i = 3; Convert.ToString(myRange.Value2) != null; i = i + 2)
                     {
                         myRange = (Range)sheet1.Cells[i, j];
@@ -119,8 +119,8 @@ namespace Приложение_по_физре
                     Total--;
                     Passed--;
                     Percent = 100 / (Total / Passed);
-                    Percent = Math.Round(Percent, 2);
-                    myRange = (Range)sheet1.Cells[i - 2, j];
+                    Percent = Math.Round(Percent, 0);
+                    myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i - 2, j];
                     myRange.Value2 = Percent + "%";
                     //myRange.NumberFormat = "Общий";
                 }
