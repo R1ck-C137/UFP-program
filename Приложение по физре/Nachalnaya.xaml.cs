@@ -146,5 +146,102 @@ namespace Приложение_по_физре
             }
             return null;
         }
+
+        public void CreateCharts()
+        {
+            if (app.path == null)
+            {
+                app.path = GetPath();
+                if (app.path == "")
+                {
+                    return;
+                }
+            }
+
+            Excel.Application excel = new Excel.Application();
+
+            Workbook workbook;
+            if (!File.Exists(app.path))
+            {
+                System.Windows.MessageBox.Show("Файла не существует!");
+                return;
+            }
+
+            workbook = excel.Workbooks.Open(app.path);
+            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
+            
+            //Worksheet sheet2 = (Worksheet)workbook.Sheets.Add();
+            //sheet2 = (Worksheet)workbook.Sheets[2];
+
+            Range myRange;
+            myRange = (Range)sheet1.Cells[1, 1];
+            int i = 1;
+            int j = 1;
+
+            for (i = 2; Convert.ToString(myRange.Cells[i, 5].Value2) != null; i++)///////////////////
+            {
+
+            }
+
+            for (j = 5; j <= 15; j++)
+            {
+                if (Convert.ToString(myRange.Cells[i + 1, j].Value2) == null)
+                {
+                    break;
+                }
+                if (Convert.ToString(myRange.Cells[i + 1, j].Value2).IndexOf("%") == -1)
+                {
+                    for (j = 5; j <= 15; j++)
+                    {
+                        myRange = (Range)sheet1.Cells[i + 1, j];
+                        myRange.Value2 = null;
+                    }
+                    double Percent;
+                    for (j = 5; j <= 15; j++)
+                    {
+                        double Total = 0;//всего
+                        double Passed = 0;//выполненный норматив
+                        for (i = 3; Convert.ToString(myRange.Value2) != null; i = i + 2)
+                        {
+                            myRange = (Range)sheet1.Cells[i, j];
+                            if (myRange.Interior.ColorIndex != 3)
+                            {
+                                Passed++;
+                            }
+                            Total++;
+                        }
+                        Total--;
+                        Passed--;
+                        Percent = 100 / (Total / Passed);
+                        Percent = Math.Round(Percent, 0);
+                        myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i - 2, j];
+                        myRange.Value2 = Percent + "%";
+                    }
+                    break;
+                }
+            }
+
+            //sheet2.ChartObjects();
+            ChartObjects xlCharts = (ChartObjects)sheet1.ChartObjects(Type.Missing);
+            ChartObject myChart = (ChartObject)xlCharts.Add(110, 0, 350, 250);
+            Chart chart = myChart.Chart;
+            SeriesCollection seriesCollection = (SeriesCollection)chart.SeriesCollection(Type.Missing);
+            Series series = seriesCollection.NewSeries();
+            //series.XValues = sheet1.get_Range("E1", "O1");
+            series.Values = sheet1.get_Range("E39", "O39");
+            chart.ChartType = XlChartType.xlColumnClustered;
+            excel.Visible = true;
+
+            //workbook.Save();
+            //workbook.Close();
+            //excel.Quit();
+            app.path = null;
+            System.Windows.MessageBox.Show("Готово!");
+        }
+
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+            CreateCharts();
+        }
     }
 }

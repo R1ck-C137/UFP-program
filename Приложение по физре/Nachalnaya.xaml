@@ -19,6 +19,7 @@
                     <MenuItem Header="Быстрая форма" Click="MenuItem_Click" ></MenuItem>
                     <MenuItem Header="Сохранить группу" Click="MenuItem_Click_1" ></MenuItem>
                     <MenuItem Header="Расчёт процентов" Click="MenuItem_Click_2" ></MenuItem>
+                    <MenuItem Header="Добавление гистограммы" Click="MenuItem_Click_3"></MenuItem>
                 </MenuItem>
                 
             </Menu>

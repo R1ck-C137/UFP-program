@@ -384,30 +384,6 @@ namespace Приложение_по_физре
             }
         }
 
-        public void CreateCharts()
-        {
-            if (app.path == null)
-            {
-                app.path = GetPath();
-                if (app.path == "")
-                {
-                    return;
-                }
-            }
-
-            Excel.Application excel = new Excel.Application();
-
-            Workbook workbook;
-            if (!File.Exists(app.path))
-            {
-                System.Windows.MessageBox.Show("Файла не существует!");
-                return;
-            }
-
-            workbook = excel.Workbooks.Open(app.path);
-
-            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
-        }
 
         public void СalculationForMen()
         {
