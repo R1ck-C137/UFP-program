@@ -145,8 +145,9 @@ namespace Приложение_по_физре
                 System.Windows.MessageBox.Show("Файл не выбран!");
             }
             app.path = null;
+            System.Windows.MessageBox.Show("Готово!");
         }
-        
+
         public string GetPath()
         {
             var dialog = new OpenFileDialog();
@@ -380,7 +381,6 @@ namespace Приложение_по_физре
                 workbook.Save();
                 workbook.Close();
                 excel.Quit();
-                System.Windows.MessageBox.Show("Готово!");
             }
         }
 

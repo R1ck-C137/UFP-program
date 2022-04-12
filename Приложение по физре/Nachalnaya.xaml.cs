@@ -9,6 +9,7 @@ using Microsoft.Office.Interop.Excel;
 using System.Windows.Forms;
 using System.IO;
 
+
 namespace Приложение_по_физре
 {
     /// <summary>
@@ -41,13 +42,10 @@ namespace Приложение_по_физре
             dlg.DefaultExt = ".xlsx";
             dlg.Filter = "Excel documents (.xlsx)|*.xlsx";
 
-            // Show save file dialog box
             Nullable<bool> result = dlg.ShowDialog();
 
-            // Process save file dialog box results
             if (result == true)
             {
-                // Save document
                 app.path = dlg.FileName;
             }
             
@@ -81,6 +79,7 @@ namespace Приложение_по_физре
             app.path = GetPath();
             if (app.path == "")
             {
+                app.path = null;
                 return;
             }
             Excel.Application excel = new Excel.Application();
@@ -154,6 +153,7 @@ namespace Приложение_по_физре
                 app.path = GetPath();
                 if (app.path == "")
                 {
+                    app.path = null;
                     return;
                 }
             }
@@ -169,33 +169,22 @@ namespace Приложение_по_физре
 
             workbook = excel.Workbooks.Open(app.path);
             Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
-            
-            //Worksheet sheet2 = (Worksheet)workbook.Sheets.Add();
-            //sheet2 = (Worksheet)workbook.Sheets[2];
+            excel.Visible = true;
 
             Range myRange;
-            myRange = (Range)sheet1.Cells[1, 1];
+            myRange = (Range)sheet1.Cells[1,1];
             int i = 1;
             int j = 1;
 
-            for (i = 2; Convert.ToString(myRange.Cells[i, 5].Value2) != null; i++)///////////////////
+            for (i = 2; Convert.ToString(myRange.Cells[i, 5].Value2) != null; i++)
             {
-
             }
-
+            int cell_position_for_Chart = i + 1;
+            
             for (j = 5; j <= 15; j++)
             {
-                if (Convert.ToString(myRange.Cells[i + 1, j].Value2) == null)
+                if (Convert.ToString(myRange.Cells[i + 1, j].Value2) == null || Convert.ToString(myRange.Cells[i + 1, j].Value2).Contains("%"))
                 {
-                    break;
-                }
-                if (Convert.ToString(myRange.Cells[i + 1, j].Value2).IndexOf("%") == -1)
-                {
-                    for (j = 5; j <= 15; j++)
-                    {
-                        myRange = (Range)sheet1.Cells[i + 1, j];
-                        myRange.Value2 = null;
-                    }
                     double Percent;
                     for (j = 5; j <= 15; j++)
                     {
@@ -216,27 +205,33 @@ namespace Приложение_по_физре
                         Percent = Math.Round(Percent, 0);
                         myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i - 2, j];
                         myRange.Value2 = Percent + "%";
+                        //myRange.Cells[i, j].Value2 = "ок";
                     }
                     break;
                 }
             }
 
-            //sheet2.ChartObjects();
             ChartObjects xlCharts = (ChartObjects)sheet1.ChartObjects(Type.Missing);
-            ChartObject myChart = (ChartObject)xlCharts.Add(110, 0, 350, 250);
+            ChartObject myChart = (ChartObject)xlCharts.Add(1380, 20, 450, 270);
             Chart chart = myChart.Chart;
             SeriesCollection seriesCollection = (SeriesCollection)chart.SeriesCollection(Type.Missing);
             Series series = seriesCollection.NewSeries();
-            //series.XValues = sheet1.get_Range("E1", "O1");
-            series.Values = sheet1.get_Range("E39", "O39");
+            series.Values = sheet1.get_Range((Range)sheet1.Cells[cell_position_for_Chart, 5], (Range)sheet1.Cells[cell_position_for_Chart, 15]);
+            //chart.ChartType = XlChartType.xlBarClustered; // horizontal histogram
             chart.ChartType = XlChartType.xlColumnClustered;
-            excel.Visible = true;
+            chart.HasTitle = true;
+            chart.ChartTitle.Text = "Физическое состояние";
+            chart.HasLegend = false;
+            series.XValues = sheet1.get_Range("E1", "O1");
+            chart.Axes(XlAxisType.xlValue).MaximumScale = 1.0;
 
-            //workbook.Save();
+
+            //excel.Visible = true;
+            workbook.Save();
             //workbook.Close();
             //excel.Quit();
             app.path = null;
-            System.Windows.MessageBox.Show("Готово!");
+            //System.Windows.MessageBox.Show("Готово!");
         }
 
         private void MenuItem_Click_3(object sender, RoutedEventArgs e)
