@@ -191,7 +191,7 @@ namespace Приложение_по_физре
             }
             for (int i = 0; i < dataGrid.Columns.Count - 1; i++)    // перебор строк в exel таблице
             {
-                for (int j = 0; j < dataGrid.Items.Count + 4; j++)      // перебор столбцов в exel таблице
+                for (int j = 0; j < dataGrid.Items.Count + 5; j++)      // перебор столбцов в exel таблице
                 {
                     if (j < 3)
                     {
@@ -208,7 +208,7 @@ namespace Приложение_по_физре
                                 myRange.Interior.ColorIndex = 3;
                             }
                     }
-                    if (j > 3)
+                    if (j > 3 && j < 15)
                     {
                         if (j < dataGrid.Items.Count)
                         {
@@ -222,6 +222,17 @@ namespace Приложение_по_физре
                                 myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 4];
                                 myRange.Interior.ColorIndex = 3;
                             }
+                    }
+                    if (j == 15 && i == 2)
+                    {
+                        myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 2];
+                        if (app.Gender) {
+                            myRange.Value2 = Convert.ToString(app.Person[1]) + " (М)";
+                        }
+                        if (!app.Gender)
+                        {
+                            myRange.Value2 = Convert.ToString(app.Person[1]) + " (Ж)";
+                        }
                     }
                 }
             }
@@ -263,7 +274,7 @@ namespace Приложение_по_физре
                 myRange.Value2 = "Ф.И.О.";
                 myRange = (Range)sheet1.Cells[2, 1];
                 myRange.Value2 = app.Person[0];
-                
+
 
                 myRange = (Range)sheet1.Cells[2, 2];
                 myRange.Value2 = dataGrid.Columns[1].Header;
@@ -271,7 +282,7 @@ namespace Приложение_по_физре
                 myRange.Value2 = dataGrid.Columns[2].Header;
 
 
-                for (int j = 0; j < dataGrid.Items.Count; j++) //Başlıklar için
+                for (int j = 0; j < dataGrid.Items.Count; j++) 
                 {
                     sheet1.Cells[1, j + 1].Font.Bold = true; //Включаем жирный текст
                     sheet1.Columns[j + 1].ColumnWidth = 15; //ширина 
@@ -279,7 +290,7 @@ namespace Приложение_по_физре
                 }
                 for (int i = 0; i < dataGrid.Columns.Count - 1; i++)    // перебор строк в exel таблице
                 {
-                    for (int j = 0; j < dataGrid.Items.Count + 4; j++)      // перебор столбцов в exel таблице
+                    for (int j = 0; j < dataGrid.Items.Count + 5; j++)      // перебор столбцов в exel таблице
                     {
                         if (j < 3)
                         {
@@ -297,7 +308,7 @@ namespace Приложение_по_физре
                                     myRange.Interior.ColorIndex = 3;
                                 }
                         }
-                        if (j > 3)
+                        if (j > 3 && j < 15)
                         {
                             if (j < dataGrid.Items.Count) {
                                 TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
@@ -311,6 +322,18 @@ namespace Приложение_по_физре
                                     myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 4];
                                     myRange.Interior.ColorIndex = 3;
                                 }
+                        }
+                        if (j == 15 && i == 1)
+                        {
+                            myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 2];
+                            if (app.Gender)
+                            {
+                                myRange.Value2 = Convert.ToString(app.Person[1]) + " (М)";
+                            }
+                            if (!app.Gender)
+                            {
+                                myRange.Value2 = Convert.ToString(app.Person[1]) + " (Ж)";
+                            }
                         }
                     }
                 }
@@ -342,7 +365,7 @@ namespace Приложение_по_физре
 
                 for (int i = 0; i < dataGrid.Columns.Count - 2; i++)    // перебор строк в exel таблице
                 {
-                    for (int j = 0; j < dataGrid.Items.Count; j++)      // перебор столбцов в exel таблице
+                    for (int j = 0; j < dataGrid.Items.Count + 2; j++)      // перебор столбцов в exel таблице
                     {
                         if (j < 3)
                         {
@@ -360,7 +383,7 @@ namespace Приложение_по_физре
                                     myRange.Interior.ColorIndex = 3;
                                 }
                         }
-                        if (j > 3)
+                        if (j > 3 && j < 15)
                         {
                             if (j < dataGrid.Items.Count)
                             {
@@ -375,6 +398,18 @@ namespace Приложение_по_физре
                                     myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 4];
                                     myRange.Interior.ColorIndex = 3;
                                 }
+                        }
+                        if (j == 15 && i == 1)
+                        {
+                            myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 2];
+                            if (app.Gender)
+                            {
+                                myRange.Value2 = Convert.ToString(app.Person[1]) + " (М)";
+                            }
+                            if (!app.Gender)
+                            {
+                                myRange.Value2 = Convert.ToString(app.Person[1]) + " (Ж)";
+                            }
                         }
                     }
                 }

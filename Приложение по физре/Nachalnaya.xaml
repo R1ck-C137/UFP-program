@@ -20,6 +20,10 @@
                     <MenuItem Header="Сохранить группу" Click="MenuItem_Click_1" ></MenuItem>
                     <MenuItem Header="Расчёт процентов" Click="MenuItem_Click_2" ></MenuItem>
                     <MenuItem Header="Добавление гистограммы" Click="MenuItem_Click_3"></MenuItem>
+                    <MenuItem Header="Сортировать по ">
+                        <MenuItem Header="Полу" Click="MenuItem_Gender_Click"></MenuItem>
+                        <MenuItem Header="Группам" Click="MenuItem_Group_Click"></MenuItem>
+                    </MenuItem>
                 </MenuItem>
                 
             </Menu>

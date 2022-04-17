@@ -95,8 +95,6 @@ namespace Приложение_по_физре
 
             Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
             Range myRange;
-            //myRange = (Range)sheet1.Cells[2, 1];
-            //myRange.Value2 = app.Person[0];
             myRange = (Range)sheet1.Cells[3, 2];
             double Percent;
             if (myRange.Value2 == "Результат")
@@ -237,6 +235,16 @@ namespace Приложение_по_физре
         private void MenuItem_Click_3(object sender, RoutedEventArgs e)
         {
             CreateCharts();
+        }
+
+        private void MenuItem_Gender_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_Group_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
