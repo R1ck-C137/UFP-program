@@ -239,12 +239,50 @@ namespace Приложение_по_физре
 
         private void MenuItem_Gender_Click(object sender, RoutedEventArgs e)
         {
+            if (app.path == null)
+            {
+                app.path = GetPath();
+                if (app.path == "")
+                {
+                    app.path = null;
+                    return;
+                }
+            }
+
+            Excel.Application excel = new Excel.Application();
+
+            Workbook workbook;
+            if (!File.Exists(app.path))
+            {
+                System.Windows.MessageBox.Show("Файла не существует!");
+                return;
+            }
+
+            workbook = excel.Workbooks.Open(app.path);
+            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
+
+            Range myRange;
+            myRange = (Range)sheet1.Cells[1, 1];
+            int i = 1;
+            int j = 1;
+
+            for (i = 2; Convert.ToString(myRange.Cells[i, 5].Value2) != null; i++)
+            {
+            }
+            i--; // на последней сторке таблицы 
+            int lastLine = i;
 
         }
 
         private void MenuItem_Group_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        public void Swap_Positions(int first, int sekond)
+        {
+            int criteriaСolumn = 17;
+            
         }
     }
 }
