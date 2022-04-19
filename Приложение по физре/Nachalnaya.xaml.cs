@@ -279,10 +279,59 @@ namespace Приложение_по_физре
 
         }
 
-        public void Swap_Positions(int first, int sekond)
+        public void Swap_Positions(int first, int second)
         {
+            Excel.Application excel = new Excel.Application();
+            Workbook workbook;
+            workbook = excel.Workbooks.Open(app.path);
+            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
+            Range myRange;
+            myRange = (Range)sheet1.Cells[1, 1];
+
             int criteriaСolumn = 17;
-            
+            double[,] firstMasValue = new double[2, 17];
+            double[,] secondMasValue = new double[2, 17];
+            From_Table_To_Array(firstMasValue, first);
+            From_Table_To_Array(secondMasValue, second);
+            From_Array_To_Table(firstMasValue, second);
+            From_Array_To_Table(secondMasValue, first);
         }
+
+        public void From_Table_To_Array(double[,] masValue, int lineNumber)
+        {
+            Excel.Application excel = new Excel.Application();
+            Workbook workbook;
+            workbook = excel.Workbooks.Open(app.path);
+            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
+            Range myRange;
+            myRange = (Range)sheet1.Cells[1, 1];
+
+            for (int i = 0; i <= 1; i++)
+            {
+                for (int j = 0; i < 17; j++)
+                {
+                    masValue[i, j] = myRange.Cells[i + lineNumber + 1, j + 1].Value2;
+                }
+            }
+        }
+
+        public void From_Array_To_Table(double[,] masValue, int lineNumber)
+        {
+            Excel.Application excel = new Excel.Application();
+            Workbook workbook;
+            workbook = excel.Workbooks.Open(app.path);
+            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
+            Range myRange;
+            myRange = (Range)sheet1.Cells[1, 1];
+
+            for (int i = 0; i <= 1; i++)
+            {
+                for (int j = 0; i < 17; j++)
+                {
+                    myRange.Cells[i + lineNumber + 1, j + 1].Value2 = masValue[i, j];
+                }
+            }
+        }
+
     }
 }
