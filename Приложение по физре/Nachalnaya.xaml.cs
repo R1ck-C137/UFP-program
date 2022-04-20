@@ -210,7 +210,7 @@ namespace Приложение_по_физре
             }
 
             ChartObjects xlCharts = (ChartObjects)sheet1.ChartObjects(Type.Missing);
-            ChartObject myChart = (ChartObject)xlCharts.Add(1380, 20, 450, 270);
+            ChartObject myChart = (ChartObject)xlCharts.Add(1420, 20, 450, 270);
             Chart chart = myChart.Chart;
             SeriesCollection seriesCollection = (SeriesCollection)chart.SeriesCollection(Type.Missing);
             Series series = seriesCollection.NewSeries();
@@ -229,7 +229,7 @@ namespace Приложение_по_физре
             //workbook.Close();
             //excel.Quit();
             app.path = null;
-            //System.Windows.MessageBox.Show("Готово!");
+            System.Windows.MessageBox.Show("Готово!");
         }
 
         private void MenuItem_Click_3(object sender, RoutedEventArgs e)
@@ -238,6 +238,59 @@ namespace Приложение_по_физре
         }
 
         private void MenuItem_Gender_Click(object sender, RoutedEventArgs e)
+        {
+            Sorting_By_Column(18);
+        }
+
+        private void MenuItem_Group_Click(object sender, RoutedEventArgs e)
+        {
+            Sorting_By_Column(17);
+        }
+
+        public void Swap_Positions(int first, int second, int column, Worksheet sheet1)
+        {
+            Range myRange;
+            myRange = (Range)sheet1.Cells[1, 1];
+
+            //int criteriaСolumn = 17;
+            string[,] firstMasValue = new string[2, column];
+            string[,] secondMasValue = new string[2, column];
+            From_Table_To_Array(firstMasValue, first, column, sheet1);
+            From_Table_To_Array(secondMasValue, second, column, sheet1);
+            From_Array_To_Table(firstMasValue, second, column, sheet1);
+            From_Array_To_Table(secondMasValue, first, column, sheet1);
+        }
+
+        public void From_Table_To_Array(string[,] masValue, int lineNumber, int column, Worksheet sheet1)
+        {
+            Range myRange;
+            myRange = (Range)sheet1.Cells[1, 1];
+
+            for (int i = 0; i <= 1; i++)
+            {
+                for (int j = 0; j < column; j++)
+                {
+                    masValue[i, j] = Convert.ToString(myRange.Cells[i + lineNumber - 1, j + 1].Value2);
+                }
+            }
+            
+        }
+
+        public void From_Array_To_Table(string[,] masValue, int lineNumber, int column, Worksheet sheet1)
+        {
+            Range myRange;
+            myRange = (Range)sheet1.Cells[1, 1];
+
+            for (int i = 0; i <= 1; i++)
+            {
+                for (int j = 0; j < column; j++)
+                {
+                    myRange.Cells[i + lineNumber - 1, j + 1].Value2 = masValue[i, j];
+                }
+            }
+        }
+
+        public void Sorting_By_Column(int column)
         {
             if (app.path == null)
             {
@@ -260,78 +313,39 @@ namespace Приложение_по_физре
 
             workbook = excel.Workbooks.Open(app.path);
             Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
+            Range myRange = (Range)sheet1.Cells[1, 1];
 
-            Range myRange;
-            myRange = (Range)sheet1.Cells[1, 1];
-            int i = 1;
-            int j = 1;
+            
+            int lastLine = new int();
 
-            for (i = 2; Convert.ToString(myRange.Cells[i, 5].Value2) != null; i++)
+            for (int i = 2; Convert.ToString(myRange.Cells[i, 5].Value2) != null; i++)
             {
+                lastLine = i;
             }
-            i--; // на последней сторке таблицы 
-            int lastLine = i;
-
-        }
-
-        private void MenuItem_Group_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        public void Swap_Positions(int first, int second)
-        {
-            Excel.Application excel = new Excel.Application();
-            Workbook workbook;
-            workbook = excel.Workbooks.Open(app.path);
-            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
-            Range myRange;
-            myRange = (Range)sheet1.Cells[1, 1];
-
-            int criteriaСolumn = 17;
-            double[,] firstMasValue = new double[2, 17];
-            double[,] secondMasValue = new double[2, 17];
-            From_Table_To_Array(firstMasValue, first);
-            From_Table_To_Array(secondMasValue, second);
-            From_Array_To_Table(firstMasValue, second);
-            From_Array_To_Table(secondMasValue, first);
-        }
-
-        public void From_Table_To_Array(double[,] masValue, int lineNumber)
-        {
-            Excel.Application excel = new Excel.Application();
-            Workbook workbook;
-            workbook = excel.Workbooks.Open(app.path);
-            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
-            Range myRange;
-            myRange = (Range)sheet1.Cells[1, 1];
-
-            for (int i = 0; i <= 1; i++)
+            lastLine--; // на последней сторке таблицы
+            
+            bool repitSort = true;
+            while (repitSort)
             {
-                for (int j = 0; i < 17; j++)
+                repitSort = false;
+                for (int i = 5; i <= lastLine; i += 2)
                 {
-                    masValue[i, j] = myRange.Cells[i + lineNumber + 1, j + 1].Value2;
+                    for (int comparisonValue = i - 2; comparisonValue >= 3; comparisonValue -= 2)
+                    {
+                        if (myRange.Cells[i, column].Value2 == myRange.Cells[comparisonValue, column].Value2 && i != comparisonValue + 2 && myRange.Cells[comparisonValue + 2, column].Value2 != myRange.Cells[i, column].Value2)
+                        {
+                            Swap_Positions(i, comparisonValue + 2, column, sheet1);
+                            repitSort = true;
+                            break;
+                        }
+                    }
                 }
             }
+            workbook.Save();
+            workbook.Close();
+            excel.Quit();
+            app.path = null;
+            System.Windows.MessageBox.Show("Готово!");
         }
-
-        public void From_Array_To_Table(double[,] masValue, int lineNumber)
-        {
-            Excel.Application excel = new Excel.Application();
-            Workbook workbook;
-            workbook = excel.Workbooks.Open(app.path);
-            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
-            Range myRange;
-            myRange = (Range)sheet1.Cells[1, 1];
-
-            for (int i = 0; i <= 1; i++)
-            {
-                for (int j = 0; i < 17; j++)
-                {
-                    myRange.Cells[i + lineNumber + 1, j + 1].Value2 = masValue[i, j];
-                }
-            }
-        }
-
     }
 }
