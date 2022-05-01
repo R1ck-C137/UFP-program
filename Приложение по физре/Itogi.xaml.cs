@@ -16,6 +16,7 @@ namespace Приложение_по_физре
         public Itogi() { InitializeComponent(); }
 
         App app = (App)System.Windows.Application.Current;
+        AddInTable addInTable = new AddInTable();
 
         public static List<GridClass> GridList = new List<GridClass>();
         public class GridClass
@@ -84,19 +85,22 @@ namespace Приложение_по_физре
 
             GridList.Clear();
 
-            GridList.Add(new GridClass()
+            /*GridList.Add(new GridClass()
             {
                 lineHeader = "Рост",
                 result = Convert.ToString(app.Indication[2]),
-            });
+            });*/
+            
+            addInTable.AddInTableValue(ref GridList, "Рост", app.Indication[2]);
 
             Baly[0] = app.Indication[0];
-            GridList.Add(new GridClass()
+            /*GridList.Add(new GridClass()
             {
                 lineHeader = "Возраст",
                 result = Convert.ToString(app.Indication[0]),
                 point = Convert.ToString(Baly[0])
-            });
+            });*/
+            addInTable.AddInTableValue(ref GridList, Baly[0], "Возраст", app.Indication[0]);
 
             if (app.Gender == true) //мужской пол
             {
@@ -160,8 +164,6 @@ namespace Приложение_по_физре
             }
             return null;
         }
-
-
 
         public void Save()
         {
@@ -419,7 +421,6 @@ namespace Приложение_по_физре
             }
         }
 
-
         public void СalculationForMen()
         {
             double NormaVesa_M = 50 + (app.Indication[2] - 150) * 0.75 + ((app.Indication[0] - 21) / 4);
@@ -443,13 +444,9 @@ namespace Приложение_по_физре
                 }
             }
             //--------------------------------------
-            GridList.Add(new GridClass()
-            {
-                lineHeader = "Масса тела",
-                result = Convert.ToString(app.Indication[1]),
-                norm = Convert.ToString(NormaVesa_M),
-                point = Convert.ToString(Baly[1])
-            });
+            
+            addInTable.AddInTableValue(ref GridList, "Масса тела", app.Indication[1], NormaVesa_M, Baly[1]);
+
             if (app.Indication[1] > NormaVesa_M)
             {
                 Ves.Visibility = Visibility;
@@ -469,31 +466,21 @@ namespace Приложение_по_физре
                 Baly[2] = Baly[2] - Math.Truncate((app.Indication[6] - NormaDiastDavleniya_M) / 5);
             }
 
-            GridList.Add(new GridClass()
-            {
-                lineHeader = "Системное артериальное давление",
-                result = "",
-                point = Convert.ToString(Baly[2])
-            });
+            addInTable.AddInTableValue(ref GridList, "Системное артериальное давление", Baly[2]);
+
             //--------------------------------------
-            GridList.Add(new GridClass()
-            {
-                lineHeader = "     Систолическое давление",
-                result = Convert.ToString(app.Indication[5]),
-                norm = Convert.ToString(NormaSistDavleniya_M),
-            });
+            
+            addInTable.AddInTableValue(ref GridList, "     Систолическое давление", app.Indication[5], NormaSistDavleniya_M);
+
             if (app.Indication[5] > NormaSistDavleniya_M)
             {
                 SD.Visibility = Visibility;
                 red_label[1] = true;
             }
             //--------------------------------------
-            GridList.Add(new GridClass()
-            {
-                lineHeader = "     Диастолическое давление",
-                result = Convert.ToString(app.Indication[6]),
-                norm = Convert.ToString(NormaDiastDavleniya_M),
-            });
+            
+            addInTable.AddInTableValue(ref GridList, "     Диастолическое давление", app.Indication[6], NormaDiastDavleniya_M);
+
             if (app.Indication[6] > NormaDiastDavleniya_M)
             {
                 DD.Visibility = Visibility;
@@ -502,13 +489,9 @@ namespace Приложение_по_физре
             //--------------------------------------
             Baly[3] = 90 - app.Indication[3];
             if (Baly[3] < 1) { Baly[3] = 0; }
-            GridList.Add(new GridClass()
-            {
-                lineHeader = "Пульс в покое",
-                result = Convert.ToString(app.Indication[3]),
-                norm = "60",
-                point = Convert.ToString(Baly[3])
-            });
+            
+            addInTable.AddInTableValue(ref GridList, "Пульс в покое", app.Indication[3], 60, Baly[3]);
+
             if (app.Indication[3] > 60)
             {
                 PulsVPokoe.Visibility = Visibility;
@@ -521,13 +504,8 @@ namespace Приложение_по_физре
                 Baly[4] = 30;
                 Baly[4] = Baly[4] - Math.Truncate((TableOfNorms_ForMen[AgeToCount, 5] - app.Indication[10]) / 50) * 5;
 
-                GridList.Add(new GridClass()
-                {
-                    lineHeader = "Общая выносливость",
-                    result = Convert.ToString(app.Indication[10]),
-                    norm = Convert.ToString(TableOfNorms_ForMen[AgeToCount, 5]),
-                    point = Convert.ToString(Baly[4])
-                });
+                addInTable.AddInTableValue(ref GridList, "Общая выносливость", app.Indication[10], TableOfNorms_ForMen[AgeToCount, 5], Baly[4]);
+
                 if (app.Indication[10] < TableOfNorms_ForMen[AgeToCount, 5])
                 {
                     ObshVinos.Visibility = Visibility;
@@ -543,13 +521,9 @@ namespace Приложение_по_физре
                 if (app.Indication[10] == 2) { Baly[4] = 10; }
                 if (app.Indication[10] == 1) { Baly[4] = 5; }
                 if (app.Indication[10] < 1) { Baly[4] = 0; }
-                GridList.Add(new GridClass()
-                {
-                    lineHeader = "Общая выносливость",
-                    result = Convert.ToString(app.Indication[10]),
-                    norm = "3",
-                    point = Convert.ToString(Baly[4])
-                });
+                
+                addInTable.AddInTableValue(ref GridList, "Общая выносливость", app.Indication[10], 3, Baly[4]);
+
                 if (app.Indication[10] < 3)
                 {
                     ObshVinos.Visibility = Visibility;
@@ -573,13 +547,9 @@ namespace Приложение_по_физре
             {
                 Baly[5] = 30;
             }
-            GridList.Add(new GridClass()
-            {
-                lineHeader = "Востанавливваемость пульса",
-                result = Convert.ToString(app.Indication[4]),
-                norm = Convert.ToString(app.Indication[3] + 10),
-                point = Convert.ToString(Baly[5])
-            });
+            
+            addInTable.AddInTableValue(ref GridList, "Востанавливваемость пульса", app.Indication[4], app.Indication[3] + 10, Baly[5]);
+
             if (app.Indication[3] + 10 < app.Indication[4])
             {
                 VostPulsa.Visibility = Visibility;
@@ -588,13 +558,9 @@ namespace Приложение_по_физре
             //--------------------------------------
             Baly[6] = app.Indication[7] - TableOfNorms_ForMen[AgeToCount, 0];
             if (Baly[6] < 0) { Baly[6] = 0; }
-            GridList.Add(new GridClass()
-            {
-                lineHeader = "Гибкость",
-                result = Convert.ToString(app.Indication[7]),
-                norm = Convert.ToString(TableOfNorms_ForMen[AgeToCount, 0]),
-                point = Convert.ToString(Baly[6])
-            });
+            
+            addInTable.AddInTableValue(ref GridList, "Гибкость", app.Indication[7], TableOfNorms_ForMen[AgeToCount, 0], Baly[6]);
+
             if (app.Indication[7] < TableOfNorms_ForMen[AgeToCount, 0])
             {
                 Gibcost.Visibility = Visibility;
@@ -603,13 +569,9 @@ namespace Приложение_по_физре
             //--------------------------------------
             Baly[7] = (TableOfNorms_ForMen[AgeToCount, 1] - app.Indication[8]) * 2;
             if (Baly[7] < 0) { Baly[7] = 0; }
-            GridList.Add(new GridClass()
-            {
-                lineHeader = "Быстрота",
-                result = Convert.ToString(app.Indication[8]),
-                norm = Convert.ToString(TableOfNorms_ForMen[AgeToCount, 1]),
-                point = Convert.ToString(Baly[7])
-            });
+            
+            addInTable.AddInTableValue(ref GridList, "Быстрота", app.Indication[8], TableOfNorms_ForMen[AgeToCount, 1], Baly[7]);
+
             if (app.Indication[8] > TableOfNorms_ForMen[AgeToCount, 1])
             {
                 Bistrota.Visibility = Visibility;
@@ -625,13 +587,9 @@ namespace Приложение_по_физре
                 Baly[8] = 2 + (app.Indication[9] - TableOfNorms_ForMen[AgeToCount, 2]) * 2;
             }
             if (app.Indication[9] - TableOfNorms_ForMen[AgeToCount, 2] < 0) { Baly[8] = 0; }
-            GridList.Add(new GridClass()
-            {
-                lineHeader = "Динамическая сила",
-                result = Convert.ToString(app.Indication[9]),
-                norm = Convert.ToString(TableOfNorms_ForMen[AgeToCount, 2]),
-                point = Convert.ToString(Baly[8])
-            });
+            
+            addInTable.AddInTableValue(ref GridList, "Динамическая сила", app.Indication[9], TableOfNorms_ForMen[AgeToCount, 2], Baly[8]);
+
             if (app.Indication[9] < TableOfNorms_ForMen[AgeToCount, 2])
             {
                 DinamSila.Visibility = Visibility;
@@ -643,13 +601,9 @@ namespace Приложение_по_физре
                 Baly[9] = (app.Indication[11] - (TableOfNorms_ForMen[AgeToCount, 3] - 1)) * 3;
             }
             if (app.Indication[11] - TableOfNorms_ForMen[AgeToCount, 3] < 0) { Baly[9] = 0; }
-            GridList.Add(new GridClass()
-            {
-                lineHeader = "Скоростная выносливость",
-                result = Convert.ToString(app.Indication[11]),
-                norm = Convert.ToString(TableOfNorms_ForMen[AgeToCount, 3]),
-                point = Convert.ToString(Baly[9])
-            });
+            
+            addInTable.AddInTableValue(ref GridList, "Скоростная выносливость", app.Indication[11], TableOfNorms_ForMen[AgeToCount, 3], Baly[9]);
+
             if (app.Indication[9] < TableOfNorms_ForMen[AgeToCount, 3])
             {
                 SV.Visibility = Visibility;
@@ -661,13 +615,9 @@ namespace Приложение_по_физре
                 Baly[10] = (app.Indication[12] - (TableOfNorms_ForMen[AgeToCount, 4] - 1)) * 4;
             }
             if (app.Indication[12] - TableOfNorms_ForMen[AgeToCount, 4] < 0) { Baly[10] = 0; }
-            GridList.Add(new GridClass()
-            {
-                lineHeader = "Скоростно-силовая выностивость",
-                result = Convert.ToString(app.Indication[12]),
-                norm = Convert.ToString(TableOfNorms_ForMen[AgeToCount, 4]),
-                point = Convert.ToString(Baly[10])
-            });
+            
+            addInTable.AddInTableValue(ref GridList, "Скоростно-силовая выностивость", app.Indication[12], TableOfNorms_ForMen[AgeToCount, 4], Baly[10]);
+
             if (app.Indication[12] < TableOfNorms_ForMen[AgeToCount, 4])
             {
                 SSV.Visibility = Visibility;
@@ -698,13 +648,9 @@ namespace Приложение_по_физре
                     Baly[1] = 30 - (app.Indication[1] - NormaVesa_W);
                 }
             }
-            GridList.Add(new GridClass()
-            {
-                lineHeader = "Масса тела",
-                result = Convert.ToString(app.Indication[1]),
-                norm = Convert.ToString(NormaVesa_W),
-                point = Convert.ToString(Baly[1])
-            });
+            
+            addInTable.AddInTableValue(ref GridList, "Масса тела", app.Indication[1], NormaVesa_W, Baly[1]);
+
             if (app.Indication[1] > NormaVesa_W)
             {
                 Ves.Visibility = Visibility;
@@ -723,32 +669,22 @@ namespace Приложение_по_физре
             {
                 Baly[2] = Baly[2] - Math.Truncate((app.Indication[6] - NormaDiastDavleniya_W) / 5);
             }
-            GridList.Add(new GridClass()
-            {
-                lineHeader = "Системное артериальное давление",
-                result = "",
-                point = Convert.ToString(Baly[2])
+            
+            addInTable.AddInTableValue(ref GridList, Baly[2], "Системное артериальное давление");
 
-            });
             //--------------------------------------
-            GridList.Add(new GridClass()
-            {
-                lineHeader = "     Систолическое давление",
-                result = Convert.ToString(app.Indication[5]),
-                norm = Convert.ToString(NormaSistDavleniya_W),
-            });
+            
+            addInTable.AddInTableValue(ref GridList, "     Систолическое давление", app.Indication[5], NormaSistDavleniya_W);
+
             if (app.Indication[5] > NormaSistDavleniya_W)
             {
                 SD.Visibility = Visibility;
                 red_label[1] = true;
             }
             //--------------------------------------
-            GridList.Add(new GridClass()
-            {
-                lineHeader = "     Диастолическое давление",
-                result = Convert.ToString(app.Indication[6]),
-                norm = Convert.ToString(NormaDiastDavleniya_W),
-            });
+            
+            addInTable.AddInTableValue(ref GridList, "     Диастолическое давление", app.Indication[6], NormaDiastDavleniya_W);
+
             if (app.Indication[6] > NormaDiastDavleniya_W)
             {
                 DD.Visibility = Visibility;
@@ -757,13 +693,9 @@ namespace Приложение_по_физре
             //--------------------------------------
             Baly[3] = 90 - app.Indication[3];
             if (Baly[3] < 1) { Baly[3] = 0; }
-            GridList.Add(new GridClass()
-            {
-                lineHeader = "Пульс в покое",
-                result = Convert.ToString(app.Indication[3]),
-                norm = "60",
-                point = Convert.ToString(Baly[3])
-            });
+            
+            addInTable.AddInTableValue(ref GridList, "Пульс в покое", app.Indication[3], 60, Baly[3]);
+
             if (app.Indication[3] > 60)
             {
                 PulsVPokoe.Visibility = Visibility;
@@ -774,13 +706,9 @@ namespace Приложение_по_физре
             {
                 Baly[4] = 30;
                 Baly[4] = Baly[4] - Math.Truncate((TableOfNorms_ForWomen[AgeToCount, 5] - app.Indication[10]) / 50) * 5;
-                GridList.Add(new GridClass()
-                {
-                    lineHeader = "Общая выносливость",
-                    result = Convert.ToString(app.Indication[10]),
-                    norm = Convert.ToString(TableOfNorms_ForWomen[AgeToCount, 5]),
-                    point = Convert.ToString(Baly[4])
-                });
+                
+                addInTable.AddInTableValue(ref GridList, "Общая выносливость", app.Indication[10], TableOfNorms_ForWomen[AgeToCount, 5], Baly[4]);
+
                 if (app.Indication[10] < TableOfNorms_ForWomen[AgeToCount, 5])
                 {
                     ObshVinos.Visibility = Visibility;
@@ -796,13 +724,9 @@ namespace Приложение_по_физре
                 if (app.Indication[10] == 2) { Baly[4] = 10; }
                 if (app.Indication[10] == 1) { Baly[4] = 5; }
                 if (app.Indication[10] < 1) { Baly[4] = 0; }
-                GridList.Add(new GridClass()
-                {
-                    lineHeader = "Общая выносливость",
-                    result = Convert.ToString(app.Indication[10]),
-                    norm = "3",
-                    point = Convert.ToString(Baly[4])
-                });
+                
+                addInTable.AddInTableValue(ref GridList, "Общая выносливость", app.Indication[10], 3, Baly[4]);
+
                 if (app.Indication[10] < 3)
                 {
                     ObshVinos.Visibility = Visibility;
@@ -826,13 +750,9 @@ namespace Приложение_по_физре
             {
                 Baly[5] = 30;
             }
-            GridList.Add(new GridClass()
-            {
-                lineHeader = "Востанавливваемость пульса",
-                result = Convert.ToString(app.Indication[4]),
-                norm = Convert.ToString(app.Indication[3] + 10),
-                point = Convert.ToString(Baly[5])
-            });
+            
+            addInTable.AddInTableValue(ref GridList, "Востанавливваемость пульса", app.Indication[4], app.Indication[3] + 10, Baly[5]);
+
             if (app.Indication[3] + 10 < app.Indication[4])
             {
                 VostPulsa.Visibility = Visibility;
@@ -841,13 +761,9 @@ namespace Приложение_по_физре
             //--------------------------------------
             Baly[6] = app.Indication[7] - TableOfNorms_ForWomen[AgeToCount, 0];
             if (Baly[6] < 0) { Baly[6] = 0; }
-            GridList.Add(new GridClass()
-            {
-                lineHeader = "Гибкость",
-                result = Convert.ToString(app.Indication[7]),
-                norm = Convert.ToString(TableOfNorms_ForWomen[AgeToCount, 0]),
-                point = Convert.ToString(Baly[6])
-            });
+            
+            addInTable.AddInTableValue(ref GridList, "Гибкость", app.Indication[7], TableOfNorms_ForWomen[AgeToCount, 0], Baly[6]);
+
             if (app.Indication[7] < TableOfNorms_ForWomen[AgeToCount, 0])
             {
                 Gibcost.Visibility = Visibility;
@@ -856,13 +772,9 @@ namespace Приложение_по_физре
             //--------------------------------------
             Baly[7] = (TableOfNorms_ForWomen[AgeToCount, 1] - app.Indication[8]) * 2;
             if (Baly[7] < 0) { Baly[7] = 0; }
-            GridList.Add(new GridClass()
-            {
-                lineHeader = "Быстрота",
-                result = Convert.ToString(app.Indication[8]),
-                norm = Convert.ToString(TableOfNorms_ForWomen[AgeToCount, 1]),
-                point = Convert.ToString(Baly[7])
-            });
+            
+            addInTable.AddInTableValue(ref GridList, "Быстрота", app.Indication[8], TableOfNorms_ForWomen[AgeToCount, 1], Baly[7]);
+
             if (app.Indication[8] > TableOfNorms_ForWomen[AgeToCount, 1])
             {
                 Bistrota.Visibility = Visibility;
@@ -878,13 +790,9 @@ namespace Приложение_по_физре
                 Baly[8] = 2 + (app.Indication[9] - TableOfNorms_ForWomen[AgeToCount, 2]) * 2;
             }
             if (app.Indication[9] - TableOfNorms_ForWomen[AgeToCount, 2] < 0) { Baly[8] = 0; }
-            GridList.Add(new GridClass()
-            {
-                lineHeader = "Динамическая сила",
-                result = Convert.ToString(app.Indication[9]),
-                norm = Convert.ToString(TableOfNorms_ForWomen[AgeToCount, 2]),
-                point = Convert.ToString(Baly[8])
-            });
+            
+            addInTable.AddInTableValue(ref GridList, "Динамическая сила", app.Indication[9], TableOfNorms_ForWomen[AgeToCount, 2], Baly[8]);
+
             if (app.Indication[9] < TableOfNorms_ForWomen[AgeToCount, 2])
             {
                 DinamSila.Visibility = Visibility;
@@ -896,13 +804,9 @@ namespace Приложение_по_физре
                 Baly[9] = (app.Indication[11] - (TableOfNorms_ForWomen[AgeToCount, 3] - 1)) * 3;
             }
             if (app.Indication[11] - TableOfNorms_ForWomen[AgeToCount, 3] < 0) { Baly[9] = 0; }
-            GridList.Add(new GridClass()
-            {
-                lineHeader = "Скоростная выносливость",
-                result = Convert.ToString(app.Indication[11]),
-                norm = Convert.ToString(TableOfNorms_ForWomen[AgeToCount, 3]),
-                point = Convert.ToString(Baly[9])
-            });
+            
+            addInTable.AddInTableValue(ref GridList, "Скоростная выносливость", app.Indication[11], TableOfNorms_ForWomen[AgeToCount, 3], Baly[9]);
+
             if (app.Indication[11] < TableOfNorms_ForWomen[AgeToCount, 3])
             {
                 SV.Visibility = Visibility;
@@ -914,13 +818,9 @@ namespace Приложение_по_физре
                 Baly[10] = (app.Indication[12] - (TableOfNorms_ForWomen[AgeToCount, 4] - 1)) * 4;
             }
             if (app.Indication[12] - TableOfNorms_ForWomen[AgeToCount, 4] < 0) { Baly[10] = 0; }
-            GridList.Add(new GridClass()
-            {
-                lineHeader = "Скоростно-силовая выностивость",
-                result = Convert.ToString(app.Indication[12]),
-                norm = Convert.ToString(TableOfNorms_ForWomen[AgeToCount, 4]),
-                point = Convert.ToString(Baly[10])
-            });
+            
+            addInTable.AddInTableValue(ref GridList, "Скоростно-силовая выностивость", app.Indication[12], TableOfNorms_ForWomen[AgeToCount, 4], Baly[10]);
+
             if (app.Indication[12] < TableOfNorms_ForWomen[AgeToCount, 4])
             {
                 SSV.Visibility = Visibility;
@@ -938,14 +838,13 @@ namespace Приложение_по_физре
             if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 90) { TotalScore = "Ниже среднего"; }
             if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] < 50) { TotalScore = "Низкий"; }
 
-
-            GridList.Add(new GridClass()
+            /*GridList.Add(new GridClass()
             {
                 lineHeader = "Ваш уровень физического состояния ",
-                result = "",
                 norm = TotalScore,
                 point = Convert.ToString(Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10])
-            });
+            });*/
+            addInTable.AddInTableFinalScore(ref GridList, TotalScore, Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10], "Ваш уровень физического состояния ");
         }
 
         private void Sled_Click(object sender, RoutedEventArgs e)
@@ -960,9 +859,69 @@ namespace Приложение_по_физре
             app.Gruppa = false;
             app.path = null;
             NavigationService.Navigate(new Uri("/../Nachalnaya.xaml", UriKind.Relative));
+        }
+    }
 
+    public class AddInTable
+    {
+        public void AddInTableValue(ref List<Itogi.GridClass> GridList, string lineHeader, double result)
+        {
+            GridList.Add(new Itogi.GridClass()
+            {
+                lineHeader = lineHeader,
+                result = Convert.ToString(result),
+            });
         }
 
+        public void AddInTableValue(ref List<Itogi.GridClass> GridList, double point, string lineHeader)
+        {
+            GridList.Add(new Itogi.GridClass()
+            {
+                lineHeader = lineHeader,
+                point = Convert.ToString(point),
+            });
+        }
+
+        public void AddInTableValue(ref List<Itogi.GridClass> GridList, string lineHeader, double result, double norm)
+        {
+            GridList.Add(new Itogi.GridClass()
+            {
+                lineHeader = lineHeader,
+                result = Convert.ToString(result),
+                norm = Convert.ToString(norm)
+            });
+        }
+
+        public void AddInTableValue(ref List<Itogi.GridClass> GridList, double point, string lineHeader, double result)
+        {
+            GridList.Add(new Itogi.GridClass()
+            {
+                lineHeader = lineHeader,
+                result = Convert.ToString(result),
+                point = Convert.ToString(point)
+            });
+        }
+
+        public void AddInTableFinalScore(ref List<Itogi.GridClass> GridList, string norm, double point, string lineHeader)
+        {
+            GridList.Add(new Itogi.GridClass()
+            {
+                lineHeader = lineHeader,
+                norm = Convert.ToString(norm),
+                point = Convert.ToString(point)
+            });
+        }
+
+        public void AddInTableValue(ref List<Itogi.GridClass> GridList, string lineHeader, double result, double norm, double point)
+        {
+            GridList.Add(new Itogi.GridClass()
+            {
+                lineHeader = lineHeader,
+                result = Convert.ToString(result),
+                norm = Convert.ToString(norm),
+                point = Convert.ToString(point)
+            });
+        }
     }
 }
 
