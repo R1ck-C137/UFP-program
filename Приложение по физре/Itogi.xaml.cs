@@ -85,21 +85,9 @@ namespace Приложение_по_физре
 
             GridList.Clear();
 
-            /*GridList.Add(new GridClass()
-            {
-                lineHeader = "Рост",
-                result = Convert.ToString(app.Indication[2]),
-            });*/
-            
             addInTable.AddInTableValue(ref GridList, "Рост", app.Indication[2]);
 
             Baly[0] = app.Indication[0];
-            /*GridList.Add(new GridClass()
-            {
-                lineHeader = "Возраст",
-                result = Convert.ToString(app.Indication[0]),
-                point = Convert.ToString(Baly[0])
-            });*/
             addInTable.AddInTableValue(ref GridList, Baly[0], "Возраст", app.Indication[0]);
 
             if (app.Gender == true) //мужской пол
@@ -171,18 +159,14 @@ namespace Приложение_по_физре
 
             Workbook workbook = excel.Workbooks.Add(System.Reflection.Missing.Value);
             Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
-            Range myRange;
+            Range myRange = (Range)sheet1.Cells[1, 1];
 
-            myRange = (Range)sheet1.Cells[1, 1];
-            myRange.Value2 = "Ф.И.О.";
-            myRange = (Range)sheet1.Cells[2, 1];
-            myRange.Value2 = app.Person[0];
+            myRange.Cells[1, 1].Value2 = "Ф.И.О.";
+            myRange.Cells[2, 1].Value2 = app.Person[0];
             
 
-            myRange = (Range)sheet1.Cells[2, 2];
-            myRange.Value2 = dataGrid.Columns[1].Header;
-            myRange = (Range)sheet1.Cells[3, 2];
-            myRange.Value2 = dataGrid.Columns[2].Header;
+            myRange.Cells[2, 2].Value2 = dataGrid.Columns[1].Header;
+            myRange.Cells[3, 2].Value2 = dataGrid.Columns[2].Header;
 
             excel.Visible = true;
             for (int j = 0; j < dataGrid.Items.Count; j++)
@@ -200,14 +184,13 @@ namespace Приложение_по_физре
                         if (j < dataGrid.Items.Count)
                         {
                             TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
-                            myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 3];
-                            myRange.Value2 = b.Text;
+                            myRange.Cells[i + 1, j + 3].Value2 = b.Text;
+                            myRange.NumberFormat = "General";
                         }
                         if (j <= 11 && i > 0)
                             if (red_label[j])
                             {
-                                myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 5];
-                                myRange.Interior.ColorIndex = 3;
+                                myRange.Cells[i + 1, j + 5].Interior.ColorIndex = 3;
                             }
                     }
                     if (j > 3 && j < 15)
@@ -215,25 +198,23 @@ namespace Приложение_по_физре
                         if (j < dataGrid.Items.Count)
                         {
                             TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
-                            myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 2];
-                            myRange.Value2 = b.Text;
+                            myRange.Cells[i + 1, j + 2].Value2 = b.Text;
+                            myRange.NumberFormat = "General";
                         }
                         if (j <= 11 && i > 0)
                             if (red_label[j - 1])
                             {
-                                myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 4];
-                                myRange.Interior.ColorIndex = 3;
+                                myRange.Cells[i + 1, j + 4].Interior.ColorIndex = 3;
                             }
                     }
                     if (j == 15 && i == 2)
                     {
-                        myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 2];
                         if (app.Gender) {
-                            myRange.Value2 = Convert.ToString(app.Person[1]) + " (М)";
+                            myRange.Cells[i + 1, j + 2].Value2 = Convert.ToString(app.Person[1]) + " (М)";
                         }
                         if (!app.Gender)
                         {
-                            myRange.Value2 = Convert.ToString(app.Person[1]) + " (Ж)";
+                            myRange.Cells[i + 1, j + 2].Value2 = Convert.ToString(app.Person[1]) + " (Ж)";
                         }
                     }
                 }
@@ -272,16 +253,12 @@ namespace Приложение_по_физре
             myRange = (Range)sheet1.Cells[1, 1];
             if (myRange.Value2 == null)
             {
-                myRange = (Range)sheet1.Cells[1, 1];
-                myRange.Value2 = "Ф.И.О.";
-                myRange = (Range)sheet1.Cells[2, 1];
-                myRange.Value2 = app.Person[0];
+                myRange.Cells[1, 1].Value2 = "Ф.И.О.";
+                myRange.Cells[2, 1].Value2 = app.Person[0];
 
 
-                myRange = (Range)sheet1.Cells[2, 2];
-                myRange.Value2 = dataGrid.Columns[1].Header;
-                myRange = (Range)sheet1.Cells[3, 2];
-                myRange.Value2 = dataGrid.Columns[2].Header;
+                myRange.Cells[2, 2].Value2 = dataGrid.Columns[1].Header;
+                myRange.Cells[3, 2].Value2 = dataGrid.Columns[2].Header;
 
 
                 for (int j = 0; j < dataGrid.Items.Count; j++) 
@@ -299,42 +276,41 @@ namespace Приложение_по_физре
                             if (j < dataGrid.Items.Count)
                             {
                                 TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
-                                myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 3];
+                                myRange.Cells[i + 1, j + 3].Value2 = b.Text;        //     myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 2];
                                 myRange.NumberFormat = "General";
-                                myRange.Value2 = b.Text;
+                                //myRange.Value2 = b.Text;
                             }
                             if (j <= 11 && i > 0)
                                 if (red_label[j])
                                 {
-                                    myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 5];
-                                    myRange.Interior.ColorIndex = 3;
+                                    myRange.Cells[i + 1, j + 5].Interior.ColorIndex = 3;
                                 }
                         }
                         if (j > 3 && j < 15)
                         {
                             if (j < dataGrid.Items.Count) {
                                 TextBlock b = dataGrid.Columns[i].GetCellContent(dataGrid.Items[j]) as TextBlock;
-                                myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 2];
+                                myRange.Cells[i + 1, j + 2].Value2 = b.Text;
                                 myRange.NumberFormat = "General";
-                                myRange.Value2 = b.Text;
+                                //myRange.Value2 = b.Text;
                             }
                             if (j <= 11 && i > 0)
                                 if (red_label[j - 1])
                                 {
-                                    myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 4];
-                                    myRange.Interior.ColorIndex = 3;
+                                    myRange.Cells[i + 1, j + 4].Interior.ColorIndex = 3;
+                                    //myRange.Interior.ColorIndex = 3;
                                 }
                         }
                         if (j == 15 && i == 1)
                         {
-                            myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 2];
+                            //myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + 1, j + 2];
                             if (app.Gender)
                             {
-                                myRange.Value2 = Convert.ToString(app.Person[1]) + " (М)";
+                                myRange.Cells[i + 1, j + 2].Value2 = Convert.ToString(app.Person[1]) + " (М)";
                             }
                             if (!app.Gender)
                             {
-                                myRange.Value2 = Convert.ToString(app.Person[1]) + " (Ж)";
+                                myRange.Cells[i + 1, j + 2].Value2 = Convert.ToString(app.Person[1]) + " (Ж)";
                             }
                         }
                     }
@@ -348,22 +324,22 @@ namespace Приложение_по_физре
             {
                 for (int i = 0; chek == 0; i++)
                 {
-                    myRange = (Range)sheet1.Cells[i + 1, 3];
-                    if (myRange.Value == null)
+                    //myRange = (Range)sheet1.Cells[i + 1, 3];
+                    if (myRange.Cells[i + 1, 3].Value == null)
                     {
-                        myRange = (Range)sheet1.Cells[2 + i, 3];
-                        if (myRange.Value == null)
+                        //myRange = (Range)sheet1.Cells[2 + i, 3];
+                        if (myRange.Cells[2 + i, 3].Value == null)
                         {
                             chek = i + 1;
                         }
                     }
                 }
-                myRange = (Range)sheet1.Cells[chek, 1];
-                myRange.Value2 = app.Person[0];
-                myRange = (Range)sheet1.Cells[chek, 2];
-                myRange.Value2 = dataGrid.Columns[1].Header;
-                myRange = (Range)sheet1.Cells[chek + 1, 2];
-                myRange.Value2 = dataGrid.Columns[2].Header;
+                myRange.Cells[chek, 1].Value2 = app.Person[0];
+                //myRange.Value2 = app.Person[0];
+                myRange.Cells[chek, 2].Value2 = dataGrid.Columns[1].Header;
+                //myRange.Value2 = dataGrid.Columns[1].Header;
+                myRange.Cells[chek + 1, 2].Value2 = dataGrid.Columns[2].Header;
+                //myRange.Value2 = dataGrid.Columns[2].Header;
 
                 for (int i = 0; i < dataGrid.Columns.Count - 2; i++)    // перебор строк в exel таблице
                 {
@@ -374,15 +350,15 @@ namespace Приложение_по_физре
                             if (j < dataGrid.Items.Count)
                             {
                                 TextBlock b = dataGrid.Columns[i + 1].GetCellContent(dataGrid.Items[j]) as TextBlock;
-                                myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 3];
+                                myRange.Cells[i + chek, j + 3].Value2 = b.Text; ;
                                 myRange.NumberFormat = "General";
-                                myRange.Value2 = b.Text;
+                                //myRange.Value2 = b.Text;
                             }
                             if (j <= 11)
                                 if (red_label[j])
                                 {
-                                    myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 5];
-                                    myRange.Interior.ColorIndex = 3;
+                                    myRange.Cells[i + chek, j + 5].Interior.ColorIndex = 3;
+                                    //myRange.Interior.ColorIndex = 3;
                                 }
                         }
                         if (j > 3 && j < 15)
@@ -390,27 +366,27 @@ namespace Приложение_по_физре
                             if (j < dataGrid.Items.Count)
                             {
                                 TextBlock b = dataGrid.Columns[i + 1].GetCellContent(dataGrid.Items[j]) as TextBlock;
-                                myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 2];
+                                myRange.Cells[i + chek, j + 2].Value2 = b.Text;
                                 myRange.NumberFormat = "General";
-                                myRange.Value2 = b.Text;
+                                //myRange.Value2 = b.Text;
                             }
                             if (j <= 11)
                                 if (red_label[j - 1])
                                 {
-                                    myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 4];
-                                    myRange.Interior.ColorIndex = 3;
+                                    myRange.Cells[i + chek, j + 4].Interior.ColorIndex = 3;
+                                    //myRange.Interior.ColorIndex = 3;
                                 }
                         }
                         if (j == 15 && i == 1)
                         {
-                            myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 2];
+                            //myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i + chek, j + 2];
                             if (app.Gender)
                             {
-                                myRange.Value2 = Convert.ToString(app.Person[1]) + " (М)";
+                                myRange.Cells[i + chek, j + 2].Value2 = Convert.ToString(app.Person[1]) + " (М)";
                             }
                             if (!app.Gender)
                             {
-                                myRange.Value2 = Convert.ToString(app.Person[1]) + " (Ж)";
+                                myRange.Cells[i + chek, j + 2].Value2 = Convert.ToString(app.Person[1]) + " (Ж)";
                             }
                         }
                     }
