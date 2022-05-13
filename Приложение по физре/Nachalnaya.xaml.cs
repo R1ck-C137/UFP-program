@@ -74,7 +74,7 @@ namespace Приложение_по_физре
 
         public HeaderFooter RightFooter => throw new NotImplementedException();
 
-        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        private void CalculationPercent_Click(object sender, RoutedEventArgs e)
         {
             app.path = GetPath();
             if (app.path == "")
@@ -95,10 +95,11 @@ namespace Приложение_по_физре
 
             Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
             Range myRange;
-            myRange = (Range)sheet1.Cells[3, 2];
-            double Percent;
-            if (myRange.Value2 == "Результат")
+            myRange = (Range)sheet1.Cells[1, 1];
+            
+            if (myRange.Cells[3, 2].Value2 == "Результат")
             {
+                double Percent;
                 int i;
                 for (int j = 5; j <= 15; j++)
                 {
@@ -117,8 +118,7 @@ namespace Приложение_по_физре
                     Passed--;
                     Percent = 100 / (Total / Passed);
                     Percent = Math.Round(Percent, 0);
-                    myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i - 2, j];
-                    myRange.Value2 = Percent + "%";
+                    myRange.Cells[i - 2, j].Value2 = Percent + "%";
                     //myRange.NumberFormat = "Общий";
                 }
             }
@@ -167,10 +167,9 @@ namespace Приложение_по_физре
 
             workbook = excel.Workbooks.Open(app.path);
             Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
+            Range myRange = (Range)sheet1.Cells[1, 1];
             excel.Visible = true;
 
-            Range myRange;
-            myRange = (Range)sheet1.Cells[1,1];
             int i = 1;
             int j = 1;
 
@@ -253,30 +252,35 @@ namespace Приложение_по_физре
             myRange = (Range)sheet1.Cells[1, 1];
 
             //int criteriaСolumn = 17;
+            bool[] firstRedFlag = new bool[11];      //false - белая ячейка, true - красная ячейка
+            bool[] secondRedFlag = new bool[11];
             string[,] firstMasValue = new string[2, column];
             string[,] secondMasValue = new string[2, column];
-            From_Table_To_Array(firstMasValue, first, column, sheet1);
-            From_Table_To_Array(secondMasValue, second, column, sheet1);
-            From_Array_To_Table(firstMasValue, second, column, sheet1);
-            From_Array_To_Table(secondMasValue, first, column, sheet1);
+            From_Table_To_Array(firstMasValue, first, ref firstRedFlag, column, sheet1);
+            From_Table_To_Array(secondMasValue, second, ref secondRedFlag, column, sheet1);
+            From_Array_To_Table(firstMasValue, second, ref firstRedFlag, column, sheet1);
+            From_Array_To_Table(secondMasValue, first, ref secondRedFlag, column, sheet1);
         }
 
-        public void From_Table_To_Array(string[,] masValue, int lineNumber, int column, Worksheet sheet1)
+        public void From_Table_To_Array(string[,] masValue, int lineNumber, ref bool[] redFlag, int column, Worksheet sheet1)
         {
             Range myRange;
             myRange = (Range)sheet1.Cells[1, 1];
 
             for (int i = 0; i <= 1; i++)
             {
-                for (int j = 0; j < column; j++)
+                for (int j = 0; j < 18; j++)
                 {
                     masValue[i, j] = Convert.ToString(myRange.Cells[i + lineNumber - 1, j + 1].Value2);
+                    if (myRange.Cells[i + lineNumber - 1, j + 1].Interior.ColorIndex == 3 && j >= 5 && i == 0)
+                    {
+                        redFlag[j - 5] = true;
+                    }
                 }
             }
-            
         }
 
-        public void From_Array_To_Table(string[,] masValue, int lineNumber, int column, Worksheet sheet1)
+        public void From_Array_To_Table(string[,] masValue, int lineNumber, ref bool[] redFlag, int column, Worksheet sheet1)
         {
             Range myRange;
             myRange = (Range)sheet1.Cells[1, 1];
@@ -286,11 +290,20 @@ namespace Приложение_по_физре
                 for (int j = 0; j < column; j++)
                 {
                     myRange.Cells[i + lineNumber - 1, j + 1].Value2 = masValue[i, j];
+                    if (j <= 10)
+                    {
+                        if (redFlag[j])
+                        {
+                            myRange.Cells[i + lineNumber - 1, j + 6].Interior.ColorIndex = 3;
+                        }
+                        else
+                            myRange.Cells[i + lineNumber - 1, j + 6].Interior.ColorIndex = 0;
+                    }
                 }
             }
         }
 
-        public void Sorting_By_Column(int column)
+        public void Sorting_By_Column(int column, bool DelitePath = true)
         {
             if (app.path == null)
             {
@@ -344,8 +357,92 @@ namespace Приложение_по_физре
             workbook.Save();
             workbook.Close();
             excel.Quit();
-            app.path = null;
-            System.Windows.MessageBox.Show("Готово!");
+            if(DelitePath == true)
+                app.path = null;
+            //System.Windows.MessageBox.Show("Готово!");
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+
+            Excel.Application excel = new Excel.Application();
+
+            Sorting_By_Column(18, false);
+            Workbook workbook = excel.Workbooks.Open(app.path);
+            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
+            SeparationOfGroups(18, sheet1);
+            CalculatingPercentForGroups(sheet1);
+
+            excel.Visible = true;
+        }
+        void SeparationOfGroups(int column, Worksheet sheet1)
+        {
+            Range myRange = (Range)sheet1.Cells[1, 1];
+
+            string firstGroup = myRange.Cells[3, column].Value;
+            for (int i = 3; true; i += 2)
+            {
+                if (myRange.Cells[i, column].Value != firstGroup && myRange.Cells[i, column].Value != null)
+                {
+                    int nullCell;
+                    firstGroup = myRange.Cells[i, column].Value;
+                    for (nullCell = i; myRange.Cells[nullCell, 7].Value != null; nullCell += 2)
+                    {
+                    }
+                    for (int j = nullCell; j > i; j -= 2)
+                    {
+                        Swap_Positions(j, j - 2, column, sheet1);
+                    }
+                    i += 2;
+                }
+                if (myRange.Cells[i, column].Value == null)
+                    break;
+            }
+        }
+
+        void CalculatingPercentForGroups(Worksheet sheet1)
+        {
+            Range myRange = (Range)sheet1.Cells[1, 1];
+            int column = 5;
+            int row = 3;
+            for (int i = 3; true; i += 2)
+            {
+                if (myRange.Cells[i, column].Value == null)
+                {
+                    CalculatingPercentagesUpToTheNullRow(row - 1, sheet1);
+                    row = i + 1;
+                    if(myRange.Cells[i + 2, column].Value == null)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+        void CalculatingPercentagesUpToTheNullRow(int Row, Worksheet sheet1)
+        {
+            Range myRange = (Range)sheet1.Cells[1, 1];
+            int i;
+            double Percent;
+            for (int j = 5; j <= 15; j++)
+            {
+                double Total = 0;//всего
+                double Passed = 0;//выполненный норматив
+                for (i = Row; Convert.ToString(myRange.Value2) != null; i += 2)
+                {
+                    myRange = (Range)sheet1.Cells[i, j];
+                    if (myRange.Interior.ColorIndex != 3)
+                    {
+                        Passed++;
+                    }
+                    Total++;
+                }
+                Total--;
+                Passed--;
+                Percent = 100 / (Total / Passed);
+                Percent = Math.Round(Percent, 0);
+                myRange.Cells[i - 2, j].Value2 = Percent + "%";
+                //myRange.NumberFormat = "Общий";
+            }
         }
     }
 }

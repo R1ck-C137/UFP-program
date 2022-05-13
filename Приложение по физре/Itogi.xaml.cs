@@ -57,7 +57,7 @@ namespace Приложение_по_физре
             { 8, 18, 33, 12, 17, 1670, 10.47}   //29
         };
 
-        public double[] Baly = new double[11];
+        public double[] Point = new double[11];
         public bool[] red_label = new bool[11];
 
         public int AgeToCount;
@@ -87,8 +87,9 @@ namespace Приложение_по_физре
 
             addInTable.AddInTableValue(ref GridList, "Рост", app.Indication[2]);
 
-            Baly[0] = app.Indication[0];
-            addInTable.AddInTableValue(ref GridList, Baly[0], "Возраст", app.Indication[0]);
+            Point[0] = app.Indication[0];
+            //addInTable.AddInTableValue(ref GridList, Point[0], "Возраст", app.Indication[0]);
+            addInTable.AddInTableValue(ref GridList, "Возраст", app.Indication[0], point : Point[0]);
 
             if (app.Gender == true) //мужской пол
             {
@@ -406,22 +407,22 @@ namespace Приложение_по_физре
             }
             if (app.Indication[1] - NormaVesa_M < 1)
             {
-                Baly[1] = 30;
+                Point[1] = 30;
             }
             else
             {
                 if ((app.Indication[1] - NormaVesa_M) > 30 || NormaVesa_M == 0)
                 {
-                    Baly[1] = 0;
+                    Point[1] = 0;
                 }
                 else
                 {
-                    Baly[1] = 30 - (app.Indication[1] - NormaVesa_M);
+                    Point[1] = 30 - (app.Indication[1] - NormaVesa_M);
                 }
             }
             //--------------------------------------
             
-            addInTable.AddInTableValue(ref GridList, "Масса тела", app.Indication[1], NormaVesa_M, Baly[1]);
+            addInTable.AddInTableValue(ref GridList, "Масса тела", app.Indication[1], NormaVesa_M, Point[1]);
 
             if (app.Indication[1] > NormaVesa_M)
             {
@@ -432,17 +433,17 @@ namespace Приложение_по_физре
             double NormaSistDavleniya_M = 109 + 0.5 * app.Indication[0] + 0.1 * app.Indication[1];
             double NormaDiastDavleniya_M = 74 + 0.1 * app.Indication[0] + 0.15 * app.Indication[1];
 
-            Baly[2] = 30;
+            Point[2] = 30;
             if (app.Indication[5] - NormaSistDavleniya_M > 0)
             {
-                Baly[2] = Baly[2] - Math.Truncate((app.Indication[5] - NormaSistDavleniya_M) / 5);
+                Point[2] = Point[2] - Math.Truncate((app.Indication[5] - NormaSistDavleniya_M) / 5);
             }
             if (app.Indication[6] - NormaDiastDavleniya_M > 0)
             {
-                Baly[2] = Baly[2] - Math.Truncate((app.Indication[6] - NormaDiastDavleniya_M) / 5);
+                Point[2] = Point[2] - Math.Truncate((app.Indication[6] - NormaDiastDavleniya_M) / 5);
             }
 
-            addInTable.AddInTableValue(ref GridList, "Системное артериальное давление", Baly[2]);
+            addInTable.AddInTableValue(ref GridList, "Системное артериальное давление", point: Point[2]);
 
             //--------------------------------------
             
@@ -463,10 +464,10 @@ namespace Приложение_по_физре
                 red_label[2] = true;
             }
             //--------------------------------------
-            Baly[3] = 90 - app.Indication[3];
-            if (Baly[3] < 1) { Baly[3] = 0; }
+            Point[3] = 90 - app.Indication[3];
+            if (Point[3] < 1) { Point[3] = 0; }
             
-            addInTable.AddInTableValue(ref GridList, "Пульс в покое", app.Indication[3], 60, Baly[3]);
+            addInTable.AddInTableValue(ref GridList, "Пульс в покое", app.Indication[3], 60, Point[3]);
 
             if (app.Indication[3] > 60)
             {
@@ -477,10 +478,10 @@ namespace Приложение_по_физре
             if (app.Sport == true)          //  кросс
             {
 
-                Baly[4] = 30;
-                Baly[4] = Baly[4] - Math.Truncate((TableOfNorms_ForMen[AgeToCount, 5] - app.Indication[10]) / 50) * 5;
+                Point[4] = 30;
+                Point[4] = Point[4] - Math.Truncate((TableOfNorms_ForMen[AgeToCount, 5] - app.Indication[10]) / 50) * 5;
 
-                addInTable.AddInTableValue(ref GridList, "Общая выносливость", app.Indication[10], TableOfNorms_ForMen[AgeToCount, 5], Baly[4]);
+                addInTable.AddInTableValue(ref GridList, "Общая выносливость", app.Indication[10], TableOfNorms_ForMen[AgeToCount, 5], Point[4]);
 
                 if (app.Indication[10] < TableOfNorms_ForMen[AgeToCount, 5])
                 {
@@ -491,14 +492,14 @@ namespace Приложение_по_физре
             else                            //  кол-во тренеровок в неделю
             {
                 app.Indication[10] = Math.Truncate(app.Indication[10]);
-                if (app.Indication[10] >= 7) { Baly[4] = 30; }
-                if (app.Indication[10] == 4) { Baly[4] = 25; }
-                if (app.Indication[10] == 3) { Baly[4] = 20; }
-                if (app.Indication[10] == 2) { Baly[4] = 10; }
-                if (app.Indication[10] == 1) { Baly[4] = 5; }
-                if (app.Indication[10] < 1) { Baly[4] = 0; }
+                if (app.Indication[10] >= 7) { Point[4] = 30; }
+                if (app.Indication[10] == 4) { Point[4] = 25; }
+                if (app.Indication[10] == 3) { Point[4] = 20; }
+                if (app.Indication[10] == 2) { Point[4] = 10; }
+                if (app.Indication[10] == 1) { Point[4] = 5; }
+                if (app.Indication[10] < 1) { Point[4] = 0; }
                 
-                addInTable.AddInTableValue(ref GridList, "Общая выносливость", app.Indication[10], 3, Baly[4]);
+                addInTable.AddInTableValue(ref GridList, "Общая выносливость", app.Indication[10], 3, Point[4]);
 
                 if (app.Indication[10] < 3)
                 {
@@ -509,22 +510,22 @@ namespace Приложение_по_физре
             //--------------------------------------
             if (app.Indication[4] >= app.Indication[3] + 20)
             {
-                Baly[5] = -10;
+                Point[5] = -10;
             }
             if (app.Indication[4] < app.Indication[3] + 20)
             {
-                Baly[5] = 10;
+                Point[5] = 10;
             }
             if (app.Indication[4] < app.Indication[3] + 15)
             {
-                Baly[5] = 20;
+                Point[5] = 20;
             }
             if (app.Indication[4] <= app.Indication[3] + 10)      //пульс после == пульс до + 10
             {
-                Baly[5] = 30;
+                Point[5] = 30;
             }
             
-            addInTable.AddInTableValue(ref GridList, "Востанавливваемость пульса", app.Indication[4], app.Indication[3] + 10, Baly[5]);
+            addInTable.AddInTableValue(ref GridList, "Востанавливваемость пульса", app.Indication[4], app.Indication[3] + 10, Point[5]);
 
             if (app.Indication[3] + 10 < app.Indication[4])
             {
@@ -532,10 +533,10 @@ namespace Приложение_по_физре
                 red_label[5] = true;
             }
             //--------------------------------------
-            Baly[6] = app.Indication[7] - TableOfNorms_ForMen[AgeToCount, 0];
-            if (Baly[6] < 0) { Baly[6] = 0; }
+            Point[6] = app.Indication[7] - TableOfNorms_ForMen[AgeToCount, 0];
+            if (Point[6] < 0) { Point[6] = 0; }
             
-            addInTable.AddInTableValue(ref GridList, "Гибкость", app.Indication[7], TableOfNorms_ForMen[AgeToCount, 0], Baly[6]);
+            addInTable.AddInTableValue(ref GridList, "Гибкость", app.Indication[7], TableOfNorms_ForMen[AgeToCount, 0], Point[6]);
 
             if (app.Indication[7] < TableOfNorms_ForMen[AgeToCount, 0])
             {
@@ -543,10 +544,10 @@ namespace Приложение_по_физре
                 red_label[6] = true;
             }
             //--------------------------------------
-            Baly[7] = (TableOfNorms_ForMen[AgeToCount, 1] - app.Indication[8]) * 2;
-            if (Baly[7] < 0) { Baly[7] = 0; }
+            Point[7] = (TableOfNorms_ForMen[AgeToCount, 1] - app.Indication[8]) * 2;
+            if (Point[7] < 0) { Point[7] = 0; }
             
-            addInTable.AddInTableValue(ref GridList, "Быстрота", app.Indication[8], TableOfNorms_ForMen[AgeToCount, 1], Baly[7]);
+            addInTable.AddInTableValue(ref GridList, "Быстрота", app.Indication[8], TableOfNorms_ForMen[AgeToCount, 1], Point[7]);
 
             if (app.Indication[8] > TableOfNorms_ForMen[AgeToCount, 1])
             {
@@ -556,15 +557,15 @@ namespace Приложение_по_физре
             //--------------------------------------
             if ((app.Indication[9] - TableOfNorms_ForMen[AgeToCount, 2]) == 0)
             {
-                Baly[8] = 2;
+                Point[8] = 2;
             }
             if ((app.Indication[9] - TableOfNorms_ForMen[AgeToCount, 2]) > 0)
             {
-                Baly[8] = 2 + (app.Indication[9] - TableOfNorms_ForMen[AgeToCount, 2]) * 2;
+                Point[8] = 2 + (app.Indication[9] - TableOfNorms_ForMen[AgeToCount, 2]) * 2;
             }
-            if (app.Indication[9] - TableOfNorms_ForMen[AgeToCount, 2] < 0) { Baly[8] = 0; }
+            if (app.Indication[9] - TableOfNorms_ForMen[AgeToCount, 2] < 0) { Point[8] = 0; }
             
-            addInTable.AddInTableValue(ref GridList, "Динамическая сила", app.Indication[9], TableOfNorms_ForMen[AgeToCount, 2], Baly[8]);
+            addInTable.AddInTableValue(ref GridList, "Динамическая сила", app.Indication[9], TableOfNorms_ForMen[AgeToCount, 2], Point[8]);
 
             if (app.Indication[9] < TableOfNorms_ForMen[AgeToCount, 2])
             {
@@ -574,11 +575,11 @@ namespace Приложение_по_физре
             //--------------------------------------
             if (app.Indication[11] - TableOfNorms_ForMen[AgeToCount, 3] >= 0)
             {
-                Baly[9] = (app.Indication[11] - (TableOfNorms_ForMen[AgeToCount, 3] - 1)) * 3;
+                Point[9] = (app.Indication[11] - (TableOfNorms_ForMen[AgeToCount, 3] - 1)) * 3;
             }
-            if (app.Indication[11] - TableOfNorms_ForMen[AgeToCount, 3] < 0) { Baly[9] = 0; }
+            if (app.Indication[11] - TableOfNorms_ForMen[AgeToCount, 3] < 0) { Point[9] = 0; }
             
-            addInTable.AddInTableValue(ref GridList, "Скоростная выносливость", app.Indication[11], TableOfNorms_ForMen[AgeToCount, 3], Baly[9]);
+            addInTable.AddInTableValue(ref GridList, "Скоростная выносливость", app.Indication[11], TableOfNorms_ForMen[AgeToCount, 3], Point[9]);
 
             if (app.Indication[9] < TableOfNorms_ForMen[AgeToCount, 3])
             {
@@ -588,11 +589,11 @@ namespace Приложение_по_физре
             //--------------------------------------
             if (app.Indication[12] - TableOfNorms_ForMen[AgeToCount, 4] >= 0)
             {
-                Baly[10] = (app.Indication[12] - (TableOfNorms_ForMen[AgeToCount, 4] - 1)) * 4;
+                Point[10] = (app.Indication[12] - (TableOfNorms_ForMen[AgeToCount, 4] - 1)) * 4;
             }
-            if (app.Indication[12] - TableOfNorms_ForMen[AgeToCount, 4] < 0) { Baly[10] = 0; }
+            if (app.Indication[12] - TableOfNorms_ForMen[AgeToCount, 4] < 0) { Point[10] = 0; }
             
-            addInTable.AddInTableValue(ref GridList, "Скоростно-силовая выностивость", app.Indication[12], TableOfNorms_ForMen[AgeToCount, 4], Baly[10]);
+            addInTable.AddInTableValue(ref GridList, "Скоростно-силовая выностивость", app.Indication[12], TableOfNorms_ForMen[AgeToCount, 4], Point[10]);
 
             if (app.Indication[12] < TableOfNorms_ForMen[AgeToCount, 4])
             {
@@ -611,21 +612,21 @@ namespace Приложение_по_физре
             }
             if (app.Indication[1] - NormaVesa_W < 1)
             {
-                Baly[1] = 30;
+                Point[1] = 30;
             }
             else
             {
                 if ((app.Indication[1] - NormaVesa_W) > 30 || NormaVesa_W == 0)
                 {
-                    Baly[1] = 0;
+                    Point[1] = 0;
                 }
                 else
                 {
-                    Baly[1] = 30 - (app.Indication[1] - NormaVesa_W);
+                    Point[1] = 30 - (app.Indication[1] - NormaVesa_W);
                 }
             }
             
-            addInTable.AddInTableValue(ref GridList, "Масса тела", app.Indication[1], NormaVesa_W, Baly[1]);
+            addInTable.AddInTableValue(ref GridList, "Масса тела", app.Indication[1], NormaVesa_W, Point[1]);
 
             if (app.Indication[1] > NormaVesa_W)
             {
@@ -636,17 +637,17 @@ namespace Приложение_по_физре
             double NormaSistDavleniya_W = 102 + 0.7 * app.Indication[0] + 0.15 * app.Indication[1];
             double NormaDiastDavleniya_W = 78 + 0.17 * app.Indication[0] + 0.1 * app.Indication[1];
 
-            Baly[2] = 30;
+            Point[2] = 30;
             if (app.Indication[5] - NormaSistDavleniya_W > 0)
             {
-                Baly[2] = Baly[2] - Math.Truncate((app.Indication[5] - NormaSistDavleniya_W) / 5);
+                Point[2] = Point[2] - Math.Truncate((app.Indication[5] - NormaSistDavleniya_W) / 5);
             }
             if (app.Indication[6] - NormaDiastDavleniya_W > 0)
             {
-                Baly[2] = Baly[2] - Math.Truncate((app.Indication[6] - NormaDiastDavleniya_W) / 5);
+                Point[2] = Point[2] - Math.Truncate((app.Indication[6] - NormaDiastDavleniya_W) / 5);
             }
             
-            addInTable.AddInTableValue(ref GridList, Baly[2], "Системное артериальное давление");
+            addInTable.AddInTableValue(ref GridList, "Системное артериальное давление", point: Point[2]);
 
             //--------------------------------------
             
@@ -667,10 +668,10 @@ namespace Приложение_по_физре
                 red_label[2] = true;
             }
             //--------------------------------------
-            Baly[3] = 90 - app.Indication[3];
-            if (Baly[3] < 1) { Baly[3] = 0; }
+            Point[3] = 90 - app.Indication[3];
+            if (Point[3] < 1) { Point[3] = 0; }
             
-            addInTable.AddInTableValue(ref GridList, "Пульс в покое", app.Indication[3], 60, Baly[3]);
+            addInTable.AddInTableValue(ref GridList, "Пульс в покое", app.Indication[3], 60, Point[3]);
 
             if (app.Indication[3] > 60)
             {
@@ -680,10 +681,10 @@ namespace Приложение_по_физре
             //--------------------------------------
             if (app.Sport == true)          //  кросс
             {
-                Baly[4] = 30;
-                Baly[4] = Baly[4] - Math.Truncate((TableOfNorms_ForWomen[AgeToCount, 5] - app.Indication[10]) / 50) * 5;
+                Point[4] = 30;
+                Point[4] = Point[4] - Math.Truncate((TableOfNorms_ForWomen[AgeToCount, 5] - app.Indication[10]) / 50) * 5;
                 
-                addInTable.AddInTableValue(ref GridList, "Общая выносливость", app.Indication[10], TableOfNorms_ForWomen[AgeToCount, 5], Baly[4]);
+                addInTable.AddInTableValue(ref GridList, "Общая выносливость", app.Indication[10], TableOfNorms_ForWomen[AgeToCount, 5], Point[4]);
 
                 if (app.Indication[10] < TableOfNorms_ForWomen[AgeToCount, 5])
                 {
@@ -694,14 +695,14 @@ namespace Приложение_по_физре
             else                            //  кол-во тренеровок в неделю
             {
                 app.Indication[10] = Math.Truncate(app.Indication[10]);
-                if (app.Indication[10] >= 7) { Baly[4] = 30; }
-                if (app.Indication[10] == 4) { Baly[4] = 25; }
-                if (app.Indication[10] == 3) { Baly[4] = 20; }
-                if (app.Indication[10] == 2) { Baly[4] = 10; }
-                if (app.Indication[10] == 1) { Baly[4] = 5; }
-                if (app.Indication[10] < 1) { Baly[4] = 0; }
+                if (app.Indication[10] >= 7) { Point[4] = 30; }
+                if (app.Indication[10] == 4) { Point[4] = 25; }
+                if (app.Indication[10] == 3) { Point[4] = 20; }
+                if (app.Indication[10] == 2) { Point[4] = 10; }
+                if (app.Indication[10] == 1) { Point[4] = 5; }
+                if (app.Indication[10] < 1) { Point[4] = 0; }
                 
-                addInTable.AddInTableValue(ref GridList, "Общая выносливость", app.Indication[10], 3, Baly[4]);
+                addInTable.AddInTableValue(ref GridList, "Общая выносливость", app.Indication[10], 3, Point[4]);
 
                 if (app.Indication[10] < 3)
                 {
@@ -712,22 +713,22 @@ namespace Приложение_по_физре
             //--------------------------------------
             if (app.Indication[4] >= app.Indication[3] + 20)
             {
-                Baly[5] = -10;
+                Point[5] = -10;
             }
             if (app.Indication[4] < app.Indication[3] + 20)
             {
-                Baly[5] = 10;
+                Point[5] = 10;
             }
             if (app.Indication[4] < app.Indication[3] + 15)
             {
-                Baly[5] = 20;
+                Point[5] = 20;
             }
             if (app.Indication[4] <= app.Indication[3] + 10)      //пульс после == пульс до + 10
             {
-                Baly[5] = 30;
+                Point[5] = 30;
             }
             
-            addInTable.AddInTableValue(ref GridList, "Востанавливваемость пульса", app.Indication[4], app.Indication[3] + 10, Baly[5]);
+            addInTable.AddInTableValue(ref GridList, "Востанавливваемость пульса", app.Indication[4], app.Indication[3] + 10, Point[5]);
 
             if (app.Indication[3] + 10 < app.Indication[4])
             {
@@ -735,10 +736,10 @@ namespace Приложение_по_физре
                 red_label[5] = true;
             }
             //--------------------------------------
-            Baly[6] = app.Indication[7] - TableOfNorms_ForWomen[AgeToCount, 0];
-            if (Baly[6] < 0) { Baly[6] = 0; }
+            Point[6] = app.Indication[7] - TableOfNorms_ForWomen[AgeToCount, 0];
+            if (Point[6] < 0) { Point[6] = 0; }
             
-            addInTable.AddInTableValue(ref GridList, "Гибкость", app.Indication[7], TableOfNorms_ForWomen[AgeToCount, 0], Baly[6]);
+            addInTable.AddInTableValue(ref GridList, "Гибкость", app.Indication[7], TableOfNorms_ForWomen[AgeToCount, 0], Point[6]);
 
             if (app.Indication[7] < TableOfNorms_ForWomen[AgeToCount, 0])
             {
@@ -746,10 +747,10 @@ namespace Приложение_по_физре
                 red_label[6] = true;
             }
             //--------------------------------------
-            Baly[7] = (TableOfNorms_ForWomen[AgeToCount, 1] - app.Indication[8]) * 2;
-            if (Baly[7] < 0) { Baly[7] = 0; }
+            Point[7] = (TableOfNorms_ForWomen[AgeToCount, 1] - app.Indication[8]) * 2;
+            if (Point[7] < 0) { Point[7] = 0; }
             
-            addInTable.AddInTableValue(ref GridList, "Быстрота", app.Indication[8], TableOfNorms_ForWomen[AgeToCount, 1], Baly[7]);
+            addInTable.AddInTableValue(ref GridList, "Быстрота", app.Indication[8], TableOfNorms_ForWomen[AgeToCount, 1], Point[7]);
 
             if (app.Indication[8] > TableOfNorms_ForWomen[AgeToCount, 1])
             {
@@ -759,15 +760,15 @@ namespace Приложение_по_физре
             //--------------------------------------
             if ((app.Indication[9] - TableOfNorms_ForWomen[AgeToCount, 2]) == 0)
             {
-                Baly[8] = 2;
+                Point[8] = 2;
             }
             if ((app.Indication[9] - TableOfNorms_ForWomen[AgeToCount, 2]) > 0)
             {
-                Baly[8] = 2 + (app.Indication[9] - TableOfNorms_ForWomen[AgeToCount, 2]) * 2;
+                Point[8] = 2 + (app.Indication[9] - TableOfNorms_ForWomen[AgeToCount, 2]) * 2;
             }
-            if (app.Indication[9] - TableOfNorms_ForWomen[AgeToCount, 2] < 0) { Baly[8] = 0; }
+            if (app.Indication[9] - TableOfNorms_ForWomen[AgeToCount, 2] < 0) { Point[8] = 0; }
             
-            addInTable.AddInTableValue(ref GridList, "Динамическая сила", app.Indication[9], TableOfNorms_ForWomen[AgeToCount, 2], Baly[8]);
+            addInTable.AddInTableValue(ref GridList, "Динамическая сила", app.Indication[9], TableOfNorms_ForWomen[AgeToCount, 2], Point[8]);
 
             if (app.Indication[9] < TableOfNorms_ForWomen[AgeToCount, 2])
             {
@@ -777,11 +778,11 @@ namespace Приложение_по_физре
             //--------------------------------------
             if (app.Indication[11] - TableOfNorms_ForWomen[AgeToCount, 3] >= 0)
             {
-                Baly[9] = (app.Indication[11] - (TableOfNorms_ForWomen[AgeToCount, 3] - 1)) * 3;
+                Point[9] = (app.Indication[11] - (TableOfNorms_ForWomen[AgeToCount, 3] - 1)) * 3;
             }
-            if (app.Indication[11] - TableOfNorms_ForWomen[AgeToCount, 3] < 0) { Baly[9] = 0; }
+            if (app.Indication[11] - TableOfNorms_ForWomen[AgeToCount, 3] < 0) { Point[9] = 0; }
             
-            addInTable.AddInTableValue(ref GridList, "Скоростная выносливость", app.Indication[11], TableOfNorms_ForWomen[AgeToCount, 3], Baly[9]);
+            addInTable.AddInTableValue(ref GridList, "Скоростная выносливость", app.Indication[11], TableOfNorms_ForWomen[AgeToCount, 3], Point[9]);
 
             if (app.Indication[11] < TableOfNorms_ForWomen[AgeToCount, 3])
             {
@@ -791,11 +792,11 @@ namespace Приложение_по_физре
             //--------------------------------------
             if (app.Indication[12] - TableOfNorms_ForWomen[AgeToCount, 4] >= 0)
             {
-                Baly[10] = (app.Indication[12] - (TableOfNorms_ForWomen[AgeToCount, 4] - 1)) * 4;
+                Point[10] = (app.Indication[12] - (TableOfNorms_ForWomen[AgeToCount, 4] - 1)) * 4;
             }
-            if (app.Indication[12] - TableOfNorms_ForWomen[AgeToCount, 4] < 0) { Baly[10] = 0; }
+            if (app.Indication[12] - TableOfNorms_ForWomen[AgeToCount, 4] < 0) { Point[10] = 0; }
             
-            addInTable.AddInTableValue(ref GridList, "Скоростно-силовая выностивость", app.Indication[12], TableOfNorms_ForWomen[AgeToCount, 4], Baly[10]);
+            addInTable.AddInTableValue(ref GridList, "Скоростно-силовая выностивость", app.Indication[12], TableOfNorms_ForWomen[AgeToCount, 4], Point[10]);
 
             if (app.Indication[12] < TableOfNorms_ForWomen[AgeToCount, 4])
             {
@@ -808,19 +809,13 @@ namespace Приложение_по_физре
         public void CalculationFinalScore()
         {
             string TotalScore = "Ошибка";
-            if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] > 250) { TotalScore = "Высокий"; }
-            if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 250) { TotalScore = "Выше среднего"; }
-            if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 160) { TotalScore = "Средний"; }
-            if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] <= 90) { TotalScore = "Ниже среднего"; }
-            if (Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10] < 50) { TotalScore = "Низкий"; }
+            if (Point[0] + Point[1] + Point[2] + Point[3] + Point[4] + Point[5] + Point[6] + Point[7] + Point[8] + Point[9] + Point[10] > 250) { TotalScore = "Высокий"; }
+            if (Point[0] + Point[1] + Point[2] + Point[3] + Point[4] + Point[5] + Point[6] + Point[7] + Point[8] + Point[9] + Point[10] <= 250) { TotalScore = "Выше среднего"; }
+            if (Point[0] + Point[1] + Point[2] + Point[3] + Point[4] + Point[5] + Point[6] + Point[7] + Point[8] + Point[9] + Point[10] <= 160) { TotalScore = "Средний"; }
+            if (Point[0] + Point[1] + Point[2] + Point[3] + Point[4] + Point[5] + Point[6] + Point[7] + Point[8] + Point[9] + Point[10] <= 90) { TotalScore = "Ниже среднего"; }
+            if (Point[0] + Point[1] + Point[2] + Point[3] + Point[4] + Point[5] + Point[6] + Point[7] + Point[8] + Point[9] + Point[10] < 50) { TotalScore = "Низкий"; }
 
-            /*GridList.Add(new GridClass()
-            {
-                lineHeader = "Ваш уровень физического состояния ",
-                norm = TotalScore,
-                point = Convert.ToString(Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10])
-            });*/
-            addInTable.AddInTableFinalScore(ref GridList, TotalScore, Baly[0] + Baly[1] + Baly[2] + Baly[3] + Baly[4] + Baly[5] + Baly[6] + Baly[7] + Baly[8] + Baly[9] + Baly[10], "Ваш уровень физического состояния ");
+            addInTable.AddInTableFinalScore(ref GridList, "Ваш уровень физического состояния ", TotalScore, Point[0] + Point[1] + Point[2] + Point[3] + Point[4] + Point[5] + Point[6] + Point[7] + Point[8] + Point[9] + Point[10]);
         }
 
         private void Sled_Click(object sender, RoutedEventArgs e)
@@ -840,60 +835,66 @@ namespace Приложение_по_физре
 
     public class AddInTable
     {
-        public void AddInTableValue(ref List<Itogi.GridClass> GridList, string lineHeader, double result)
+        public void AddInTableValue(ref List<Itogi.GridClass> GridList, string lineHeader, double ? result = null, double ? norm = null, double ? point = null)
         {
-            GridList.Add(new Itogi.GridClass()
-            {
-                lineHeader = lineHeader,
-                result = Convert.ToString(result),
-            });
+            if (result == null && norm == null && point != null)
+                GridList.Add(new Itogi.GridClass()
+                {
+                    lineHeader = lineHeader,
+                    point = Convert.ToString(point)
+                });
+            if (result != null && norm == null && point == null)
+                GridList.Add(new Itogi.GridClass()
+                {
+                    lineHeader = lineHeader,
+                    result = Convert.ToString(result)
+                });
+            if (result == null && norm != null && point == null)
+                GridList.Add(new Itogi.GridClass()
+                {
+                    lineHeader = lineHeader,
+                    norm = Convert.ToString(norm)
+                });
+
+
+            if (result != null && norm != null && point == null)
+                GridList.Add(new Itogi.GridClass()
+                {
+                    lineHeader = lineHeader,
+                    result = Convert.ToString(result),
+                    norm = Convert.ToString(norm)
+                });
+            if (result != null && norm == null && point != null)
+                GridList.Add(new Itogi.GridClass()
+                {
+                    lineHeader = lineHeader,
+                    result = Convert.ToString(result),
+                    point = Convert.ToString(point)
+                });
+            if (result == null && norm != null && point != null)
+                GridList.Add(new Itogi.GridClass()
+                {
+                    lineHeader = lineHeader,
+                    norm = Convert.ToString(norm),
+                    point = Convert.ToString(point)
+                });
+
+
+            if ( result != null && norm != null && point != null)
+                GridList.Add(new Itogi.GridClass()
+                {
+                    lineHeader = lineHeader,
+                    result = Convert.ToString(result),
+                    norm = Convert.ToString(norm),
+                    point = Convert.ToString(point)
+                });
         }
 
-        public void AddInTableValue(ref List<Itogi.GridClass> GridList, double point, string lineHeader)
+        public void AddInTableFinalScore(ref List<Itogi.GridClass> GridList, string lineHeader, string norm, double point )
         {
             GridList.Add(new Itogi.GridClass()
             {
                 lineHeader = lineHeader,
-                point = Convert.ToString(point),
-            });
-        }
-
-        public void AddInTableValue(ref List<Itogi.GridClass> GridList, string lineHeader, double result, double norm)
-        {
-            GridList.Add(new Itogi.GridClass()
-            {
-                lineHeader = lineHeader,
-                result = Convert.ToString(result),
-                norm = Convert.ToString(norm)
-            });
-        }
-
-        public void AddInTableValue(ref List<Itogi.GridClass> GridList, double point, string lineHeader, double result)
-        {
-            GridList.Add(new Itogi.GridClass()
-            {
-                lineHeader = lineHeader,
-                result = Convert.ToString(result),
-                point = Convert.ToString(point)
-            });
-        }
-
-        public void AddInTableFinalScore(ref List<Itogi.GridClass> GridList, string norm, double point, string lineHeader)
-        {
-            GridList.Add(new Itogi.GridClass()
-            {
-                lineHeader = lineHeader,
-                norm = Convert.ToString(norm),
-                point = Convert.ToString(point)
-            });
-        }
-
-        public void AddInTableValue(ref List<Itogi.GridClass> GridList, string lineHeader, double result, double norm, double point)
-        {
-            GridList.Add(new Itogi.GridClass()
-            {
-                lineHeader = lineHeader,
-                result = Convert.ToString(result),
                 norm = Convert.ToString(norm),
                 point = Convert.ToString(point)
             });

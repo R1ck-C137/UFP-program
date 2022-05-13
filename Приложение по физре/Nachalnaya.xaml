@@ -18,8 +18,11 @@
                 <MenuItem Header="Инструменты">
                     <MenuItem Header="Быстрая форма" Click="MenuItem_Click" ></MenuItem>
                     <MenuItem Header="Сохранить группу" Click="MenuItem_Click_1" ></MenuItem>
-                    <MenuItem Header="Расчёт процентов" Click="MenuItem_Click_2" ></MenuItem>
-                    <MenuItem Header="Добавление гистограммы" Click="MenuItem_Click_3"></MenuItem>
+                    <MenuItem Header="Расчёт процентов" Click="CalculationPercent_Click" ></MenuItem>
+                    <MenuItem Header="Добавление гистограммы">
+                        <MenuItem Header="Для всей таблицы" Click="MenuItem_Click_3"></MenuItem>
+                        <MenuItem Header="Для каждой группы" Click="MenuItem_Click_2"></MenuItem>
+                    </MenuItem>
                     <MenuItem Header="Сортировать по ">
                         <MenuItem Header="Полу" Click="MenuItem_Gender_Click"></MenuItem>
                         <MenuItem Header="Группам" Click="MenuItem_Group_Click"></MenuItem>
