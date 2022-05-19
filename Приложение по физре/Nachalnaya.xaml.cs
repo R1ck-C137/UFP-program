@@ -105,20 +105,20 @@ namespace Приложение_по_физре
                 {
                     double Total = 0;//всего
                     double Passed = 0;//выполненный норматив
-                    for (i = 3; Convert.ToString(myRange.Value2) != null; i = i + 2)
+                    for (i = 2; Convert.ToString(myRange.Cells[i, j].Value2) != null; i = i + 2)
                     {
-                        myRange = (Range)sheet1.Cells[i, j];
-                        if (myRange.Interior.ColorIndex != 3)
+                        //myRange = (Range)sheet1.Cells[i, j];
+                        if (myRange.Cells[i, j].Interior.ColorIndex != 3)
                         {
                             Passed++;
                         }
                         Total++;
                     }
-                    Total--;
-                    Passed--;
+                    //Total--;
+                    //Passed--;
                     Percent = 100 / (Total / Passed);
                     Percent = Math.Round(Percent, 0);
-                    myRange.Cells[i - 2, j].Value2 = Percent + "%";
+                    myRange.Cells[i + 1, j].Value2 = Percent + "%";
                     //myRange.NumberFormat = "Общий";
                 }
             }
@@ -187,22 +187,19 @@ namespace Приложение_по_физре
                     {
                         double Total = 0;//всего
                         double Passed = 0;//выполненный норматив
-                        for (i = 3; Convert.ToString(myRange.Value2) != null; i = i + 2)
+                        for (i = 2; Convert.ToString(myRange.Cells[i, j].Value2) != null; i = i + 2)
                         {
-                            myRange = (Range)sheet1.Cells[i, j];
-                            if (myRange.Interior.ColorIndex != 3)
+                            if (myRange.Cells[i, j].Interior.ColorIndex != 3)
                             {
                                 Passed++;
                             }
                             Total++;
                         }
-                        Total--;
-                        Passed--;
+                        //Total--;
+                        //Passed--;
                         Percent = 100 / (Total / Passed);
                         Percent = Math.Round(Percent, 0);
-                        myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[i - 2, j];
-                        myRange.Value2 = Percent + "%";
-                        //myRange.Cells[i, j].Value2 = "ок";
+                        myRange.Cells[i + 1, j].Value2 = Percent + "%";
                     }
                     break;
                 }
@@ -272,7 +269,7 @@ namespace Приложение_по_физре
                 for (int j = 0; j < 18; j++)
                 {
                     masValue[i, j] = Convert.ToString(myRange.Cells[i + lineNumber - 1, j + 1].Value2);
-                    if (myRange.Cells[i + lineNumber - 1, j + 1].Interior.ColorIndex == 3 && j >= 5 && i == 0)
+                    if (j >= 5 && myRange.Cells[i + lineNumber - 1, j].Interior.ColorIndex == 3 && i == 0)
                     {
                         redFlag[j - 5] = true;
                     }
@@ -294,10 +291,10 @@ namespace Приложение_по_физре
                     {
                         if (redFlag[j])
                         {
-                            myRange.Cells[i + lineNumber - 1, j + 6].Interior.ColorIndex = 3;
+                            myRange.Cells[i + lineNumber - 1, j + 5].Interior.ColorIndex = 3;
                         }
                         else
-                            myRange.Cells[i + lineNumber - 1, j + 6].Interior.ColorIndex = 0;
+                            myRange.Cells[i + lineNumber - 1, j + 5].Interior.ColorIndex = 0;
                     }
                 }
             }
@@ -404,14 +401,14 @@ namespace Приложение_по_физре
         {
             Range myRange = (Range)sheet1.Cells[1, 1];
             int column = 5;
-            int row = 3;
+            int row = 2;
             for (int i = 3; true; i += 2)
             {
                 if (myRange.Cells[i, column].Value == null)
                 {
-                    CalculatingPercentagesUpToTheNullRow(row - 1, sheet1);
+                    CalculatingPercentagesUpToTheNullRow(row, sheet1);
                     row = i + 1;
-                    if(myRange.Cells[i + 2, column].Value == null)
+                    if(myRange.Cells[row, column].Value == null)
                     {
                         break;
                     }
@@ -421,27 +418,23 @@ namespace Приложение_по_физре
         void CalculatingPercentagesUpToTheNullRow(int Row, Worksheet sheet1)
         {
             Range myRange = (Range)sheet1.Cells[1, 1];
-            int i;
             double Percent;
+            int i;
             for (int j = 5; j <= 15; j++)
             {
                 double Total = 0;//всего
                 double Passed = 0;//выполненный норматив
-                for (i = Row; Convert.ToString(myRange.Value2) != null; i += 2)
+                for (i = Row; Convert.ToString(myRange.Cells[i, j].Value2) != null; i = i + 2)
                 {
-                    myRange = (Range)sheet1.Cells[i, j];
-                    if (myRange.Interior.ColorIndex != 3)
+                    if (myRange.Cells[i, j].Interior.ColorIndex != 3)
                     {
                         Passed++;
                     }
                     Total++;
                 }
-                Total--;
-                Passed--;
                 Percent = 100 / (Total / Passed);
                 Percent = Math.Round(Percent, 0);
-                myRange.Cells[i - 2, j].Value2 = Percent + "%";
-                //myRange.NumberFormat = "Общий";
+                myRange.Cells[i + 1, j].Value2 = Percent + "%";
             }
         }
     }
