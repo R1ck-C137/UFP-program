@@ -21,7 +21,8 @@
                     <MenuItem Header="Расчёт процентов" Click="CalculationPercent_Click" ></MenuItem>
                     <MenuItem Header="Добавление гистограммы">
                         <MenuItem Header="Для всей таблицы" Click="MenuItem_Click_3"></MenuItem>
-                        <MenuItem Header="Для каждой группы" Click="MenuItem_Click_2"></MenuItem>
+                        <MenuItem Header="Отдельно для полов" Click="MenuItem_Click_2"></MenuItem>
+                        <MenuItem Header="Отдельно для групп" Click="MenuItem_Click_4"></MenuItem>
                     </MenuItem>
                     <MenuItem Header="Сортировать по ">
                         <MenuItem Header="Полу" Click="MenuItem_Gender_Click"></MenuItem>

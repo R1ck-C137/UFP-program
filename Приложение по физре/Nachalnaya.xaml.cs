@@ -51,12 +51,7 @@ namespace Приложение_по_физре
             
             if (app.path != null)
             {
-                //workbook.SaveAs(app.path);
                 app.Gruppa = true;
-                
-                //workbook.Close();
-                //excel.Quit();
-                
                 NavigationService.Navigate(new Uri("/../Korotkaya_versiya.xaml", UriKind.Relative));
                 
             }
@@ -77,22 +72,19 @@ namespace Приложение_по_физре
         private void CalculationPercent_Click(object sender, RoutedEventArgs e)
         {
             app.path = GetPath();
-            if (app.path == "")
+            if (app.path == null)
             {
-                app.path = null;
                 return;
             }
-            Excel.Application excel = new Excel.Application();
-
-            Workbook workbook;
             if (!File.Exists(app.path))
             {
                 System.Windows.MessageBox.Show("Файла не существует!");
                 return;
             }
 
+            Excel.Application excel = new Excel.Application();
+            Workbook workbook;
             workbook = excel.Workbooks.Open(app.path);
-
             Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
             Range myRange;
             myRange = (Range)sheet1.Cells[1, 1];
@@ -126,7 +118,6 @@ namespace Приложение_по_физре
             workbook.Save();
             workbook.Close();
             excel.Quit();
-            app.path = null;
             System.Windows.MessageBox.Show("Готово!");
         }
 
@@ -146,86 +137,25 @@ namespace Приложение_по_физре
 
         public void CreateCharts()
         {
+            app.path = GetPath();
             if (app.path == null)
             {
-                app.path = GetPath();
-                if (app.path == "")
-                {
-                    app.path = null;
-                    return;
-                }
+                return;
             }
-
-            Excel.Application excel = new Excel.Application();
-
-            Workbook workbook;
             if (!File.Exists(app.path))
             {
                 System.Windows.MessageBox.Show("Файла не существует!");
                 return;
             }
-
+            Excel.Application excel = new Excel.Application();
+            Workbook workbook;
             workbook = excel.Workbooks.Open(app.path);
             Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
-            Range myRange = (Range)sheet1.Cells[1, 1];
+
+            CalculatingPercentForGroups(sheet1);
+            CreatingGraph(sheet1);
             excel.Visible = true;
-
-            int i = 1;
-            int j = 1;
-
-            for (i = 2; Convert.ToString(myRange.Cells[i, 5].Value2) != null; i++)
-            {
-            }
-            int cell_position_for_Chart = i + 1;
-            
-            for (j = 5; j <= 15; j++)
-            {
-                if (Convert.ToString(myRange.Cells[i + 1, j].Value2) == null || Convert.ToString(myRange.Cells[i + 1, j].Value2).Contains("%"))
-                {
-                    double Percent;
-                    for (j = 5; j <= 15; j++)
-                    {
-                        double Total = 0;//всего
-                        double Passed = 0;//выполненный норматив
-                        for (i = 2; Convert.ToString(myRange.Cells[i, j].Value2) != null; i = i + 2)
-                        {
-                            if (myRange.Cells[i, j].Interior.ColorIndex != 3)
-                            {
-                                Passed++;
-                            }
-                            Total++;
-                        }
-                        //Total--;
-                        //Passed--;
-                        Percent = 100 / (Total / Passed);
-                        Percent = Math.Round(Percent, 0);
-                        myRange.Cells[i + 1, j].Value2 = Percent + "%";
-                    }
-                    break;
-                }
-            }
-
-            ChartObjects xlCharts = (ChartObjects)sheet1.ChartObjects(Type.Missing);
-            ChartObject myChart = (ChartObject)xlCharts.Add(1420, 20, 450, 270);
-            Chart chart = myChart.Chart;
-            SeriesCollection seriesCollection = (SeriesCollection)chart.SeriesCollection(Type.Missing);
-            Series series = seriesCollection.NewSeries();
-            series.Values = sheet1.get_Range((Range)sheet1.Cells[cell_position_for_Chart, 5], (Range)sheet1.Cells[cell_position_for_Chart, 15]);
-            //chart.ChartType = XlChartType.xlBarClustered; // horizontal histogram
-            chart.ChartType = XlChartType.xlColumnClustered;
-            chart.HasTitle = true;
-            chart.ChartTitle.Text = "Физическое состояние";
-            chart.HasLegend = false;
-            series.XValues = sheet1.get_Range("E1", "O1");
-            chart.Axes(XlAxisType.xlValue).MaximumScale = 1.0;
-
-
-            //excel.Visible = true;
-            workbook.Save();
-            //workbook.Close();
-            //excel.Quit();
-            app.path = null;
-            System.Windows.MessageBox.Show("Готово!");
+            //System.Windows.MessageBox.Show("Готово!");
         }
 
         private void MenuItem_Click_3(object sender, RoutedEventArgs e)
@@ -251,8 +181,8 @@ namespace Приложение_по_физре
             //int criteriaСolumn = 17;
             bool[] firstRedFlag = new bool[11];      //false - белая ячейка, true - красная ячейка
             bool[] secondRedFlag = new bool[11];
-            string[,] firstMasValue = new string[2, column];
-            string[,] secondMasValue = new string[2, column];
+            string[,] firstMasValue = new string[2, 18];
+            string[,] secondMasValue = new string[2, 18];
             From_Table_To_Array(firstMasValue, first, ref firstRedFlag, column, sheet1);
             From_Table_To_Array(secondMasValue, second, ref secondRedFlag, column, sheet1);
             From_Array_To_Table(firstMasValue, second, ref firstRedFlag, column, sheet1);
@@ -300,27 +230,21 @@ namespace Приложение_по_физре
             }
         }
 
-        public void Sorting_By_Column(int column, bool DelitePath = true)
+        public void Sorting_By_Column(int column)
         {
-            if (app.path == null)
+            app.path = GetPath();
+            if (app.path == null || app.path == "")
             {
-                app.path = GetPath();
-                if (app.path == "")
-                {
-                    app.path = null;
-                    return;
-                }
+                return;
             }
-
-            Excel.Application excel = new Excel.Application();
-
-            Workbook workbook;
             if (!File.Exists(app.path))
             {
                 System.Windows.MessageBox.Show("Файла не существует!");
                 return;
             }
-
+            
+            Excel.Application excel = new Excel.Application();
+            Workbook workbook;
             workbook = excel.Workbooks.Open(app.path);
             Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
             Range myRange = (Range)sheet1.Cells[1, 1];
@@ -354,24 +278,15 @@ namespace Приложение_по_физре
             workbook.Save();
             workbook.Close();
             excel.Quit();
-            if(DelitePath == true)
-                app.path = null;
+            
             //System.Windows.MessageBox.Show("Готово!");
         }
 
         private void MenuItem_Click_2(object sender, RoutedEventArgs e)
         {
-
-            Excel.Application excel = new Excel.Application();
-
-            Sorting_By_Column(18, false);
-            Workbook workbook = excel.Workbooks.Open(app.path);
-            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
-            SeparationOfGroups(18, sheet1);
-            CalculatingPercentForGroups(sheet1);
-
-            excel.Visible = true;
+            Add_Chart(18);
         }
+
         void SeparationOfGroups(int column, Worksheet sheet1)
         {
             Range myRange = (Range)sheet1.Cells[1, 1];
@@ -437,5 +352,82 @@ namespace Приложение_по_физре
                 myRange.Cells[i + 1, j].Value2 = Percent + "%";
             }
         }
+
+        void CreatingGraph(Worksheet sheet1, int? column = null)
+        {
+            int cell_position_for_Chart;
+            Range myRange = (Range)sheet1.Cells[1, 1];
+
+            ChartObjects xlCharts = (ChartObjects)sheet1.ChartObjects(Type.Missing);
+            ChartObject myChart = (ChartObject)xlCharts.Add(1420, 20, 450, 270);
+            Chart chart = myChart.Chart;
+            SeriesCollection seriesCollection = (SeriesCollection)chart.SeriesCollection(Type.Missing);
+            Series[] series = new Series[1];
+            series[0] = seriesCollection.NewSeries();
+            int i = 0;
+            for (cell_position_for_Chart = 2; Convert.ToString(myRange.Cells[cell_position_for_Chart, 5].Value) != null || Convert.ToString(myRange.Cells[cell_position_for_Chart + 1, 5].Value) != null; cell_position_for_Chart++)
+            {
+                if (Convert.ToString(myRange.Cells[cell_position_for_Chart, 5].Value) != null)
+                {
+                    if (Convert.ToString(myRange.Cells[cell_position_for_Chart, 5].Text).Contains("%"))
+                    {
+                        Array.Resize(ref series, series.Length + 1);
+                        if(i != 0)
+                        {
+                            series[i] = seriesCollection.NewSeries();
+                        }
+                        series[i].Values = sheet1.get_Range((Range)sheet1.Cells[cell_position_for_Chart, 5], (Range)sheet1.Cells[cell_position_for_Chart, 15]);
+                        if (column != null)
+                        {
+                            series[i].Name = Convert.ToString(myRange.Cells[cell_position_for_Chart - 2, column].Text);
+                        }
+                        else
+                        {
+                            chart.HasLegend = false;
+                        }
+                        i++;
+                    }
+                }
+            }
+
+            //chart.HasLegend = false;
+            //chart.ChartType = XlChartType.xlBarClustered; // horizontal histogram
+            chart.ChartType = XlChartType.xlColumnClustered;
+            chart.HasTitle = true;
+            chart.ChartTitle.Text = "Физическое состояние";
+            
+            for (int j = 0; j <= i; j++)
+            {
+                series[0].XValues = sheet1.get_Range("E1", "O1");
+            }
+            chart.Axes(XlAxisType.xlValue).MaximumScale = 1.0;
+        }
+
+        void Add_Chart(int column)
+        {
+            Excel.Application excel = new Excel.Application();
+
+            Sorting_By_Column(column);
+            
+            if (app.path == null || app.path == "")
+            {
+                return;
+            }
+            Workbook workbook = excel.Workbooks.Open(app.path);
+            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
+            SeparationOfGroups(column, sheet1);
+            CalculatingPercentForGroups(sheet1);
+            CreatingGraph(sheet1, column);
+            excel.Visible = true;
+        }
+
+        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
+        {
+            Add_Chart(17);
+        }
+    }
+    public class Working_With_Excel_Tables
+    {
+
     }
 }
