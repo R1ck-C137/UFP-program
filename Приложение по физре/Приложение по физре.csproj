@@ -128,6 +128,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Person.cs" />
     <Compile Include="Itogi.xaml.cs">
       <DependentUpon>Itogi.xaml</DependentUpon>
     </Compile>
@@ -137,6 +138,7 @@
     <Compile Include="Nachalnaya.xaml.cs">
       <DependentUpon>Nachalnaya.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Point.cs" />
     <Compile Include="Страницы отценки\Page1.xaml.cs">
       <DependentUpon>Page1.xaml</DependentUpon>
     </Compile>

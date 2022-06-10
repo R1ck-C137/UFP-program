@@ -17,46 +17,68 @@ namespace Приложение_по_физре
     /// </summary>
     public partial class Korotkaya_versiya : Page
     {
+        Person person = new Person();
+        App app = (App)Application.Current;
+
         public Korotkaya_versiya()
         {
             InitializeComponent();
         }
-        App app = (App)Application.Current;
+        
 
         private void b_nazad_Click(object sender, RoutedEventArgs e)
         {
-            if(app.Gruppa == true)
+            if(app.GroupMode == true)
             {
-                app.Gruppa = false;
-                app.path = null;
+                app.GroupMode = false;
+                app.FilePath = null;
             }
             NavigationService.Navigate(new Uri("/../Nachalnaya.xaml", UriKind.Relative));
         }
 
         private void b_dalee_Click(object sender, RoutedEventArgs e)
         {
-            if (tb_Indication0.Text == "" || tb_Indication1.Text == "" || tb_Indication2.Text == "" || tb_Indication3.Text == "" || tb_Indication4.Text == "" || tb_Indication5.Text == "" || tb_Indication6.Text == "" || tb_Indication7.Text == "" || tb_Indication8.Text == "" || tb_Indication9.Text == "" || tb_Indication10.Text == "" || tb_Indication11.Text == "" || tb_Indication12.Text == "" || tb_Lichnost0.Text == "" || tb_Lichnost1.Text == "")
+            if (tb_FIO.Text == "" || tb_Group.Text == "" || tb_Height.Text == "" ||
+                tb_PulseAtRest.Text == "" || tb_PulseAfterExercise.Text == "" || tb_SystolicPressure.Text == "" ||
+                tb_DiastolicPressure.Text == "" || tb_Flexibility.Text == "" || tb_Speed.Text == "" ||
+                tb_DynamicForce.Text == "" || tb_OverallEndurance.Text == "" || tb_SpeedEndurance.Text == "" ||
+                tb_SpeedAndStrengthEndurance.Text == "" || tb_Weight.Text == "" || tb_Height.Text == "")
             {
                 MessageBox.Show("Не все поля заполненны!");
             }
             else
             {
-                app.Indication.Add(Convert.ToDouble(tb_Indication0.Text));
-                app.Indication.Add(Convert.ToDouble(tb_Indication1.Text));
-                app.Indication.Add(Convert.ToDouble(tb_Indication2.Text));
-                app.Indication.Add(Convert.ToDouble(tb_Indication3.Text));
-                app.Indication.Add(Convert.ToDouble(tb_Indication4.Text));
-                app.Indication.Add(Convert.ToDouble(tb_Indication5.Text));
-                app.Indication.Add(Convert.ToDouble(tb_Indication6.Text));
-                app.Indication.Add(Convert.ToDouble(tb_Indication7.Text));
-                app.Indication.Add(Convert.ToDouble(tb_Indication8.Text));
-                app.Indication.Add(Convert.ToDouble(tb_Indication9.Text));
-                app.Indication.Add(Convert.ToDouble(tb_Indication10.Text));
-                app.Indication.Add(Convert.ToDouble(tb_Indication11.Text));
-                app.Indication.Add(Convert.ToDouble(tb_Indication12.Text));
+                app.Person.Add(Convert.ToString(tb_FIO.Text));
+                app.Person.Add(Convert.ToString(tb_Group.Text));
+                app.Indication.Add(Convert.ToDouble(tb_Age.Text));
+                app.Indication.Add(Convert.ToDouble(tb_Weight.Text));
+                app.Indication.Add(Convert.ToDouble(tb_Height.Text));
+                app.Indication.Add(Convert.ToDouble(tb_PulseAtRest.Text));
+                app.Indication.Add(Convert.ToDouble(tb_PulseAfterExercise.Text));
+                app.Indication.Add(Convert.ToDouble(tb_SystolicPressure.Text));
+                app.Indication.Add(Convert.ToDouble(tb_DiastolicPressure.Text));
+                app.Indication.Add(Convert.ToDouble(tb_Flexibility.Text));
+                app.Indication.Add(Convert.ToDouble(tb_Speed.Text));
+                app.Indication.Add(Convert.ToDouble(tb_DynamicForce.Text));
+                app.Indication.Add(Convert.ToDouble(tb_OverallEndurance.Text));
+                app.Indication.Add(Convert.ToDouble(tb_SpeedEndurance.Text));
+                app.Indication.Add(Convert.ToDouble(tb_SpeedAndStrengthEndurance.Text));
 
-                app.Person.Add(Convert.ToString(tb_Lichnost0.Text));
-                app.Person.Add(Convert.ToString(tb_Lichnost1.Text));
+                person.FIO = tb_FIO.Text;
+                person.Group = tb_Group.Text;
+                person.Age = Convert.ToInt32(tb_Age.Text);
+                person.Weight = Convert.ToInt32(tb_Weight.Text);
+                person.Height = Convert.ToInt32(tb_Height.Text);
+                person.PulseAtRest = Convert.ToInt32(tb_PulseAtRest.Text);
+                person.PulseAfterExercise = Convert.ToInt32(tb_PulseAfterExercise.Text);
+                person.SystolicPressure = Convert.ToInt32(tb_SystolicPressure.Text);
+                person.DiastolicPressure = Convert.ToInt32(tb_DiastolicPressure.Text);
+                person.Flexibility = Convert.ToInt32(tb_Flexibility.Text);
+                person.Speed = Convert.ToInt32(tb_Speed.Text);
+                person.DynamicForce = Convert.ToInt32(tb_DynamicForce.Text);
+                person.OverallEndurance = Convert.ToInt32(tb_OverallEndurance.Text);
+                person.SpeedEndurance = Convert.ToInt32(tb_SpeedEndurance.Text);
+                person.SpeedAndStrengthEndurance = Convert.ToInt32(tb_SpeedAndStrengthEndurance.Text);
 
                 if (cb_Gender.Text == "Мужской")
                 {
@@ -71,78 +93,78 @@ namespace Приложение_по_физре
             }
         }
 
-        private void tb_Indication0_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
-        }
-
-        private void tb_Indication1_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
-        }
-
-        private void tb_Indication2_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
-        }
-
-        private void tb_Indication3_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
-        }
-
-        private void tb_Indication4_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
-        }
-
-        private void tb_Indication5_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
-        }
-
-        private void tb_Indication6_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
-        }
-
-        private void tb_Indication7_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
-        }
-
-        private void tb_Indication8_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
-        }
-
-        private void tb_Indication9_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
-        }
-
-        private void tb_Indication10_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
-        }
-
-        private void tb_Indication11_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
-        }
-
-        private void tb_Indication12_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
-        }
-
+        
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             app.Indication.Clear();
             app.Person.Clear();
+            person.Clear();
             cb_Gender.SelectedIndex = 0;
         }
 
+        private void tb_Age_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, 0)) e.Handled = true;
+        }
 
+        private void tb_Weight_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, 0)) e.Handled = true;
+        }
+
+        private void tb_Height_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, 0)) e.Handled = true;
+        }
+
+        private void tb_PulseAtRest_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, 0)) e.Handled = true;
+        }
+
+        private void tb_PulseAfterExercise_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, 0)) e.Handled = true;
+        }
+
+        private void tb_SystolicPressure_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, 0)) e.Handled = true;
+        }
+
+        private void tb_DiastolicPressure_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, 0)) e.Handled = true;
+        }
+
+        private void tb_Flexibility_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, 0)) e.Handled = true;
+        }
+
+        private void tb_Speed_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, 0)) e.Handled = true;
+        }
+
+        private void tb_DynamicForce_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, 0)) e.Handled = true;
+        }
+
+        private void tb_OverallEndurance_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, 0)) e.Handled = true;
+        }
+
+        private void tb_SpeedEndurance_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, 0)) e.Handled = true;
+        }
+
+        private void tb_SpeedAndStrengthEndurance_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, 0)) e.Handled = true;
+        }
     }
 }

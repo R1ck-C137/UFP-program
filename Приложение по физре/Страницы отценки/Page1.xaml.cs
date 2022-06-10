@@ -22,16 +22,17 @@ namespace Приложение_по_физре.Страницы_отценки
             NavigationService.Navigate(new Uri("/../Nachalnaya.xaml", UriKind.Relative));
         }
         App app = (App)Application.Current;
-
+        Person person = new Person();
         private void dalee_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/../Страницы отценки/Page2.xaml", UriKind.Relative));
-            
+            ////////////////////////////////////////////////////////////////
             if (app.Indication.Count == 0)
             {
                 app.Person.Add(tbName.Text);
                 app.Person.Add(tbGroup.Text);
-                if (tbAge.Text == "") 
+
+                if (tbAge.Text == "")
                 {
                     tbAge.Text = "-1";
                 }
@@ -50,13 +51,20 @@ namespace Приложение_по_физре.Страницы_отценки
                 app.Indication.RemoveAt(0);
                 app.Indication.Insert(0, Convert.ToDouble(tbAge.Text));
             }
+            ////////////////////////////////////////////////////////////////
+            person.FIO = tbName.Text;
+            person.Group = tbGroup.Text;
+            person.Age = Convert.ToInt32(tbAge.Text);
+
             if (cb.Text == "Мужской")
             {
                 app.Gender = true;
+                person.Gender = true;
             }
             if (cb.Text == "Женский")
             {
                 app.Gender = false;
+                person.Gender = false;
             }
         }
 
@@ -66,6 +74,10 @@ namespace Приложение_по_физре.Страницы_отценки
             {
                 cb.SelectedIndex = 0;
             }
+            /*if (person.Gender == true || person.Gender == null)
+            {
+                cb.SelectedIndex = 0;
+            }*/
             else
             {
                 cb.SelectedIndex = 1;

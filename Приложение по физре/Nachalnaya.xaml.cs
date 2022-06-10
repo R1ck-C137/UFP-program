@@ -46,12 +46,12 @@ namespace Приложение_по_физре
 
             if (result == true)
             {
-                app.path = dlg.FileName;
+                app.FilePath = dlg.FileName;
             }
             
-            if (app.path != null)
+            if (app.FilePath != null)
             {
-                app.Gruppa = true;
+                app.GroupMode = true;
                 NavigationService.Navigate(new Uri("/../Korotkaya_versiya.xaml", UriKind.Relative));
                 
             }
@@ -71,12 +71,12 @@ namespace Приложение_по_физре
 
         private void CalculationPercent_Click(object sender, RoutedEventArgs e)
         {
-            app.path = GetPath();
-            if (app.path == null)
+            app.FilePath = GetFilePath();
+            if (app.FilePath == null)
             {
                 return;
             }
-            if (!File.Exists(app.path))
+            if (!File.Exists(app.FilePath))
             {
                 System.Windows.MessageBox.Show("Файла не существует!");
                 return;
@@ -84,7 +84,7 @@ namespace Приложение_по_физре
 
             Excel.Application excel = new Excel.Application();
             Workbook workbook;
-            workbook = excel.Workbooks.Open(app.path);
+            workbook = excel.Workbooks.Open(app.FilePath);
             Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
             Range myRange;
             myRange = (Range)sheet1.Cells[1, 1];
@@ -122,7 +122,7 @@ namespace Приложение_по_физре
         }
 
 
-        public string GetPath()
+        public string GetFilePath()
         {
             var dialog = new OpenFileDialog();
             dialog.DefaultExt = ".xlsx";
@@ -137,19 +137,19 @@ namespace Приложение_по_физре
 
         public void CreateCharts()
         {
-            app.path = GetPath();
-            if (app.path == null)
+            app.FilePath = GetFilePath();
+            if (app.FilePath == null)
             {
                 return;
             }
-            if (!File.Exists(app.path))
+            if (!File.Exists(app.FilePath))
             {
                 System.Windows.MessageBox.Show("Файла не существует!");
                 return;
             }
             Excel.Application excel = new Excel.Application();
             Workbook workbook;
-            workbook = excel.Workbooks.Open(app.path);
+            workbook = excel.Workbooks.Open(app.FilePath);
             Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
 
             CalculatingPercentForGroups(sheet1);
@@ -232,12 +232,12 @@ namespace Приложение_по_физре
 
         public void Sorting_By_Column(int column)
         {
-            app.path = GetPath();
-            if (app.path == null || app.path == "")
+            app.FilePath = GetFilePath();
+            if (app.FilePath == null || app.FilePath == "")
             {
                 return;
             }
-            if (!File.Exists(app.path))
+            if (!File.Exists(app.FilePath))
             {
                 System.Windows.MessageBox.Show("Файла не существует!");
                 return;
@@ -245,7 +245,7 @@ namespace Приложение_по_физре
             
             Excel.Application excel = new Excel.Application();
             Workbook workbook;
-            workbook = excel.Workbooks.Open(app.path);
+            workbook = excel.Workbooks.Open(app.FilePath);
             Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
             Range myRange = (Range)sheet1.Cells[1, 1];
 
@@ -409,11 +409,11 @@ namespace Приложение_по_физре
 
             Sorting_By_Column(column);
             
-            if (app.path == null || app.path == "")
+            if (app.FilePath == null || app.FilePath == "")
             {
                 return;
             }
-            Workbook workbook = excel.Workbooks.Open(app.path);
+            Workbook workbook = excel.Workbooks.Open(app.FilePath);
             Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
             SeparationOfGroups(column, sheet1);
             CalculatingPercentForGroups(sheet1);

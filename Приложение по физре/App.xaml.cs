@@ -12,7 +12,7 @@ namespace Приложение_по_физре
         public List<double> Indication = new List<double>();
         public bool Gender = true;
         public bool Sport = false;
-        public bool Gruppa = false;
-        public string path;
+        public bool GroupMode = false;
+        public string FilePath;
     }
 }
