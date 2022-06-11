@@ -25,9 +25,7 @@ namespace Приложение_по_физре.Страницы_отценки
 
         private void dalee_Click(object sender, RoutedEventArgs e)
         {
-            
-
-            if (app.Indication.Count <= 12)
+            /*if (app.Indication.Count <= 12)
             {
                 if (tb1.Text == "")
                 {
@@ -43,19 +41,17 @@ namespace Приложение_по_физре.Страницы_отценки
                 }
                 app.Indication.RemoveAt(12);
                 app.Indication.Insert(12, Convert.ToDouble(tb1.Text));
-            }
-            if (app.Indication[0] == -1 || app.Indication[1] == -1 || app.Indication[2] == -1 || app.Indication[3] == -1 || app.Indication[4] == -1 || app.Indication[5] == -1 || app.Indication[6] == -1 || app.Indication[7] == -1 || app.Indication[8] == -1 || app.Indication[9] == -1 || app.Indication[10] == -1 || app.Indication[11] == -1 || app.Indication[12] == -1)
-            //if(false)
+            }*/
+            if (tb_SpeedAndStrengthEndurance.Text != "")
+                app.person.SpeedAndStrengthEndurance = Convert.ToInt32(tb_SpeedAndStrengthEndurance.Text);
+
+            if (app.person.CheckingTheFullness())
             {
-                if (tb1.Text == "-1")
-                {
-                    tb1.Text = "";
-                }
-                MessageBox.Show("Не все поля заполнены!");
+                NavigationService.Navigate(new Uri("/../Itogi.xaml", UriKind.Relative));
             }
             else
             {
-                NavigationService.Navigate(new Uri("/../Itogi.xaml", UriKind.Relative));
+                MessageBox.Show("Не все поля заполнены!");
             }
         }
 
@@ -66,7 +62,7 @@ namespace Приложение_по_физре.Страницы_отценки
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            if (app.Indication.Count >= 13)
+            /*if (app.Indication.Count >= 13)
             {
                 if (app.Indication[12] == -1)
                 {
@@ -76,7 +72,8 @@ namespace Приложение_по_физре.Страницы_отценки
                 {
                     tb1.Text = Convert.ToString(app.Indication[12]);
                 }
-            }
+            }*/
+            tb_SpeedAndStrengthEndurance.Text = Convert.ToString(app.person.SpeedAndStrengthEndurance);
         }
     }
 }

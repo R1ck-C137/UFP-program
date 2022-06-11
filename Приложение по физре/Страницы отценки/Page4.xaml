@@ -19,7 +19,7 @@
                 <Label x:Name="label" Content="Востанавливаемость пульса." HorizontalAlignment="Left" Margin="170,100,0,0" VerticalAlignment="Top" FontSize="14" Width="195"/>
                 <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="25,134,0,0" TextWrapping="Wrap" Text="После 5 мин. отдыха в положении сидя измерить пульс за одну минуту, затем сделать 20 глубоких приседаний в течение 40 сек и вновь сесть. Через 2 мин. вновь измерить пульс за 10 сек и результат умножить на 6. Соответствие исхдной (до нагрузки) величине дает 30 баллов, превышение пульса на 10 ударов - 20 баллов, на 15 - 10 баллов, более 20 ударов - из общей суммы вычесть 10 баллов." VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="0.5,0.5" TextAlignment="Center" Width="445"/>
             </Grid>
-            <TextBox x:Name="tb1" HorizontalAlignment="Left" Height="23" Margin="330,380,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" FontSize="14" PreviewTextInput="tb1_PreviewTextInput"/>
+            <TextBox x:Name="tb_PulseAfterExercise" HorizontalAlignment="Left" Height="23" Margin="330,380,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" FontSize="14" PreviewTextInput="tb1_PreviewTextInput"/>
             <Label x:Name="label1" Content="Пульс после" HorizontalAlignment="Left" Margin="330,351,0,0" VerticalAlignment="Top" FontSize="14"/>
             <Label x:Name="label2" Content="уд./мин." HorizontalAlignment="Left" Margin="495,377,0,0" VerticalAlignment="Top"/>
 

@@ -25,7 +25,7 @@ namespace Приложение_по_физре.Страницы_отценки
         private void dalee_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/../Страницы отценки/Page7.xaml", UriKind.Relative));
-            if (app.Indication.Count <= 7)
+            /*if (app.Indication.Count <= 7)
             {
                 //app.Indication.Add(Convert.ToDouble(tb1.Text));
                 //app.Indication.Add(Convert.ToDouble(tb2.Text));
@@ -43,7 +43,9 @@ namespace Приложение_по_физре.Страницы_отценки
                 }
                 app.Indication.RemoveAt(7);
                 app.Indication.Insert(7, Convert.ToDouble(tb1.Text));
-            }
+            }*/
+            if (tb_Flexibility.Text != "")
+                app.person.Flexibility = Convert.ToInt32(tb_Flexibility.Text);
         }
 
         private void tb1_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -53,7 +55,7 @@ namespace Приложение_по_физре.Страницы_отценки
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            if (app.Indication.Count >= 8)
+            /*if (app.Indication.Count >= 8)
             {
                 if (app.Indication[7] == -1)
                 {
@@ -63,7 +65,8 @@ namespace Приложение_по_физре.Страницы_отценки
                 {
                     tb1.Text = Convert.ToString(app.Indication[7]);
                 }
-            }
+            }*/
+            tb_Flexibility.Text = Convert.ToString(app.person.Flexibility);
         }
     }
 }

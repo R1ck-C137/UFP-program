@@ -19,10 +19,15 @@ namespace Приложение_по_физре.Страницы_отценки
         App app = (App)Application.Current;
         private void dalee_Click(object sender, RoutedEventArgs e)
         {
+            if (tb_Weight.Text != "")
+                app.person.Weight = Convert.ToInt32(tb_Weight.Text);
+
+            if (tb_Height.Text != "")
+                app.person.Height = Convert.ToInt32(tb_Height.Text);
+
             NavigationService.Navigate(new Uri("/../Страницы отценки/Page3.xaml", UriKind.Relative));
-            if (app.Indication.Count <= 1)
+            /*if (app.Indication.Count <= 1)
             {
-                
                 if (tb1.Text == "")
                 {
                     tb1.Text = "-1";
@@ -48,7 +53,8 @@ namespace Приложение_по_физре.Страницы_отценки
                 }
                 app.Indication.RemoveAt(2);
                 app.Indication.Insert(2, Convert.ToDouble(tb2.Text));
-            }
+            }*/
+
         }
 
         private void nazad_Click(object sender, RoutedEventArgs e)
@@ -58,7 +64,7 @@ namespace Приложение_по_физре.Страницы_отценки
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            if (app.Indication.Count >= 2)
+            /*if (app.Indication.Count >= 2)
             {
                 if (app.Indication[1] == -1)
                 {
@@ -77,7 +83,9 @@ namespace Приложение_по_физре.Страницы_отценки
                 {
                     tb2.Text = Convert.ToString(app.Indication[2]);
                 }
-            }
+            }*/
+            tb_Weight.Text = Convert.ToString(app.person.Weight);
+            tb_Height.Text = Convert.ToString(app.person.Height);
         }
 
         private void tb1_PreviewTextInput(object sender, TextCompositionEventArgs e)

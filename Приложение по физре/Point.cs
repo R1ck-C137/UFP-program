@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Приложение_по_физре
 {
-    class Point
+    public class Point
     {
         public int Age { get; set; }
         public int Weight { get; set; }

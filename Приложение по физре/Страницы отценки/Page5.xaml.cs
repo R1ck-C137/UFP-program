@@ -26,7 +26,7 @@ namespace Приложение_по_физре.Страницы_отценки
         {
             NavigationService.Navigate(new Uri("/../Страницы отценки/Page6.xaml", UriKind.Relative));
 
-            if (app.Indication.Count <= 5)
+            /*if (app.Indication.Count <= 5)
             {
                 if (tb1.Text == "")
                 {
@@ -53,12 +53,16 @@ namespace Приложение_по_физре.Страницы_отценки
                 }
                 app.Indication.RemoveAt(6);
                 app.Indication.Insert(6, Convert.ToDouble(tb2.Text));
-            }
+            }*/
+            if (tb_SystolicPressure.Text != "")
+                app.person.SystolicPressure = Convert.ToInt32(tb_SystolicPressure.Text);
+            if (tb_DiastolicPressure.Text != "")
+                app.person.DiastolicPressure = Convert.ToInt32(tb_DiastolicPressure.Text);
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            if (app.Indication.Count >= 6)
+            /*if (app.Indication.Count >= 6)
             {
                 if (app.Indication[5] == -1)
                 {
@@ -77,7 +81,9 @@ namespace Приложение_по_физре.Страницы_отценки
                 {
                     tb2.Text = Convert.ToString(app.Indication[6]);
                 }
-            }
+            }*/
+            tb_SystolicPressure.Text = Convert.ToString(app.person.SystolicPressure);
+            tb_DiastolicPressure.Text = Convert.ToString(app.person.DiastolicPressure);
         }
 
         private void tb1_PreviewTextInput(object sender, TextCompositionEventArgs e)

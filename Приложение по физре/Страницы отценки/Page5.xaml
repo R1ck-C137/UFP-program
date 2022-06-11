@@ -19,12 +19,12 @@
                 <Label x:Name="label" Content="Артериальное давление крови." HorizontalAlignment="Left" Margin="145,100,0,0" VerticalAlignment="Top" FontSize="14" Width="215"/>
                 <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="15,134,0,0" TextWrapping="Wrap" Text="Имеющий нормальное артериальное давление (АД) получает 30 баллов. За каждые 5 мм.рт.ст. систолического или диастолического давления выше расчётных величин, определяемых по формуле, вычитают 1 балл." VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="0.5,0.5" TextAlignment="Center" Width="465"/>
             </Grid>
-            <TextBox x:Name="tb1" HorizontalAlignment="Left" Height="22" Margin="40,385,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="186" FontSize="14" PreviewTextInput="tb1_PreviewTextInput"/>
+            <TextBox x:Name="tb_SystolicPressure" HorizontalAlignment="Left" Height="22" Margin="40,385,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="186" FontSize="14" PreviewTextInput="tb1_PreviewTextInput"/>
             <Label x:Name="label1" Content="Систолическое давление" HorizontalAlignment="Left" Margin="40,350,0,0" VerticalAlignment="Top" FontSize="14" Width="186"/>
             <Label x:Name="label2" Content="мм.рт.ст." HorizontalAlignment="Left" Margin="232,381,0,0" VerticalAlignment="Top" Width="63"/>
             <Border BorderBrush="Black" BorderThickness="1" Margin="-2,45,1.6,0"/>
             <Label x:Name="label8" Content="Артериальное давление крови" Margin="301,8,298.6,0" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Center" Width="240"/>
-            <TextBox x:Name="tb2" HorizontalAlignment="Left" Height="22" Margin="559,385,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="187" FontSize="14" PreviewTextInput="tb2_PreviewTextInput" />
+            <TextBox x:Name="tb_DiastolicPressure" HorizontalAlignment="Left" Height="22" Margin="559,385,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="187" FontSize="14" PreviewTextInput="tb2_PreviewTextInput" />
             <Label x:Name="label1_Copy" Content="Диастолическое давление" HorizontalAlignment="Left" Margin="559,353,0,0" VerticalAlignment="Top" FontSize="14" Height="27" Width="227"/>
             <Label x:Name="label2_Copy" Content="мм.рт.ст." HorizontalAlignment="Left" Margin="753,382,0,0" VerticalAlignment="Top" Height="25" Width="62"/>
 

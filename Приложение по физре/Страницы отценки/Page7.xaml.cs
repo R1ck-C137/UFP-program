@@ -26,7 +26,7 @@ namespace Приложение_по_физре.Страницы_отценки
         {
             NavigationService.Navigate(new Uri("/../Страницы отценки/Page8.xaml", UriKind.Relative));
 
-            if (app.Indication.Count <= 8)
+            /*if (app.Indication.Count <= 8)
             {
                 if (tb1.Text == "")
                 {
@@ -42,7 +42,9 @@ namespace Приложение_по_физре.Страницы_отценки
                 }
                 app.Indication.RemoveAt(8);
                 app.Indication.Insert(8, Convert.ToDouble(tb1.Text));
-            }
+            }*/
+            if (tb_Speed.Text != "")
+                app.person.Speed = Convert.ToInt32(tb_Speed.Text);
         }
 
         private void tb1_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -52,7 +54,7 @@ namespace Приложение_по_физре.Страницы_отценки
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            if (app.Indication.Count >= 9)
+            /*if (app.Indication.Count >= 9)
             {
                 if (app.Indication[8] == -1)
                 {
@@ -62,7 +64,8 @@ namespace Приложение_по_физре.Страницы_отценки
                 {
                     tb1.Text = Convert.ToString(app.Indication[8]);
                 }
-            }
+            }*/
+            tb_Speed.Text = Convert.ToString(app.person.Speed);
         }
     }
 }
