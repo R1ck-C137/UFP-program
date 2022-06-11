@@ -26,55 +26,24 @@ namespace Приложение_по_физре.Страницы_отценки
         private void dalee_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/../Страницы отценки/Page2.xaml", UriKind.Relative));
-            ////////////////////////////////////////////////////////////////
-            /*if (app.Indication.Count == 0)
-            {
-                app.Person.Add(tbName.Text);
-                app.Person.Add(tbGroup.Text);
 
-                if (tbAge.Text == "")
-                {
-                    tbAge.Text = "-1";
-                }
-                app.Indication.Add(Convert.ToDouble(tbAge.Text));
-            }
-            else
-            {
-                app.Person.RemoveAt(0);
-                app.Person.Insert(0, tbName.Text);
-                app.Person.RemoveAt(1);
-                app.Person.Insert(1, tbGroup.Text);
-                if (tbAge.Text == "")
-                {
-                    tbAge.Text = "-1";
-                }
-                app.Indication.RemoveAt(0);
-                app.Indication.Insert(0, Convert.ToDouble(tbAge.Text));
-            }*/
-            ////////////////////////////////////////////////////////////////
             app.person.FIO = tbName.Text;
             app.person.Group = tbGroup.Text;
             if (tbAge.Text != "")
                 app.person.Age = Convert.ToInt32(tbAge.Text);
 
-            if (cb.Text == "Мужской")
+            if (cb.SelectedIndex == 0)
             {
-                //app.Gender = true;
                 app.person.Gender = true;
             }
-            if (cb.Text == "Женский")
+            if (cb.SelectedIndex == 1)
             {
-                //app.Gender = false;
                 app.person.Gender = false;
             }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            /*if (app.Gender == true)             //Мужской
-            {
-                cb.SelectedIndex = 0;
-            }*/
             if (app.person.Gender)
             {
                 cb.SelectedIndex = 0;
@@ -84,22 +53,6 @@ namespace Приложение_по_физре.Страницы_отценки
                 cb.SelectedIndex = 1;
             }
 
-            /*if (app.Indication.Count != 0)
-            {
-                tbName.Text = app.Person[0];
-                tbGroup.Text = app.Person[1];
-                
-                
-                if (app.Indication[0] == -1)
-                {
-                    tbAge.Text = "";
-                }
-                else
-                {
-                    tbAge.Text = Convert.ToString(app.Indication[0]);
-                }
-                //app.Indication.Add(Convert.ToDouble(tbAge.Text));
-            }*/
             tbName.Text = app.person.FIO;
             tbGroup.Text = app.person.Group;
             tbAge.Text = Convert.ToString(app.person.Age);

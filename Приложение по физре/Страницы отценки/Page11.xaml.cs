@@ -25,23 +25,6 @@ namespace Приложение_по_физре.Страницы_отценки
 
         private void dalee_Click(object sender, RoutedEventArgs e)
         {
-            /*if (app.Indication.Count <= 12)
-            {
-                if (tb1.Text == "")
-                {
-                    tb1.Text = "-1";
-                }
-                app.Indication.Add(Convert.ToDouble(tb1.Text));  // Indication[12]
-            }
-            else
-            {
-                if (tb1.Text == "")
-                {
-                    tb1.Text = "-1";
-                }
-                app.Indication.RemoveAt(12);
-                app.Indication.Insert(12, Convert.ToDouble(tb1.Text));
-            }*/
             if (tb_SpeedAndStrengthEndurance.Text != "")
                 app.person.SpeedAndStrengthEndurance = Convert.ToInt32(tb_SpeedAndStrengthEndurance.Text);
 
@@ -62,17 +45,6 @@ namespace Приложение_по_физре.Страницы_отценки
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            /*if (app.Indication.Count >= 13)
-            {
-                if (app.Indication[12] == -1)
-                {
-                    tb1.Text = "";
-                }
-                else
-                {
-                    tb1.Text = Convert.ToString(app.Indication[12]);
-                }
-            }*/
             tb_SpeedAndStrengthEndurance.Text = Convert.ToString(app.person.SpeedAndStrengthEndurance);
         }
     }

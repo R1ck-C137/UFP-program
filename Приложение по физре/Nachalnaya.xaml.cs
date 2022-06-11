@@ -99,15 +99,12 @@ namespace Приложение_по_физре
                     double Passed = 0;//выполненный норматив
                     for (i = 2; Convert.ToString(myRange.Cells[i, j].Value2) != null; i = i + 2)
                     {
-                        //myRange = (Range)sheet1.Cells[i, j];
                         if (myRange.Cells[i, j].Interior.ColorIndex != 3)
                         {
                             Passed++;
                         }
                         Total++;
                     }
-                    //Total--;
-                    //Passed--;
                     Percent = 100 / (Total / Passed);
                     Percent = Math.Round(Percent, 0);
                     myRange.Cells[i + 1, j].Value2 = Percent + "%";
@@ -178,7 +175,6 @@ namespace Приложение_по_физре
             Range myRange;
             myRange = (Range)sheet1.Cells[1, 1];
 
-            //int criteriaСolumn = 17;
             bool[] firstRedFlag = new bool[11];      //false - белая ячейка, true - красная ячейка
             bool[] secondRedFlag = new bool[11];
             string[,] firstMasValue = new string[2, 18];
