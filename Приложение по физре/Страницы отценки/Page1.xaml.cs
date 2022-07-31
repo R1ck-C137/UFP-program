@@ -7,9 +7,6 @@ using System.Windows.Navigation;
 
 namespace Приложение_по_физре.Страницы_отценки
 {
-    /// <summary>
-    /// Логика взаимодействия для Page1.xaml
-    /// </summary>
     public partial class Page1 : Page
     {
         public Page1()
@@ -19,7 +16,7 @@ namespace Приложение_по_физре.Страницы_отценки
         
         private void nazad_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/../Nachalnaya.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/../InitialPage.xaml", UriKind.Relative));
         }
         App app = (App)Application.Current;
         

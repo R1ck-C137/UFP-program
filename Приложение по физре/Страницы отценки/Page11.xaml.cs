@@ -30,7 +30,7 @@ namespace Приложение_по_физре.Страницы_отценки
 
             if (app.person.CheckingTheFullness())
             {
-                NavigationService.Navigate(new Uri("/../Itogi.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Uri("/../Results.xaml", UriKind.Relative));
             }
             else
             {

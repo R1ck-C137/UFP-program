@@ -12,14 +12,11 @@ using System.Windows.Navigation;
 
 namespace Приложение_по_физре
 {
-    /// <summary>
-    /// Логика взаимодействия для Korotkaya_versiya.xaml
-    /// </summary>
-    public partial class Korotkaya_versiya : Page
+    public partial class Short_version : Page
     {
         App app = (App)Application.Current;
 
-        public Korotkaya_versiya()
+        public Short_version()
         {
             InitializeComponent();
         }
@@ -32,7 +29,7 @@ namespace Приложение_по_физре
                 app.GroupMode = false;
                 app.FilePath = null;
             }
-            NavigationService.Navigate(new Uri("/../Nachalnaya.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/../InitialPage.xaml", UriKind.Relative));
         }
 
         private void b_dalee_Click(object sender, RoutedEventArgs e)
@@ -91,7 +88,7 @@ namespace Приложение_по_физре
                 }
                 app.person.Sport = false;
                 
-                NavigationService.Navigate(new Uri("/../Itogi.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Uri("/../Results.xaml", UriKind.Relative));
             }
         }
 

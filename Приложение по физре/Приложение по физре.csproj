@@ -129,14 +129,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Person.cs" />
-    <Compile Include="Itogi.xaml.cs">
-      <DependentUpon>Itogi.xaml</DependentUpon>
+    <Compile Include="Results.xaml.cs">
+      <DependentUpon>Results.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Korotkaya_versiya.xaml.cs">
-      <DependentUpon>Korotkaya_versiya.xaml</DependentUpon>
+    <Compile Include="Short_version.xaml.cs">
+      <DependentUpon>Short_version.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Nachalnaya.xaml.cs">
-      <DependentUpon>Nachalnaya.xaml</DependentUpon>
+    <Compile Include="InitialPage.xaml.cs">
+      <DependentUpon>InitialPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Point.cs" />
     <Compile Include="Страницы отценки\Page1.xaml.cs">
@@ -172,11 +172,11 @@
     <Compile Include="Страницы отценки\Page9.xaml.cs">
       <DependentUpon>Page9.xaml</DependentUpon>
     </Compile>
-    <Page Include="Itogi.xaml">
+    <Page Include="Results.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Korotkaya_versiya.xaml">
+    <Page Include="Short_version.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -184,7 +184,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Nachalnaya.xaml">
+    <Page Include="InitialPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

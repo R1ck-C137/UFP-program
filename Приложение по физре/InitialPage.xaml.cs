@@ -13,12 +13,12 @@ using System.IO;
 namespace Приложение_по_физре
 {
     /// <summary>
-    /// Логика взаимодействия для Nachalnaya.xaml
+    /// Логика взаимодействия для InitialPage.xaml
     /// </summary>
-    public partial class Nachalnaya : Excel.Page
+    public partial class InitialPage : Excel.Page
     {
 
-        public Nachalnaya()
+        public InitialPage()
         {
             InitializeComponent();
             ShowsNavigationUI = false;
@@ -32,7 +32,7 @@ namespace Приложение_по_физре
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/../Korotkaya_versiya.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/../Short_version.xaml", UriKind.Relative));
         }
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
@@ -52,7 +52,7 @@ namespace Приложение_по_физре
             if (app.FilePath != null)
             {
                 app.GroupMode = true;
-                NavigationService.Navigate(new Uri("/../Korotkaya_versiya.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Uri("/../Short_version.xaml", UriKind.Relative));
                 
             }
         }

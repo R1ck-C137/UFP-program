@@ -11,9 +11,9 @@ using Microsoft.Office.Interop.Excel;
 
 namespace Приложение_по_физре
 {
-    public partial class Itogi : Excel.Page
+    public partial class Results : Excel.Page
     {
-        public Itogi() { InitializeComponent(); }
+        public Results() { InitializeComponent(); }
 
         App app = (App)System.Windows.Application.Current;
         AddInTable addInTable = new AddInTable();
@@ -37,7 +37,7 @@ namespace Приложение_по_физре
         {
             app.person.Clear();
 
-            NavigationService.Navigate(new Uri("/../Nachalnaya.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/../InitialPage.xaml", UriKind.Relative));
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -373,7 +373,7 @@ namespace Приложение_по_физре
         private void Sled_Click(object sender, RoutedEventArgs e)
         {
             SaveIn();
-            NavigationService.Navigate(new Uri("/../Korotkaya_versiya.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/../Short_version.xaml", UriKind.Relative));
         }
 
         private void Zakonch_Click(object sender, RoutedEventArgs e)
@@ -381,7 +381,7 @@ namespace Приложение_по_физре
             SaveIn();
             app.GroupMode = false;
             app.FilePath = null;
-            NavigationService.Navigate(new Uri("/../Nachalnaya.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/../InitialPage.xaml", UriKind.Relative));
         }
 
         public void MarkingOfUnfulfilledStandards_ForMen()
@@ -547,22 +547,22 @@ namespace Приложение_по_физре
 
     public class AddInTable
     {
-        public void AddInTableValue(ref List<Itogi.GridClass> GridList, string lineHeader, double? result = null, double? norm = null, double? point = null)
+        public void AddInTableValue(ref List<Results.GridClass> GridList, string lineHeader, double? result = null, double? norm = null, double? point = null)
         {
             if (result == null && norm == null && point != null)
-                GridList.Add(new Itogi.GridClass()
+                GridList.Add(new Results.GridClass()
                 {
                     lineHeader = lineHeader,
                     point = Convert.ToString(point)
                 });
             if (result != null && norm == null && point == null)
-                GridList.Add(new Itogi.GridClass()
+                GridList.Add(new Results.GridClass()
                 {
                     lineHeader = lineHeader,
                     result = Convert.ToString(result)
                 });
             if (result == null && norm != null && point == null)
-                GridList.Add(new Itogi.GridClass()
+                GridList.Add(new Results.GridClass()
                 {
                     lineHeader = lineHeader,
                     norm = Convert.ToString(norm)
@@ -570,21 +570,21 @@ namespace Приложение_по_физре
 
 
             if (result != null && norm != null && point == null)
-                GridList.Add(new Itogi.GridClass()
+                GridList.Add(new Results.GridClass()
                 {
                     lineHeader = lineHeader,
                     result = Convert.ToString(result),
                     norm = Convert.ToString(norm)
                 });
             if (result != null && norm == null && point != null)
-                GridList.Add(new Itogi.GridClass()
+                GridList.Add(new Results.GridClass()
                 {
                     lineHeader = lineHeader,
                     result = Convert.ToString(result),
                     point = Convert.ToString(point)
                 });
             if (result == null && norm != null && point != null)
-                GridList.Add(new Itogi.GridClass()
+                GridList.Add(new Results.GridClass()
                 {
                     lineHeader = lineHeader,
                     norm = Convert.ToString(norm),
@@ -593,7 +593,7 @@ namespace Приложение_по_физре
 
 
             if ( result != null && norm != null && point != null)
-                GridList.Add(new Itogi.GridClass()
+                GridList.Add(new Results.GridClass()
                 {
                     lineHeader = lineHeader,
                     result = Convert.ToString(result),
@@ -602,9 +602,9 @@ namespace Приложение_по_физре
                 });
         }
 
-        public void AddInTableFinalScore(ref List<Itogi.GridClass> GridList, string lineHeader, string norm, double point )
+        public void AddInTableFinalScore(ref List<Results.GridClass> GridList, string lineHeader, string norm, double point )
         {
-            GridList.Add(new Itogi.GridClass()
+            GridList.Add(new Results.GridClass()
             {
                 lineHeader = lineHeader,
                 norm = Convert.ToString(norm),
@@ -622,7 +622,7 @@ namespace Приложение_по_физре
 
         App app = (App)System.Windows.Application.Current;
 
-        public static List<Itogi.GridClass> GridList = new List<Itogi.GridClass>();
+        public static List<Results.GridClass> GridList = new List<Results.GridClass>();
         
         public double[,] TableOfNorms_ForMen =
         {                                    //Возраст
@@ -843,7 +843,7 @@ namespace Приложение_по_физре
 
         App app = (App)System.Windows.Application.Current;
         public int AgeToCount;
-        public static List<Itogi.GridClass> GridList = new List<Itogi.GridClass>();
+        public static List<Results.GridClass> GridList = new List<Results.GridClass>();
 
         public double[,] TableOfNorms_ForWomen =
         {                                    //Возраст
@@ -1058,7 +1058,7 @@ namespace Приложение_по_физре
         App app = (App)System.Windows.Application.Current;
         AddInTable addInTable = new AddInTable();
 
-        public void AddIn(ref List<Itogi.GridClass> GridList)
+        public void AddIn(ref List<Results.GridClass> GridList)
         {
             Calculation_ForMen Calculation_ForMen = new Calculation_ForMen();
             
@@ -1092,7 +1092,7 @@ namespace Приложение_по_физре
         App app = (App)System.Windows.Application.Current;
         AddInTable addInTable = new AddInTable();
 
-        public void AddIn(ref List<Itogi.GridClass> GridList)
+        public void AddIn(ref List<Results.GridClass> GridList)
         {
             Calculation_ForWomen Calculation_ForWomen = new Calculation_ForWomen();
 
