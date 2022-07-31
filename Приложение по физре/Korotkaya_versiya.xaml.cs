@@ -89,6 +89,7 @@ namespace Приложение_по_физре
                     //app.Gender = false;
                     app.person.Gender = false;
                 }
+                app.person.Sport = false;
                 
                 NavigationService.Navigate(new Uri("/../Itogi.xaml", UriKind.Relative));
             }
