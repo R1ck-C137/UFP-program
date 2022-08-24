@@ -8,7 +8,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Interop.Excel;
 using System.Windows.Forms;
 using System.IO;
-
+using Range = Microsoft.Office.Interop.Excel.Range;
 
 namespace Приложение_по_физре
 {
@@ -48,12 +48,12 @@ namespace Приложение_по_физре
             {
                 app.FilePath = dlg.FileName;
             }
-            
+
             if (app.FilePath != null)
             {
                 app.GroupMode = true;
                 NavigationService.Navigate(new Uri("/../Short_version.xaml", UriKind.Relative));
-                
+
             }
         }
 
@@ -88,7 +88,7 @@ namespace Приложение_по_физре
             Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
             Range myRange;
             myRange = (Range)sheet1.Cells[1, 1];
-            
+
             if (myRange.Cells[3, 2].Value2 == "Результат")
             {
                 double Percent;
@@ -238,14 +238,14 @@ namespace Приложение_по_физре
                 System.Windows.MessageBox.Show("Файла не существует!");
                 return;
             }
-            
+
             Excel.Application excel = new Excel.Application();
             Workbook workbook;
             workbook = excel.Workbooks.Open(app.FilePath);
             Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
             Range myRange = (Range)sheet1.Cells[1, 1];
 
-            
+
             int lastLine = new int();
 
             for (int i = 2; Convert.ToString(myRange.Cells[i, 5].Value2) != null; i++)
@@ -253,7 +253,7 @@ namespace Приложение_по_физре
                 lastLine = i;
             }
             lastLine--; // на последней сторке таблицы
-            
+
             bool repitSort = true;
             while (repitSort)
             {
@@ -274,7 +274,7 @@ namespace Приложение_по_физре
             workbook.Save();
             workbook.Close();
             excel.Quit();
-            
+
             //System.Windows.MessageBox.Show("Готово!");
         }
 
@@ -319,7 +319,7 @@ namespace Приложение_по_физре
                 {
                     CalculatingPercentagesUpToTheNullRow(row, sheet1);
                     row = i + 1;
-                    if(myRange.Cells[row, column].Value == null)
+                    if (myRange.Cells[row, column].Value == null)
                     {
                         break;
                     }
@@ -368,7 +368,7 @@ namespace Приложение_по_физре
                     if (Convert.ToString(myRange.Cells[cell_position_for_Chart, 5].Text).Contains("%"))
                     {
                         Array.Resize(ref series, series.Length + 1);
-                        if(i != 0)
+                        if (i != 0)
                         {
                             series[i] = seriesCollection.NewSeries();
                         }
@@ -391,7 +391,7 @@ namespace Приложение_по_физре
             chart.ChartType = XlChartType.xlColumnClustered;
             chart.HasTitle = true;
             chart.ChartTitle.Text = "Физическое состояние";
-            
+
             for (int j = 0; j <= i; j++)
             {
                 series[0].XValues = sheet1.get_Range("E1", "O1");
@@ -404,7 +404,7 @@ namespace Приложение_по_физре
             Excel.Application excel = new Excel.Application();
 
             Sorting_By_Column(column);
-            
+
             if (app.FilePath == null || app.FilePath == "")
             {
                 return;

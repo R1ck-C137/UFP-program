@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32811.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UFP-program", "Приложение по физре\UFP-program.csproj", "{FA70709E-529A-4E07-A696-7B4959AB7A51}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FA70709E-529A-4E07-A696-7B4959AB7A51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA70709E-529A-4E07-A696-7B4959AB7A51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA70709E-529A-4E07-A696-7B4959AB7A51}.Debug|x86.ActiveCfg = Debug|x86
+		{FA70709E-529A-4E07-A696-7B4959AB7A51}.Debug|x86.Build.0 = Debug|x86
+		{FA70709E-529A-4E07-A696-7B4959AB7A51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA70709E-529A-4E07-A696-7B4959AB7A51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA70709E-529A-4E07-A696-7B4959AB7A51}.Release|x86.ActiveCfg = Release|x86
+		{FA70709E-529A-4E07-A696-7B4959AB7A51}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E497A122-73F5-4F60-AFCD-1B5918371873}
+	EndGlobalSection
+EndGlobal
