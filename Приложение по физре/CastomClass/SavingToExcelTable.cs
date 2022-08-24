@@ -225,13 +225,13 @@ namespace Приложение_по_физре.CastomClass
                         {
                             if (app.person.Gender == true)
                             {
-                                myRange.Cells[i + 1, j + 2].Value2 = Convert.ToString(app.person.Group);
-                                myRange.Cells[i + 1, j + 3].Value2 = " (М)";
+                                myRange.Cells[i + chek, j + 2].Value2 = Convert.ToString(app.person.Group);
+                                myRange.Cells[i + chek, j + 3].Value2 = " (М)";
                             }
                             else
                             {
-                                myRange.Cells[i + 1, j + 2].Value2 = Convert.ToString(app.person.Group);
-                                myRange.Cells[i + 1, j + 3].Value2 = " (Ж)";
+                                myRange.Cells[i + chek, j + 2].Value2 = Convert.ToString(app.person.Group);
+                                myRange.Cells[i + chek, j + 3].Value2 = " (Ж)";
                             }
                         }
                     }
