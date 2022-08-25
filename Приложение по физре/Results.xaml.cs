@@ -12,7 +12,7 @@ using Приложение_по_физре.CastomClass;
 
 namespace Приложение_по_физре
 {
-    public partial class Results : Excel.Page
+    public partial class Results
     {
         public Results() { InitializeComponent(); }
 
@@ -79,23 +79,14 @@ namespace Приложение_по_физре
 
         }
 
-        HeaderFooter Excel.Page.LeftHeader => throw new NotImplementedException();
-        HeaderFooter Excel.Page.CenterHeader => throw new NotImplementedException();
-        HeaderFooter Excel.Page.RightHeader => throw new NotImplementedException();
-        HeaderFooter Excel.Page.LeftFooter => throw new NotImplementedException();
-        HeaderFooter Excel.Page.CenterFooter => throw new NotImplementedException();
-        HeaderFooter Excel.Page.RightFooter => throw new NotImplementedException();
-
         public void button_Click(object sender, RoutedEventArgs e)
         {
-            //Save();
             SavingToExcelTable savingToExcelTable = new SavingToExcelTable();
             savingToExcelTable.Save(dataGrid, red_label);
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            //SaveIn();
             SavingToExcelTable savingToExcelTable = new SavingToExcelTable();
             savingToExcelTable.SaveIn(dataGrid, red_label);
             if (app.FilePath == null)
