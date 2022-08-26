@@ -12,7 +12,7 @@ namespace UFP_program
         {
             this.person = person;
             this.point = point;
-            AgeToCount = CalcAgeToCount();
+            AgeToCount = CalcAgeToCount(person.Age);
         }
         private Person person;
         public Point point;
@@ -35,16 +35,16 @@ namespace UFP_program
             { 7, 16, 46, 15, 19, 2400, 8.37}    //29
         };
 
-        public int CalcAgeToCount()
+        public int CalcAgeToCount(int? age)
         {
             int AgeToCount;
-            AgeToCount = Convert.ToInt32(person.Age);
+            AgeToCount = Convert.ToInt32(age);
 
-            if (person.Age < 19)
+            if (age < 19)
             {
                 AgeToCount = 19;
             }
-            if (person.Age > 29)
+            if (age > 29)
             {
                 AgeToCount = 29;
             }
@@ -152,7 +152,7 @@ namespace UFP_program
         private void OverallEndurance_Сross()
         {
             point.OverallEndurance = 30;
-            point.OverallEndurance = (int)(point.OverallEndurance - Math.Truncate((TableOfNorms_ForMen[CalcAgeToCount(), 5] - (double)person.OverallEndurance) / 50) * 5);
+            point.OverallEndurance = (int)(point.OverallEndurance - Math.Truncate((TableOfNorms_ForMen[AgeToCount, 5] - (double)person.OverallEndurance) / 50) * 5);
         }
 
         private void HeartRateRecovery()
