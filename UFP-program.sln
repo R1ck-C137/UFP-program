@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UFP-program", "Приложение по физре\UFP-program.csproj", "{FA70709E-529A-4E07-A696-7B4959AB7A51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UFP-program", "Приложение по физре\UFP-program.csproj", "{FA70709E-529A-4E07-A696-7B4959AB7A51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{3CE17689-04B6-4C90-9292-C23672856C17}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,14 @@ Global
 		{FA70709E-529A-4E07-A696-7B4959AB7A51}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FA70709E-529A-4E07-A696-7B4959AB7A51}.Release|x86.ActiveCfg = Release|x86
 		{FA70709E-529A-4E07-A696-7B4959AB7A51}.Release|x86.Build.0 = Release|x86
+		{3CE17689-04B6-4C90-9292-C23672856C17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CE17689-04B6-4C90-9292-C23672856C17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CE17689-04B6-4C90-9292-C23672856C17}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3CE17689-04B6-4C90-9292-C23672856C17}.Debug|x86.Build.0 = Debug|Any CPU
+		{3CE17689-04B6-4C90-9292-C23672856C17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CE17689-04B6-4C90-9292-C23672856C17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CE17689-04B6-4C90-9292-C23672856C17}.Release|x86.ActiveCfg = Release|Any CPU
+		{3CE17689-04B6-4C90-9292-C23672856C17}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

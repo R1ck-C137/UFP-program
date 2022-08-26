@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Navigation;
 
 using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Interop.Excel;
-using System.Windows.Forms;
+//using System.Windows.Forms;
 using System.IO;
 using Range = Microsoft.Office.Interop.Excel.Range;
 
-namespace Приложение_по_физре
+namespace UFP_program
 {
     /// <summary>
     /// Логика взаимодействия для InitialPage.xaml
@@ -121,7 +119,7 @@ namespace Приложение_по_физре
 
         public string GetFilePath()
         {
-            var dialog = new OpenFileDialog();
+            var dialog = new Microsoft.Win32.OpenFileDialog();
             dialog.DefaultExt = ".xlsx";
             dialog.Filter = "Excel documents (.xlsx)|*.xlsx";
             Nullable<bool> result = Convert.ToBoolean(dialog.ShowDialog());

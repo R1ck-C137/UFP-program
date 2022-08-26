@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Приложение_по_физре
+namespace UFP_program
 {
     public class AddInTable
     {
@@ -77,7 +77,8 @@ namespace Приложение_по_физре
 
         public void Men(ref List<Results.GridClass> GridList)
         {
-            Calculation_ForMen Calculation_ForMen = new Calculation_ForMen();
+            Calculation_ForMen Calculation_ForMen;
+            Calculation_ForMen = new Calculation_ForMen(app.person, app.point);
 
             AddInTable.AddInTableValue(ref GridList, "Масса тела", app.person.Weight, Calculation_ForMen.WeightNorm((int)app.person.Height, (int)app.person.Age), app.point.Weight);
             AddInTable.AddInTableValue(ref GridList, "Системное артериальное давление", point: app.point.SystemPressure);
@@ -98,12 +99,13 @@ namespace Приложение_по_физре
             AddInTable.AddInTableValue(ref GridList, "Динамическая сила", app.person.DynamicForce, Calculation_ForMen.TableOfNorms_ForMen[Calculation_ForMen.AgeToCount, 2], app.point.DynamicForce);
             AddInTable.AddInTableValue(ref GridList, "Скоростная выносливость", app.person.SpeedEndurance, Calculation_ForMen.TableOfNorms_ForMen[Calculation_ForMen.AgeToCount, 3], app.point.SpeedEndurance);
             AddInTable.AddInTableValue(ref GridList, "Скоростно-силовая выностивость", app.person.SpeedAndStrengthEndurance, Calculation_ForMen.TableOfNorms_ForMen[Calculation_ForMen.AgeToCount, 4], app.point.SpeedAndStrengthEndurance);
-            AddInTable.AddInTableFinalScore(ref GridList, "Ваш уровень физического состояния ", app.TotalScore, app.point.Sum());
+            AddInTable.AddInTableFinalScore(ref GridList, "Ваш уровень физического состояния ", app.point.TotalScore, app.point.Sum());
         }
 
         public void Women(ref List<Results.GridClass> GridList)
         {
-            Calculation_ForWomen Calculation_ForWomen = new Calculation_ForWomen();
+            Calculation_ForWomen Calculation_ForWomen;
+            Calculation_ForWomen = new Calculation_ForWomen(app.person, app.point);
 
             AddInTable.AddInTableValue(ref GridList, "Масса тела", app.person.Weight, Calculation_ForWomen.WeightNorm((int)app.person.Height, (int)app.person.Age), app.point.Weight);
             AddInTable.AddInTableValue(ref GridList, "Системное артериальное давление", point: app.point.SystemPressure);
@@ -125,7 +127,7 @@ namespace Приложение_по_физре
             AddInTable.AddInTableValue(ref GridList, "Динамическая сила", app.person.DynamicForce, Calculation_ForWomen.TableOfNorms_ForWomen[Calculation_ForWomen.AgeToCount, 2], app.point.DynamicForce);
             AddInTable.AddInTableValue(ref GridList, "Скоростная выносливость", app.person.SpeedEndurance, Calculation_ForWomen.TableOfNorms_ForWomen[Calculation_ForWomen.AgeToCount, 3], app.point.SpeedEndurance);
             AddInTable.AddInTableValue(ref GridList, "Скоростно-силовая выностивость", app.person.SpeedAndStrengthEndurance, Calculation_ForWomen.TableOfNorms_ForWomen[Calculation_ForWomen.AgeToCount, 4], app.point.SpeedAndStrengthEndurance);
-            AddInTable.AddInTableFinalScore(ref GridList, "Ваш уровень физического состояния ", app.TotalScore, app.point.Sum());
+            AddInTable.AddInTableFinalScore(ref GridList, "Ваш уровень физического состояния ", app.point.TotalScore, app.point.Sum());
         }
     }
 }

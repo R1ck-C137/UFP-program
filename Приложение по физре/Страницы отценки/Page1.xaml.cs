@@ -5,7 +5,7 @@ using System.Windows.Input;
 using System.Windows.Navigation;
 
 
-namespace Приложение_по_физре.Страницы_отценки
+namespace UFP_program.Страницы_отценки
 {
     public partial class Page1 : Page
     {

@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 
-namespace Приложение_по_физре.Страницы_отценки
+namespace UFP_program.Страницы_отценки
 {
     /// <summary>
     /// Логика взаимодействия для Page9.xaml

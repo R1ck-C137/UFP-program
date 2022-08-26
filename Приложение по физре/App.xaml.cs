@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 
-namespace Приложение_по_физре
+namespace UFP_program
 {
     /// <summary>
     /// Логика взаимодействия для App.xaml
@@ -12,6 +12,6 @@ namespace Приложение_по_физре
         public string FilePath;
         public Person person = new Person();
         public Point point = new Point();
-        public string TotalScore = "Ошибка";
+        //public string TotalScore = "Ошибка";
     }
 }

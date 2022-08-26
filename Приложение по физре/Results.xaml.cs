@@ -3,24 +3,21 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using System.Windows.Forms;
+//using System.Windows.Forms;
 using System.IO;
 
-using Excel = Microsoft.Office.Interop.Excel;
-using Microsoft.Office.Interop.Excel;
-using Приложение_по_физре.CastomClass;
+using UFP_program.CastomClass;
 
-namespace Приложение_по_физре
+namespace UFP_program
 {
     public partial class Results
     {
         public Results() { InitializeComponent(); }
 
         App app = (App)System.Windows.Application.Current;
-        Calculation_ForMen Calculation_ForMen = new Calculation_ForMen();
-        Calculation_ForWomen Calculation_ForWomen = new Calculation_ForWomen();
 
-        Person Person = new Person();
+        Calculation_ForWomen calculation_ForWomen;
+        Calculation_ForMen calculation_ForMen;
 
         public static List<GridClass> GridList = new List<GridClass>();
         public class GridClass
@@ -36,12 +33,14 @@ namespace Приложение_по_физре
         private void nazad_Click(object sender, RoutedEventArgs e)
         {
             app.person.Clear();
-
             NavigationService.Navigate(new Uri("/../InitialPage.xaml", UriKind.Relative));
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            calculation_ForMen = new Calculation_ForMen(app.person, app.point);
+            calculation_ForWomen = new Calculation_ForWomen(app.person, app.point);
+
             GridList.Clear();
 
             tb1.Text = "Ф.И.О.: " + Convert.ToString(app.person.FIO);
@@ -91,24 +90,24 @@ namespace Приложение_по_физре
             savingToExcelTable.SaveIn(dataGrid, red_label);
             if (app.FilePath == null)
             {
-                System.Windows.MessageBox.Show("Файл не выбран!");
+                MessageBox.Show("Файл не выбран!");
             }
             app.FilePath = null;
-            System.Windows.MessageBox.Show("Готово!");
+            MessageBox.Show("Готово!");
         }
 
         public void ProcessingOfAvailableData_ForMen()
         {
+            calculation_ForMen.Сalculation();
             AddInTable AddInTable = new AddInTable();
-            Calculation_ForMen.Сalculation();
             AddInTable.Men(ref GridList);
             MarkingOfUnfulfilledStandards_ForMen();
         }
 
         public void ProcessingOfAvailableData_ForWomen()
         {
+            calculation_ForWomen.Сalculation();
             AddInTable AddInTable = new AddInTable();
-            Calculation_ForWomen.Сalculation();
             AddInTable.Women(ref GridList);
             MarkingOfUnfulfilledStandards_ForWomen();
         }
@@ -131,19 +130,19 @@ namespace Приложение_по_физре
 
         public void MarkingOfUnfulfilledStandards_ForMen()
         {
-            if (app.person.Weight > Calculation_ForMen.WeightNorm((int)app.person.Height, (int)app.person.Age))
+            if (app.person.Weight > calculation_ForMen.WeightNorm((int)app.person.Height, (int)app.person.Age))
             {
                 Ves.Visibility = Visibility;
                 red_label[0] = true;
             }
             //--------------------------------------
-            if (app.person.SystolicPressure > Calculation_ForMen.NormaSistDavleniya((int)app.person.Age, (int)app.person.Weight))
+            if (app.person.SystolicPressure > calculation_ForMen.NormaSistDavleniya((int)app.person.Age, (int)app.person.Weight))
             {
                 SD.Visibility = Visibility;
                 red_label[1] = true;
             }
             //--------------------------------------
-            if (app.person.DiastolicPressure > Calculation_ForMen.NormaSistDavleniya((int)app.person.Age, (int)app.person.Weight))
+            if (app.person.DiastolicPressure > calculation_ForMen.NormaSistDavleniya((int)app.person.Age, (int)app.person.Weight))
             {
                 DD.Visibility = Visibility;
                 red_label[2] = true;
@@ -157,7 +156,7 @@ namespace Приложение_по_физре
             //--------------------------------------
             if (app.person.Sport == true)         //  кросс
             {
-                if (app.person.OverallEndurance < Calculation_ForMen.TableOfNorms_ForMen[Calculation_ForMen.AgeToCount, 5])
+                if (app.person.OverallEndurance < calculation_ForMen.TableOfNorms_ForMen[calculation_ForMen.AgeToCount, 5])
                 {
                     ObshVinos.Visibility = Visibility;
                     red_label[4] = true;
@@ -178,31 +177,31 @@ namespace Приложение_по_физре
                 red_label[5] = true;
             }
             //--------------------------------------
-            if (app.person.Flexibility < Calculation_ForMen.TableOfNorms_ForMen[Calculation_ForMen.AgeToCount, 0])
+            if (app.person.Flexibility < calculation_ForMen.TableOfNorms_ForMen[calculation_ForMen.AgeToCount, 0])
             {
                 Gibcost.Visibility = Visibility;
                 red_label[6] = true;
             }
             //--------------------------------------
-            if (app.person.Speed > Calculation_ForMen.TableOfNorms_ForMen[Calculation_ForMen.AgeToCount, 1])
+            if (app.person.Speed > calculation_ForMen.TableOfNorms_ForMen[calculation_ForMen.AgeToCount, 1])
             {
                 Bistrota.Visibility = Visibility;
                 red_label[7] = true;
             }
             //--------------------------------------
-            if (app.person.DynamicForce < Calculation_ForMen.TableOfNorms_ForMen[Calculation_ForMen.AgeToCount, 2])
+            if (app.person.DynamicForce < calculation_ForMen.TableOfNorms_ForMen[calculation_ForMen.AgeToCount, 2])
             {
                 DinamSila.Visibility = Visibility;
                 red_label[8] = true;
             }
             //--------------------------------------
-            if (app.person.SpeedEndurance < Calculation_ForMen.TableOfNorms_ForMen[Calculation_ForMen.AgeToCount, 3])
+            if (app.person.SpeedEndurance < calculation_ForMen.TableOfNorms_ForMen[calculation_ForMen.AgeToCount, 3])
             {
                 SV.Visibility = Visibility;
                 red_label[9] = true;
             }
             //--------------------------------------
-            if (app.person.SpeedAndStrengthEndurance < Calculation_ForMen.TableOfNorms_ForMen[Calculation_ForMen.AgeToCount, 4])
+            if (app.person.SpeedAndStrengthEndurance < calculation_ForMen.TableOfNorms_ForMen[calculation_ForMen.AgeToCount, 4])
             {
                 SSV.Visibility = Visibility;
                 red_label[10] = true;
@@ -211,19 +210,19 @@ namespace Приложение_по_физре
 
         public void MarkingOfUnfulfilledStandards_ForWomen()
         {
-            if (app.person.Weight > Calculation_ForWomen.WeightNorm((int)app.person.Height, (int)app.person.Age))
+            if (app.person.Weight > calculation_ForWomen.WeightNorm((int)app.person.Height, (int)app.person.Age))
             {
                 Ves.Visibility = Visibility;
                 red_label[0] = true;
             }
             //--------------------------------------
-            if (app.person.SystolicPressure > Calculation_ForWomen.NormaSistDavleniya((int)app.person.Age, (int)app.person.Weight))
+            if (app.person.SystolicPressure > calculation_ForWomen.NormaSistDavleniya((int)app.person.Age, (int)app.person.Weight))
             {
                 SD.Visibility = Visibility;
                 red_label[1] = true;
             }
             //--------------------------------------
-            if (app.person.DiastolicPressure > Calculation_ForWomen.NormaDiastDavleniya((int)app.person.Age, (int)app.person.Weight))
+            if (app.person.DiastolicPressure > calculation_ForWomen.NormaDiastDavleniya((int)app.person.Age, (int)app.person.Weight))
             {
                 DD.Visibility = Visibility;
                 red_label[2] = true;
@@ -237,7 +236,7 @@ namespace Приложение_по_физре
             //--------------------------------------
             if (app.person.Sport == true)    //  кросс
             {
-                if (app.person.OverallEndurance < Calculation_ForWomen.TableOfNorms_ForWomen[Calculation_ForWomen.AgeToCount, 5])
+                if (app.person.OverallEndurance < calculation_ForWomen.TableOfNorms_ForWomen[calculation_ForWomen.AgeToCount, 5])
                 {
                     ObshVinos.Visibility = Visibility;
                     red_label[4] = true;
@@ -258,31 +257,31 @@ namespace Приложение_по_физре
                 red_label[5] = true;
             }
             //--------------------------------------
-            if (app.person.Flexibility < Calculation_ForWomen.TableOfNorms_ForWomen[Calculation_ForWomen.AgeToCount, 0])
+            if (app.person.Flexibility < calculation_ForWomen.TableOfNorms_ForWomen[calculation_ForWomen.AgeToCount, 0])
             {
                 Gibcost.Visibility = Visibility;
                 red_label[6] = true;
             }
             //--------------------------------------
-            if (app.person.Speed > Calculation_ForWomen.TableOfNorms_ForWomen[Calculation_ForWomen.AgeToCount, 1])
+            if (app.person.Speed > calculation_ForWomen.TableOfNorms_ForWomen[calculation_ForWomen.AgeToCount, 1])
             {
                 Bistrota.Visibility = Visibility;
                 red_label[7] = true;
             }
             //--------------------------------------
-            if (app.person.DynamicForce < Calculation_ForWomen.TableOfNorms_ForWomen[Calculation_ForWomen.AgeToCount, 2])
+            if (app.person.DynamicForce < calculation_ForWomen.TableOfNorms_ForWomen[calculation_ForWomen.AgeToCount, 2])
             {
                 DinamSila.Visibility = Visibility;
                 red_label[8] = true;
             }
             //--------------------------------------
-            if (app.person.SpeedEndurance < Calculation_ForWomen.TableOfNorms_ForWomen[Calculation_ForWomen.AgeToCount, 3])
+            if (app.person.SpeedEndurance < calculation_ForWomen.TableOfNorms_ForWomen[calculation_ForWomen.AgeToCount, 3])
             {
                 SV.Visibility = Visibility;
                 red_label[9] = true;
             }
             //--------------------------------------
-            if (app.person.SpeedAndStrengthEndurance < Calculation_ForWomen.TableOfNorms_ForWomen[Calculation_ForWomen.AgeToCount, 4])
+            if (app.person.SpeedAndStrengthEndurance < calculation_ForWomen.TableOfNorms_ForWomen[calculation_ForWomen.AgeToCount, 4])
             {
                 SSV.Visibility = Visibility;
                 red_label[10] = true;

@@ -4,18 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Приложение_по_физре
+namespace UFP_program
 {
     public class Calculation_ForWomen
     {
-        public Calculation_ForWomen()
+        public Calculation_ForWomen(Person person, Point point)
         {
+            this.person = person;
+            this.point = point;
             AgeToCount = CalcAgeToCount();
         }
+        private Person person;
+        public Point point;
 
-        App app = (App)System.Windows.Application.Current;
-        public int AgeToCount;
-        public static List<Results.GridClass> GridList = new List<Results.GridClass>();
+        public int AgeToCount { get; }
+        //public static List<Results.GridClass> GridList = new List<Results.GridClass>();
 
         public double[,] TableOfNorms_ForWomen =
         {                                    //Возраст
@@ -35,13 +38,13 @@ namespace Приложение_по_физре
         public int CalcAgeToCount()
         {
             int AgeToCount;
-            AgeToCount = Convert.ToInt32(app.person.Age);
+            AgeToCount = Convert.ToInt32(person.Age);
 
-            if (app.person.Age < 19)
+            if (person.Age < 19)
             {
                 AgeToCount = 19;
             }
-            if (app.person.Age > 29)
+            if (person.Age > 29)
             {
                 AgeToCount = 29;
             }
@@ -75,7 +78,7 @@ namespace Приложение_по_физре
             //--------------------------------------
             PulseAtRest();
             //--------------------------------------
-            if (app.person.Sport == true)
+            if (person.Sport == true)
                 OverallEndurance_Сross();
             else
                 OverallEndurance_NumberOfTrainingSessions();
@@ -96,130 +99,130 @@ namespace Приложение_по_физре
         }
         public void Weight()
         {
-            double weightNorm = WeightNorm((int)app.person.Height, (int)app.person.Age);
-            if (app.person.Weight - weightNorm < 1)
+            double weightNorm = WeightNorm((int)person.Height, (int)person.Age);
+            if (person.Weight - weightNorm < 1)
             {
-                app.point.Weight = 30;
+                point.Weight = 30;
             }
             else
             {
-                if ((app.person.Weight - weightNorm) > 30 || weightNorm == 0)
+                if ((person.Weight - weightNorm) > 30 || weightNorm == 0)
                 {
-                    app.point.Weight = 0;
+                    point.Weight = 0;
                 }
                 else
                 {
-                    app.point.Weight = (int)(30 - (app.person.Weight - weightNorm));
+                    point.Weight = (int)(30 - (person.Weight - weightNorm));
                 }
             }
         }
 
         public void SystemPressure()
         {
-            app.point.SystemPressure = 30;
-            if (app.person.SystolicPressure - NormaSistDavleniya((int)app.person.Age, (int)app.person.Weight) > 0)
+            point.SystemPressure = 30;
+            if (person.SystolicPressure - NormaSistDavleniya((int)person.Age, (int)person.Weight) > 0)
             {
-                app.point.SystemPressure = (int)(app.point.SystemPressure - Math.Truncate(((double)app.person.SystolicPressure - NormaSistDavleniya((int)app.person.Age, (int)app.person.Weight)) / 5));
+                point.SystemPressure = (int)(point.SystemPressure - Math.Truncate(((double)person.SystolicPressure - NormaSistDavleniya((int)person.Age, (int)person.Weight)) / 5));
             }
-            if (app.person.DiastolicPressure - NormaDiastDavleniya((int)app.person.Age, (int)app.person.Weight) > 0)
+            if (person.DiastolicPressure - NormaDiastDavleniya((int)person.Age, (int)person.Weight) > 0)
             {
-                app.point.SystemPressure = (int)(app.point.SystemPressure - Math.Truncate(((double)app.person.DiastolicPressure - NormaDiastDavleniya((int)app.person.Age, (int)app.person.Weight)) / 5));
+                point.SystemPressure = (int)(point.SystemPressure - Math.Truncate(((double)person.DiastolicPressure - NormaDiastDavleniya((int)person.Age, (int)person.Weight)) / 5));
             }
         }
 
         public void PulseAtRest()
         {
-            app.point.PulseAtRest = (int)(90 - app.person.PulseAtRest);
-            if (app.point.PulseAtRest < 1) { app.point.PulseAtRest = 0; }
+            point.PulseAtRest = (int)(90 - person.PulseAtRest);
+            if (point.PulseAtRest < 1) { point.PulseAtRest = 0; }
         }
 
         public void OverallEndurance_NumberOfTrainingSessions()
         {
-            app.person.OverallEndurance = (int?)Math.Truncate((double)app.person.OverallEndurance);
-            if (app.person.OverallEndurance >= 7) { app.point.OverallEndurance = 30; }
-            if (app.person.OverallEndurance == 4) { app.point.OverallEndurance = 25; }
-            if (app.person.OverallEndurance == 3) { app.point.OverallEndurance = 20; }
-            if (app.person.OverallEndurance == 2) { app.point.OverallEndurance = 10; }
-            if (app.person.OverallEndurance == 1) { app.point.OverallEndurance = 5; }
-            if (app.person.OverallEndurance < 1) { app.point.OverallEndurance = 0; }
+            person.OverallEndurance = (int?)Math.Truncate((double)person.OverallEndurance);
+            if (person.OverallEndurance >= 7) { point.OverallEndurance = 30; }
+            if (person.OverallEndurance == 4) { point.OverallEndurance = 25; }
+            if (person.OverallEndurance == 3) { point.OverallEndurance = 20; }
+            if (person.OverallEndurance == 2) { point.OverallEndurance = 10; }
+            if (person.OverallEndurance == 1) { point.OverallEndurance = 5; }
+            if (person.OverallEndurance < 1) { point.OverallEndurance = 0; }
         }
 
         public void OverallEndurance_Сross()
         {
-            app.point.OverallEndurance = 30;
-            app.point.OverallEndurance = (int)(app.point.OverallEndurance - Math.Truncate((TableOfNorms_ForWomen[AgeToCount, 5] - (double)app.person.OverallEndurance) / 50) * 5);
+            point.OverallEndurance = 30;
+            point.OverallEndurance = (int)(point.OverallEndurance - Math.Truncate((TableOfNorms_ForWomen[AgeToCount, 5] - (double)person.OverallEndurance) / 50) * 5);
         }
 
         public void HeartRateRecovery()
         {
-            if (app.person.PulseAfterExercise >= app.person.PulseAtRest + 20)
+            if (person.PulseAfterExercise >= person.PulseAtRest + 20)
             {
-                app.point.HeartRateRecovery = -10;
+                point.HeartRateRecovery = -10;
             }
-            if (app.person.PulseAfterExercise < app.person.PulseAtRest + 20)
+            if (person.PulseAfterExercise < person.PulseAtRest + 20)
             {
-                app.point.HeartRateRecovery = 10;
+                point.HeartRateRecovery = 10;
             }
-            if (app.person.PulseAfterExercise < app.person.PulseAtRest + 15)
+            if (person.PulseAfterExercise < person.PulseAtRest + 15)
             {
-                app.point.HeartRateRecovery = 20;
+                point.HeartRateRecovery = 20;
             }
-            if (app.person.PulseAfterExercise <= app.person.PulseAtRest + 10)     //пульс после == пульс до + 10
+            if (person.PulseAfterExercise <= person.PulseAtRest + 10)     //пульс после == пульс до + 10
             {
-                app.point.HeartRateRecovery = 30;
+                point.HeartRateRecovery = 30;
             }
         }
 
         public void Flexibility()
         {
-            app.point.Flexibility = (int)(app.person.Flexibility - TableOfNorms_ForWomen[AgeToCount, 0]);
-            if (app.point.Flexibility < 0) { app.point.Flexibility = 0; }
+            point.Flexibility = (int)(person.Flexibility - TableOfNorms_ForWomen[AgeToCount, 0]);
+            if (point.Flexibility < 0) { point.Flexibility = 0; }
         }
 
         public void Speed()
         {
-            app.point.Speed = (int)(TableOfNorms_ForWomen[AgeToCount, 1] - Convert.ToDouble(app.person.Speed)) * 2;
-            if (app.point.Speed < 0) { app.point.Speed = 0; }
+            point.Speed = (int)(TableOfNorms_ForWomen[AgeToCount, 1] - Convert.ToDouble(person.Speed)) * 2;
+            if (point.Speed < 0) { point.Speed = 0; }
         }
 
         public void DynamicForce()
         {
-            if ((app.person.DynamicForce - TableOfNorms_ForWomen[AgeToCount, 2]) == 0)
+            if ((person.DynamicForce - TableOfNorms_ForWomen[AgeToCount, 2]) == 0)
             {
-                app.point.DynamicForce = 2;
+                point.DynamicForce = 2;
             }
-            if ((app.person.DynamicForce - TableOfNorms_ForWomen[AgeToCount, 2]) > 0)
+            if ((person.DynamicForce - TableOfNorms_ForWomen[AgeToCount, 2]) > 0)
             {
-                app.point.DynamicForce = (int)(2 + (app.person.DynamicForce - TableOfNorms_ForWomen[AgeToCount, 2]) * 2);
+                point.DynamicForce = (int)(2 + (person.DynamicForce - TableOfNorms_ForWomen[AgeToCount, 2]) * 2);
             }
-            if (app.person.DynamicForce - TableOfNorms_ForWomen[AgeToCount, 2] < 0) { app.point.DynamicForce = 0; }
+            if (person.DynamicForce - TableOfNorms_ForWomen[AgeToCount, 2] < 0) { point.DynamicForce = 0; }
         }
 
         public void SpeedEndurance()
         {
-            if (app.person.SpeedEndurance - TableOfNorms_ForWomen[AgeToCount, 3] >= 0)
+            if (person.SpeedEndurance - TableOfNorms_ForWomen[AgeToCount, 3] >= 0)
             {
-                app.point.SpeedEndurance = (int)((app.person.SpeedEndurance - (TableOfNorms_ForWomen[AgeToCount, 3] - 1)) * 3);
+                point.SpeedEndurance = (int)((person.SpeedEndurance - (TableOfNorms_ForWomen[AgeToCount, 3] - 1)) * 3);
             }
-            if (app.person.SpeedEndurance - TableOfNorms_ForWomen[AgeToCount, 3] < 0) { app.point.SpeedEndurance = 0; }
+            if (person.SpeedEndurance - TableOfNorms_ForWomen[AgeToCount, 3] < 0) { point.SpeedEndurance = 0; }
         }
 
         public void SpeedAndStrengthEndurance()
         {
-            if (app.person.SpeedAndStrengthEndurance - TableOfNorms_ForWomen[AgeToCount, 4] >= 0)
+            if (person.SpeedAndStrengthEndurance - TableOfNorms_ForWomen[AgeToCount, 4] >= 0)
             {
-                app.point.SpeedAndStrengthEndurance = (int)((app.person.SpeedAndStrengthEndurance - (TableOfNorms_ForWomen[AgeToCount, 4] - 1)) * 4);
+                point.SpeedAndStrengthEndurance = (int)((person.SpeedAndStrengthEndurance - (TableOfNorms_ForWomen[AgeToCount, 4] - 1)) * 4);
             }
-            if (app.person.SpeedAndStrengthEndurance - TableOfNorms_ForWomen[AgeToCount, 4] < 0) { app.point.SpeedAndStrengthEndurance = 0; }
+            if (person.SpeedAndStrengthEndurance - TableOfNorms_ForWomen[AgeToCount, 4] < 0) { point.SpeedAndStrengthEndurance = 0; }
         }
 
         public void CalculationFinalScore()
         {
-            if (app.point.Sum() > 250) { app.TotalScore = "Высокий"; }
-            if (app.point.Sum() <= 250) { app.TotalScore = "Выше среднего"; }
-            if (app.point.Sum() <= 160) { app.TotalScore = "Средний"; }
-            if (app.point.Sum() <= 90) { app.TotalScore = "Ниже среднего"; }
-            if (app.point.Sum() < 50) { app.TotalScore = "Низкий"; }
+            if (point.Sum() > 250) { point.TotalScore = "Высокий"; }
+            if (point.Sum() <= 250) { point.TotalScore = "Выше среднего"; }
+            if (point.Sum() <= 160) { point.TotalScore = "Средний"; }
+            if (point.Sum() <= 90) { point.TotalScore = "Ниже среднего"; }
+            if (point.Sum() < 50) { point.TotalScore = "Низкий"; }
         }
     }
 }

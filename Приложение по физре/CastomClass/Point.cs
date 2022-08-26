@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Приложение_по_физре
+namespace UFP_program
 {
     public class Point
     {
@@ -19,6 +19,7 @@ namespace Приложение_по_физре
         public int DynamicForce { get; set; }
         public int SpeedEndurance { get; set; }
         public int SpeedAndStrengthEndurance { get; set; }
+        public string TotalScore = "Ошибка";
         public Point() { }
         public int Sum()
         {

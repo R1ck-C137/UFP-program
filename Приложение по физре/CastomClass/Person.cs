@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Приложение_по_физре
+namespace UFP_program
 {
     public class Person
     {

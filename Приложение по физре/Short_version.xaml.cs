@@ -10,7 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Navigation;
 
-namespace Приложение_по_физре
+namespace UFP_program
 {
     public partial class Short_version : Page
     {

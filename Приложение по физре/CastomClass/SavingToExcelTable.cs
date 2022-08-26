@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 
 using Excel = Microsoft.Office.Interop.Excel;
-using System.Windows.Forms;
+//using System.Windows.Forms;
 using System.IO;
 
-namespace Приложение_по_физре.CastomClass
+namespace UFP_program.CastomClass
 {
     public class SavingToExcelTable : Excel.Page
     {
@@ -244,7 +244,7 @@ namespace Приложение_по_физре.CastomClass
 
         public string GetFilePath()
         {
-            var dialog = new OpenFileDialog();
+            var dialog = new Microsoft.Win32.OpenFileDialog();
             dialog.DefaultExt = ".xlsx";
             dialog.Filter = "Excel documents (.xlsx)|*.xlsx";
             Nullable<bool> result = Convert.ToBoolean(dialog.ShowDialog());

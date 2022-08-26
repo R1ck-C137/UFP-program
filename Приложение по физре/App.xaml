@@ -1,7 +1,7 @@
-﻿<Application x:Class="Приложение_по_физре.App"
+﻿<Application x:Class="UFP_program.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Приложение_по_физре"
+             xmlns:local="clr-namespace:UFP_program"
              StartupUri="InitialPage.xaml">
     <Application.Resources>
          
