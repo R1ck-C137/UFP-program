@@ -38,8 +38,6 @@ namespace UFP_program
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            calculation_ForMen = new Calculation_ForMen(app.person, app.point);
-            calculation_ForWomen = new Calculation_ForWomen(app.person, app.point);
 
             GridList.Clear();
 
@@ -47,16 +45,16 @@ namespace UFP_program
             tb2.Text = "Группа: " + Convert.ToString(app.person.Group);
 
             AddInTable.AddInTableValue(ref GridList, "Рост", app.person.Height);
-
-            app.point.Age = (int)app.person.Age;
             AddInTable.AddInTableValue(ref GridList, "Возраст", app.person.Age, point : app.point.Age);
 
             if (app.person.Gender == true)
             {
+                calculation_ForMen = new Calculation_ForMen(app.person, app.point);
                 ProcessingOfAvailableData_ForMen();
             }
             else
             {
+                calculation_ForWomen = new Calculation_ForWomen(app.person, app.point);
                 ProcessingOfAvailableData_ForWomen();
             }
             dataGrid.ItemsSource = GridList;

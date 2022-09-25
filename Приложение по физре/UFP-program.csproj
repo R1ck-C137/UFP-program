@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Приложение_по_физре</RootNamespace>
+    <RootNamespace>UFP_program</RootNamespace>
     <AssemblyName>Приложение по физре</AssemblyName>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>C:\Users\egona\Desktop\Новая папка %283%29\</PublishUrl>

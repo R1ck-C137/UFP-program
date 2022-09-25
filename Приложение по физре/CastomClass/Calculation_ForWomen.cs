@@ -1,24 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UFP_program.CastomClass;
 
 namespace UFP_program
 {
-    public class Calculation_ForWomen
+    public class Calculation_ForWomen : Calculation
     {
         public Calculation_ForWomen(Person person, Point point)
         {
             this.person = person;
             this.point = point;
-            AgeToCount = CalcAgeToCount();
+            AgeToCount = CalcAgeToCount(person.Age);
         }
-        private Person person;
-        public Point point;
-
-        public int AgeToCount { get; }
-        //public static List<Results.GridClass> GridList = new List<Results.GridClass>();
 
         public double[,] TableOfNorms_ForWomen =
         {                                    //Возраст
@@ -34,30 +26,12 @@ namespace UFP_program
             { 8, 18, 34, 12, 17, 1700, 10.35},  //28
             { 8, 18, 33, 12, 17, 1670, 10.47}   //29
         };
-
-        public int CalcAgeToCount()
-        {
-            int AgeToCount;
-            AgeToCount = Convert.ToInt32(person.Age);
-
-            if (person.Age < 19)
-            {
-                AgeToCount = 19;
-            }
-            if (person.Age > 29)
-            {
-                AgeToCount = 29;
-            }
-            AgeToCount -= 19;
-            return AgeToCount;
-        }
-
+        
         public double WeightNorm(int Height, int Age)
         {
             if ((50 + (Height - 150) * 0.32 + (Age - 21 / 5)) >= 0)
                 return (double)(50 + (Height - 150) * 0.32 + (Age - 21 / 5));
-            else
-                return 0;
+            return 0;
         }
 
         public double NormaSistDavleniya(int Age, int Weight)
@@ -72,6 +46,8 @@ namespace UFP_program
 
         public void Сalculation()
         {
+            Age();
+            //--------------------------------------
             Weight();
             //--------------------------------------
             SystemPressure();
@@ -97,6 +73,7 @@ namespace UFP_program
             //--------------------------------------
             CalculationFinalScore();
         }
+        
         public void Weight()
         {
             double weightNorm = WeightNorm((int)person.Height, (int)person.Age);
@@ -129,48 +106,11 @@ namespace UFP_program
                 point.SystemPressure = (int)(point.SystemPressure - Math.Truncate(((double)person.DiastolicPressure - NormaDiastDavleniya((int)person.Age, (int)person.Weight)) / 5));
             }
         }
-
-        public void PulseAtRest()
-        {
-            point.PulseAtRest = (int)(90 - person.PulseAtRest);
-            if (point.PulseAtRest < 1) { point.PulseAtRest = 0; }
-        }
-
-        public void OverallEndurance_NumberOfTrainingSessions()
-        {
-            person.OverallEndurance = (int?)Math.Truncate((double)person.OverallEndurance);
-            if (person.OverallEndurance >= 7) { point.OverallEndurance = 30; }
-            if (person.OverallEndurance == 4) { point.OverallEndurance = 25; }
-            if (person.OverallEndurance == 3) { point.OverallEndurance = 20; }
-            if (person.OverallEndurance == 2) { point.OverallEndurance = 10; }
-            if (person.OverallEndurance == 1) { point.OverallEndurance = 5; }
-            if (person.OverallEndurance < 1) { point.OverallEndurance = 0; }
-        }
-
+        
         public void OverallEndurance_Сross()
         {
             point.OverallEndurance = 30;
             point.OverallEndurance = (int)(point.OverallEndurance - Math.Truncate((TableOfNorms_ForWomen[AgeToCount, 5] - (double)person.OverallEndurance) / 50) * 5);
-        }
-
-        public void HeartRateRecovery()
-        {
-            if (person.PulseAfterExercise >= person.PulseAtRest + 20)
-            {
-                point.HeartRateRecovery = -10;
-            }
-            if (person.PulseAfterExercise < person.PulseAtRest + 20)
-            {
-                point.HeartRateRecovery = 10;
-            }
-            if (person.PulseAfterExercise < person.PulseAtRest + 15)
-            {
-                point.HeartRateRecovery = 20;
-            }
-            if (person.PulseAfterExercise <= person.PulseAtRest + 10)     //пульс после == пульс до + 10
-            {
-                point.HeartRateRecovery = 30;
-            }
         }
 
         public void Flexibility()
@@ -214,15 +154,6 @@ namespace UFP_program
                 point.SpeedAndStrengthEndurance = (int)((person.SpeedAndStrengthEndurance - (TableOfNorms_ForWomen[AgeToCount, 4] - 1)) * 4);
             }
             if (person.SpeedAndStrengthEndurance - TableOfNorms_ForWomen[AgeToCount, 4] < 0) { point.SpeedAndStrengthEndurance = 0; }
-        }
-
-        public void CalculationFinalScore()
-        {
-            if (point.Sum() > 250) { point.TotalScore = "Высокий"; }
-            if (point.Sum() <= 250) { point.TotalScore = "Выше среднего"; }
-            if (point.Sum() <= 160) { point.TotalScore = "Средний"; }
-            if (point.Sum() <= 90) { point.TotalScore = "Ниже среднего"; }
-            if (point.Sum() < 50) { point.TotalScore = "Низкий"; }
         }
     }
 }
