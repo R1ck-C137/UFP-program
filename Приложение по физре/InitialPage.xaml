@@ -25,8 +25,9 @@
                         <MenuItem Header="Отдельно для групп" Click="MenuItem_Click_4"></MenuItem>
                     </MenuItem>
                     <MenuItem Header="Сортировать по ">
-                        <MenuItem Header="Полу" Click="MenuItem_Gender_Click"></MenuItem>
-                        <MenuItem Header="Группам" Click="MenuItem_Group_Click"></MenuItem>
+                        <MenuItem Header="Итоговому балу" Click="MenuItem_Click_SortByTotalValue"></MenuItem>
+                        <MenuItem Header="Полу" Click="MenuItem_GenderSort_Click"></MenuItem>
+                        <MenuItem Header="Группам" Click="MenuItem_GroupSort_Click"></MenuItem>
                     </MenuItem>
                 </MenuItem>
                 

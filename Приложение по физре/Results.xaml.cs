@@ -47,7 +47,7 @@ namespace UFP_program
             AddInTable.AddInTableValue(ref GridList, "Рост", app.person.Height);
             AddInTable.AddInTableValue(ref GridList, "Возраст", app.person.Age, point : app.point.Age);
 
-            if (app.person.Gender == true)
+            if (app.person.Gender)
             {
                 calculation_ForMen = new Calculation_ForMen(app.person, app.point);
                 ProcessingOfAvailableData_ForMen();
@@ -59,7 +59,7 @@ namespace UFP_program
             }
             dataGrid.ItemsSource = GridList;
 
-            if (app.GroupMode == true)
+            if (app.GroupMode)
             {
                 menu.Visibility = Visibility.Hidden;
                 nazad.Visibility = Visibility.Hidden;
@@ -97,16 +97,16 @@ namespace UFP_program
         public void ProcessingOfAvailableData_ForMen()
         {
             calculation_ForMen.Сalculation();
-            AddInTable AddInTable = new AddInTable();
-            AddInTable.Men(ref GridList);
+            AddInTable addInTable = new AddInTable();
+            addInTable.Men(ref GridList);
             MarkingOfUnfulfilledStandards_ForMen();
         }
 
         public void ProcessingOfAvailableData_ForWomen()
         {
             calculation_ForWomen.Сalculation();
-            AddInTable AddInTable = new AddInTable();
-            AddInTable.Women(ref GridList);
+            AddInTable addInTable = new AddInTable();
+            addInTable.Women(ref GridList);
             MarkingOfUnfulfilledStandards_ForWomen();
         }
 

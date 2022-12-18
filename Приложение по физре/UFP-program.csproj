@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows7.0</TargetFramework>
     <OutputType>WinExe</OutputType>
     <RootNamespace>UFP_program</RootNamespace>
     <AssemblyName>Приложение по физре</AssemblyName>
@@ -60,6 +60,8 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Картинки\Динам сила.png" />
+    <Resource Include="Картинки\Скоростная выносливость 1.jpg" />
+    <Resource Include="Картинки\Скоростная выносливость 2.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Картинки\Скоростная выносливость.png" />
@@ -118,6 +120,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="MainWindow.xaml.cs" />
+    <None Remove="Картинки\Скоростная выносливость 1.jpg" />
+    <None Remove="Картинки\Скоростная выносливость 2.jpg" />
     <Page Remove="MainWindow.xaml" />
   </ItemGroup>
   <ItemGroup>
