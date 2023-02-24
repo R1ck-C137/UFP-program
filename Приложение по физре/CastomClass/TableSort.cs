@@ -1,13 +1,7 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System;
-using System.Collections.Generic;
-using System.Data.Common;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Services.Description;
-using System.Windows.Controls;
+using System.Security.Policy;
 using Range = Microsoft.Office.Interop.Excel.Range;
 
 namespace UFP_program.CastomClass
@@ -18,7 +12,7 @@ namespace UFP_program.CastomClass
 
         public void Sorting_By_Column(int column)
         {
-            app.FilePath = GetFilePath();
+            app.FilePath = GetExcelFilePath();
             if (app.FilePath == null || app.FilePath == "")
             {
                 return;
@@ -66,10 +60,10 @@ namespace UFP_program.CastomClass
 
             //System.Windows.MessageBox.Show("Готово!");
         }
-
+        
         public void BoobleSort()
         {
-            app.FilePath = GetFilePath();
+            app.FilePath = GetExcelFilePath();
             if (app.FilePath == null || app.FilePath == "")
             {
                 return;
@@ -81,8 +75,7 @@ namespace UFP_program.CastomClass
             }
 
             Application excel = new Application();
-            Workbook workbook;
-            workbook = excel.Workbooks.Open(app.FilePath);
+            Workbook workbook = excel.Workbooks.Open(app.FilePath);
             Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
             Range myRange = (Range)sheet1.Cells[1, 1];
 
@@ -110,9 +103,70 @@ namespace UFP_program.CastomClass
             workbook.Save();
             workbook.Close();
             excel.Quit();
-        } 
+        }
 
-        public void SwapRows(int first, int second, int column, Worksheet sheet1)
+
+        public void ListOfUnfulfilledStandards()
+        {
+            app.FilePath = GetExcelFilePath();
+
+            Application excel = new Application();
+            Workbook workbook;
+            workbook = excel.Workbooks.Open(app.FilePath);
+            if(workbook.Sheets.Count < 2)
+                workbook.Sheets.Add(After: workbook.Sheets[workbook.Sheets.Count]);
+            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
+            Worksheet sheet2 = (Worksheet)workbook.Sheets[2];
+            Range myRange1 = sheet1.UsedRange;
+            Range myRange2 = sheet2.UsedRange;
+
+            int lastLine = new();
+
+            for (int i = 2; Convert.ToString(myRange1.Cells[i, 5].Value2) != null; i++)
+            {
+                lastLine = i;
+            }
+            
+            for(int i = 5; i <= 15; i++)
+            {
+                myRange2.Cells[1, i - 4].Value2 = myRange1.Cells[1, i].Value2;
+                sheet2.Cells[1, i - 4].Font.Bold = true; //Включаем жирный текст
+                //sheet2.Columns[1, i - 4].ColumnWidth = 15;
+                sheet2.Columns[i - 4].ColumnWidth = 15;
+                int lastLineInNewTable = 2;
+                for (int j = 2; j + 1 <= lastLine; j += 2)
+                {
+                    if(myRange1.Cells[j, i].Interior.ColorIndex == 3)
+                    {
+                        myRange2.Cells[lastLineInNewTable, i - 4].Value2 = myRange1.Cells[j, 1].Value2;
+                        lastLineInNewTable++;
+                    }
+                }
+            }
+            workbook.Save();
+            workbook.Close();
+        }
+
+        static void Workbook_NewSheet(object sheet)
+        {
+            Worksheet worksheet = sheet as Worksheet;
+
+            if (worksheet != null)
+            {
+                Console.WriteLine(String.Format(
+                "Workbook.NewSheet({0})", worksheet.Name));
+            }
+
+            Chart chart = sheet as Chart;
+
+            if (chart != null)
+            {
+                Console.WriteLine(String.Format(
+                "Workbook.NewSheet({0})", chart.Name));
+            }
+        }
+
+        protected void SwapRows(int first, int second, int column, Worksheet sheet1)
         {
             Range myRange;
             myRange = (Range)sheet1.Cells[1, 1];
@@ -152,7 +206,7 @@ namespace UFP_program.CastomClass
             }
         }
 
-        public void From_Table_To_Array(string[,] masValue, int lineNumber, ref bool[] redFlag, int column, Worksheet sheet1)
+        protected void From_Table_To_Array(string[,] masValue, int lineNumber, ref bool[] redFlag, int column, Worksheet sheet1)
         {
             Range myRange;
             myRange = (Range)sheet1.Cells[1, 1];
@@ -170,7 +224,7 @@ namespace UFP_program.CastomClass
             }
         }
 
-        public void From_Array_To_Table(string[,] masValue, int lineNumber, ref bool[] redFlag, int column, Worksheet sheet1)
+        protected void From_Array_To_Table(string[,] masValue, int lineNumber, ref bool[] redFlag, int column, Worksheet sheet1)
         {
             Range myRange;
             myRange = (Range)sheet1.Cells[1, 1];
@@ -192,7 +246,7 @@ namespace UFP_program.CastomClass
                 }
             }
         }
-        public string GetFilePath()
+        public string GetExcelFilePath()
         {
             var dialog = new Microsoft.Win32.OpenFileDialog();
             dialog.DefaultExt = ".xlsx";

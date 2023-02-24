@@ -29,6 +29,7 @@
                         <MenuItem Header="Полу" Click="MenuItem_GenderSort_Click"></MenuItem>
                         <MenuItem Header="Группам" Click="MenuItem_GroupSort_Click"></MenuItem>
                     </MenuItem>
+                    <MenuItem Header="Невыполненные нормативы" Click="MenuItem_Click_5"></MenuItem>
                 </MenuItem>
                 
             </Menu>

@@ -292,5 +292,10 @@ namespace UFP_program
         {
             new TableSort().BoobleSort();
         }
+
+        private void MenuItem_Click_5(object sender, RoutedEventArgs e)
+        {
+            new TableSort().ListOfUnfulfilledStandards();
+        }
     }
 }
